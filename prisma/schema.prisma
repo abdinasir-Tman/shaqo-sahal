@@ -9,6 +9,7 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
 model Account {
   id                String  @id @default(auto()) @map("_id") @db.ObjectId
   userId            String  @db.ObjectId
@@ -43,10 +44,9 @@ model User {
   hashedPassword String?
   emailVerified  DateTime?
   image          String?
-  role           String?   @default("user")
-  accounts       Account[]
-  sessions       Session[]
-  
+
+  accounts Account[]
+  sessions Session[]
 }
 
 model VerificationToken {
@@ -56,4 +56,42 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model JobSeeker {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  email String @unique
+
+  applications Application[]
+}
+
+model Employer {
+  id          String       @id @default(auto()) @map("_id") @db.ObjectId
+  companyName String
+  address     String
+  logo        String
+  email       String
+  jobListings JobListing[]
+}
+
+model JobListing {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  salary      Float
+
+  applications Application[]
+  Employer     Employer?     @relation(fields: [employerId], references: [id])
+  employerId   String?       @db.ObjectId
+}
+
+model Application {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  coverLetter  String?
+  status       String      @default("pending")
+  JobSeeker    JobSeeker?  @relation(fields: [jobSeekerId], references: [id])
+  jobSeekerId  String?     @db.ObjectId
+  JobListing   JobListing? @relation(fields: [jobListingId], references: [id])
+  jobListingId String?     @db.ObjectId
 }
