@@ -11,7 +11,7 @@ const Signin = () => {
         onClick={() => {
           signIn("google");
         }}
-        className="max-w-lg p-3 space-x-3 bg-main-300 dark:bg-main-800 hover:bg-main-900/50 dark:text-white text-black"
+        className="max-w-lg p-3 space-x-3 bg-main-300 dark:bg-main-800 dark:hover:bg-main-900 dark:text-white text-black"
       >
         <FcGoogle className="text-2xl" />{" "}
         <span className="text-xl">Sign with Google</span>

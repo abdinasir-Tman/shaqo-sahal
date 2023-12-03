@@ -1,6 +1,6 @@
 import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-import ValidateEmployer from "./employerSchemaValidator";
+import ValidateEmployer from "../../validationSchema/employerSchemaValidator";
 export const POST = async (req: NextRequest) => {
   if (req.headers.get("content-length") === "0")
     return NextResponse.json(

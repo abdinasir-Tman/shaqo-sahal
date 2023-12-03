@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { SunIcon, Moon } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -28,6 +29,8 @@ const Nav = () => {
     localStorage.setItem("theme", theme);
   };
   const router = useRouter();
+  const { data: session } = useSession();
+
   return (
     <div className="w-full flex justify-between items-center bg-main-100 dark:bg-main-900/60  p-3">
       {/* logo  */}
@@ -58,6 +61,18 @@ const Nav = () => {
             />
           )}
         </span>
+        {session && (
+          <Button
+            size={"sm"}
+            onClick={() => {
+              router.push("/register");
+            }}
+            className="bg-main-900 dark:bg-main-100 hover:bg-main-950 dark:hover:bg-main-50 transition-all duration-300"
+          >
+            Register
+          </Button>
+        )}
+
         <Button
           size={"sm"}
           onClick={() => {
