@@ -13,7 +13,7 @@ const Signin = () => {
         }}
         className="max-w-lg p-3 space-x-3 bg-main-300 dark:bg-main-800 dark:hover:bg-main-900 dark:text-white text-black"
       >
-        <FcGoogle className="text-2xl" />{" "}
+        <FcGoogle className="text-2xl" />
         <span className="text-xl">Sign with Google</span>
       </Button>
     </div>

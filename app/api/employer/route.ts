@@ -1,23 +1,30 @@
 import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import ValidateEmployer from "../../validationSchema/employerSchemaValidator";
-export const POST = async (req: NextRequest) => {
-  if (req.headers.get("content-length") === "0")
-    return NextResponse.json(
-      { error: "please insert the body some info" },
-      { status: 400 }
-    );
+import cloudinary from "@/app/utils/cloudinary";
 
+interface FieldValue {
+  [key: string]: string;
+}
+export const POST = async (req: NextRequest) => {
+  const formData = await req.formData();
+  console.log("form data ", formData);
+  const fields: FieldValue = {};
+  let file: any = "";
+  for (const [key, value] of formData) {
+    if (key.startsWith("newImage") && typeof value === "string") {
+    } else if (typeof value === "string") {
+      fields[key] = value;
+    }
+  }
+  console.log(fields, " image ", file);
   try {
-    const body = await req.json();
-    const validate = ValidateEmployer.safeParse(body);
-    if (!validate.success) return NextResponse.json({ status: 400 });
-    const newEmployer = prisma.employer.create({
+    const newEmployer = await prisma?.employer.create({
       data: {
-        companyName: body.companyName,
-        address: body.address,
-        logo: body.url,
-        email: body.email,
+        companyName: fields.companyName,
+        address: fields.address,
+        logo: "somethin",
+        email: fields.email,
       },
     });
     return NextResponse.json(newEmployer, { status: 201 });

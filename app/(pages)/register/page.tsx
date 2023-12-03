@@ -7,9 +7,9 @@ import EmployerForm from "../_components/EmployerForm";
 const Register = () => {
   const [currentForm, setCurrentForm] = useState<string>("JobSeeker");
   return (
-    <div className="bg-main-50 dark:bg-main-950 max-w-5xl w-full h-screen flex justify-center items-center">
+    <div className="bg-main-50 dark:bg-main-950 max-w-5xl w-full h-screen flex justify-center items-start pt-5">
       <div className="space-y-4">
-        <div className="space-x-4">
+        <div className="space-x-4 flex justify-center">
           <Button
             size={"sm"}
             onClick={() => {
@@ -35,7 +35,7 @@ const Register = () => {
             Employer
           </Button>
         </div>
-        <div className="max-w-2xl w-56">
+        <div className="max-w-5xl mx-auto md:px-6 px-2">
           {currentForm === "Employer" ? <EmployerForm /> : "somethin else"}
         </div>
       </div>

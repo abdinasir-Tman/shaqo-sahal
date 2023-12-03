@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="">
         <NextAuthProvider>
-          <main className="">{children}</main>
+          <main className="h-full">{children}</main>
         </NextAuthProvider>
       </body>
     </html>
