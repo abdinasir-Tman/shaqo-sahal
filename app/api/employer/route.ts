@@ -7,28 +7,20 @@ interface FieldValue {
   [key: string]: string;
 }
 export const POST = async (req: NextRequest) => {
-  const formData = await req.formData();
-  console.log("form data ", formData);
-  const fields: FieldValue = {};
-  let file: any = "";
-  for (const [key, value] of formData) {
-    if (key.startsWith("newImage") && typeof value === "string") {
-    } else if (typeof value === "string") {
-      fields[key] = value;
-    }
-  }
-  console.log(fields, " image ", file);
+  const body = await req.json();
+  console.log(body, " image ", body);
   try {
     const newEmployer = await prisma?.employer.create({
       data: {
-        companyName: fields.companyName,
-        address: fields.address,
-        logo: "somethin",
-        email: fields.email,
+        companyName: body.companyName,
+        address: body.address,
+        logo: body.newImage,
+        email: body.email,
       },
     });
     return NextResponse.json(newEmployer, { status: 201 });
   } catch (error) {
     console.log("error at register employer ", error);
+    return NextResponse.json("unkown error", { status: 500 });
   }
 };

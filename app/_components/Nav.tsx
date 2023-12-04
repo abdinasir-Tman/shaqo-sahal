@@ -1,13 +1,14 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { SunIcon, Moon } from "lucide-react";
-
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useState, useEffect } from "react";
 const Nav = () => {
   const [theme, setTheme] = useState<string>("light");
+  const { data: session } = useSession();
   const getThemefromLocalStorage = () => {
     const Theme = localStorage.getItem("theme")
       ? localStorage.getItem("theme")!

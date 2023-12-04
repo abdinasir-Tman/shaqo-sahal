@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import NextAuthProvider from "./providers/NextAuthProvider";
-
+import { Toaster } from "react-hot-toast";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -19,7 +19,10 @@ export default function RootLayout({
     <html lang="en">
       <body className="">
         <NextAuthProvider>
-          <main className="h-full">{children}</main>
+          <main className="h-full">
+            {children}
+            <Toaster />
+          </main>
         </NextAuthProvider>
       </body>
     </html>

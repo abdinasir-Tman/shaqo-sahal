@@ -15,75 +15,36 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useDropzone } from "react-dropzone";
-import { CameraIcon } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import axios from "axios";
+import { useSession } from "next-auth/react";
+import { CldUploadWidget } from "next-cloudinary";
+import toast from "react-hot-toast";
 
-interface FileWithPreview extends File {
-  preview: string;
-}
-const toBase64 = (file: File) =>
-  new Promise<string>((resolve, reject) => {
-    const reader = new FileReader();
-
-    reader.readAsDataURL(file);
-
-    reader.onload = () => resolve(reader.result as string);
-
-    reader.onerror = (error) => reject(error);
-  });
 const EmployerForm = () => {
-  const [file, setFile] = useState<FileWithPreview>();
-  const { getRootProps, getInputProps } = useDropzone({
-    accept: "images/*" as any,
-    onDrop: (acceptedFiles) => {
-      // Assuming you only want to handle the first file
-      const file = acceptedFiles[0];
-
-      if (file) {
-        const fileWithPreview: FileWithPreview = Object.assign(file, {
-          preview: URL.createObjectURL(file),
-        });
-
-        setFile(fileWithPreview);
-      }
-    },
-  });
-
-  useEffect(() => {
-    // Cleanup previews
-    return () => {
-      if (file) {
-        URL.revokeObjectURL(file.preview);
-      }
-    };
-  }, [file]);
+  const { data: session } = useSession();
+  const [file, setFile] = useState<string>();
 
   const form = useForm<z.infer<typeof validateEmployer>>({
     resolver: zodResolver(validateEmployer),
     defaultValues: {
       companyName: "",
+      address: "",
     },
   });
+
   async function onSubmit(values: z.infer<typeof validateEmployer>) {
     try {
-      const formData = new FormData();
-      Object.keys(values).forEach((key) => {
-        if (key !== "gallery") {
-          const value = values[key as keyof typeof values];
+      const formData: any = values;
+      formData["email"] = session.user.email;
+      formData["newImage"] = file;
 
-          if (value !== undefined) {
-            formData.append(key, value.toString());
-          }
-        }
-      });
-      const base64 = await toBase64(file!);
-
-      formData.append("newImage", base64);
       await axios.post("http://localhost:3000/api/employer", formData);
-      console.log("success");
+      form.reset();
+      setFile("");
+      toast.success("success Registered");
     } catch (error) {
-      console.log(error);
+      toast.error("unknown error");
     }
   }
   return (
@@ -136,31 +97,15 @@ const EmployerForm = () => {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="dark:text-gray-200">email</FormLabel>
-                    <FormControl>
-                      <Input
-                        className="dark:text-gray-200"
-                        placeholder="email"
-                        {...field}
-                      />
-                    </FormControl>
 
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
+              {/* <FormField
                 control={form.control}
                 name="logo"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Logo</FormLabel>
                     <FormControl>
+                      
                       <div {...getRootProps()} className="dropzone">
                         <input {...getInputProps} disabled />
                         <div className="mt-1 flex justify-center rounded-lg border border-dashed dark:border-gray-200 border-gray-900/25 px-5 py-5">
@@ -180,14 +125,53 @@ const EmployerForm = () => {
                     <FormMessage />
                   </FormItem>
                 )}
-              />
+              /> */}
+              <div className="space-y-3">
+                <CldUploadWidget
+                  uploadPreset="ml_default"
+                  onUpload={(result, widget) =>
+                    // @ts-ignore
+                    setFile(result.info.url)
+                  }
+                >
+                  {({ open }) => {
+                    function handleOnClick() {
+                      setFile(undefined);
+                      open();
+                    }
+                    return (
+                      <Button
+                        className="bg-main-900 dark:bg-main-100 hover:bg-main-950 dark:hover:bg-main-50 transition-all  duration-300"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleOnClick();
+                        }}
+                      >
+                        Upload an Image
+                      </Button>
+                    );
+                  }}
+                </CldUploadWidget>
+                {file && (
+                  <div className="mb-4">
+                    <label className="block text-sm text-gray-600 mb-2">
+                      Image Preview:
+                    </label>
+                    <img
+                      src={file}
+                      alt="Preview"
+                      className="w-full h-64 object-cover rounded-md"
+                    />
+                  </div>
+                )}
+              </div>
 
-              <Button
-                type="submit"
-                className="bg-main-900 dark:bg-main-100 hover:bg-main-950 dark:hover:bg-main-50 transition-all duration-300"
-              >
-                Submit
-              </Button>
+              {file && (
+                <ButtonLoading
+                  loading={form.formState.isSubmitting}
+                  isUpdate={false}
+                />
+              )}
             </form>
           </Form>
         </CardContent>
@@ -197,3 +181,26 @@ const EmployerForm = () => {
 };
 
 export default EmployerForm;
+
+export const ButtonLoading = ({
+  loading,
+  isUpdate,
+}: {
+  loading: boolean;
+  isUpdate: boolean;
+}) => {
+  if (loading) {
+    return (
+      <Button className="bg-main-900 dark:bg-main-100 hover:bg-main-950 dark:hover:bg-main-50 transition-all duration-300 space-x-2 gap-x-1">
+        {isUpdate ? "Updating" : "Registering"}
+        <Loader2 className="animate-spin h-5 w-5 text-white mx-2" />
+      </Button>
+    );
+  }
+
+  return (
+    <Button type="submit">
+      {isUpdate ? "Update Product" : "Register Product"}
+    </Button>
+  );
+};
