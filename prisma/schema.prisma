@@ -44,7 +44,7 @@ model User {
   hashedPassword String?
   emailVerified  DateTime?
   image          String?
-
+  type String @default("init")
   accounts Account[]
   sessions Session[]
 }
@@ -70,7 +70,7 @@ model Employer {
   companyName String
   address     String
   logo        String
-  email       String
+  email       String @unique
   jobListings JobListing[]
 }
 

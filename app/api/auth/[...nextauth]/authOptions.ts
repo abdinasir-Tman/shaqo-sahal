@@ -15,6 +15,7 @@ export const authOptions: NextAuthOptions = {
       const userInfo = await prisma.user.findFirst({
         where: { email: token.email },
       });
+
       if (userInfo) {
         userInfo.emailVerified = undefined!;
         userInfo.hashedPassword = undefined!;
@@ -24,6 +25,7 @@ export const authOptions: NextAuthOptions = {
     },
     session: async ({ session, token }) => {
       session.user = token.user!;
+
       return session;
     },
   },

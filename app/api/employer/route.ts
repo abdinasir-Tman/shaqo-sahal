@@ -8,7 +8,7 @@ interface FieldValue {
 }
 export const POST = async (req: NextRequest) => {
   const body = await req.json();
-  console.log(body, " image ", body);
+
   try {
     const newEmployer = await prisma?.employer.create({
       data: {
@@ -18,9 +18,23 @@ export const POST = async (req: NextRequest) => {
         email: body.email,
       },
     });
+    if (!newEmployer) return NextResponse.json("error", { status: 500 });
+
+    await prisma.user.update({
+      data: {
+        type: "employer",
+      },
+      where: {
+        email: body.email,
+      },
+    });
     return NextResponse.json(newEmployer, { status: 201 });
   } catch (error) {
     console.log("error at register employer ", error);
     return NextResponse.json("unkown error", { status: 500 });
   }
 };
+// export const PATCH = async (req: NextRequest,{params : {params : string}})=>{
+//       const body = await req.json();
+
+// }

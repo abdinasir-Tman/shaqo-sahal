@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { SunIcon, Moon } from "lucide-react";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 const Nav = () => {
   const [theme, setTheme] = useState<string>("light");
   const { data: session } = useSession();
+
   const getThemefromLocalStorage = () => {
     const Theme = localStorage.getItem("theme")
       ? localStorage.getItem("theme")!
@@ -61,7 +62,27 @@ const Nav = () => {
             />
           )}
         </span>
-        {session && (
+        {session?.user?.type === "employer" ? (
+          <Button
+            size={"sm"}
+            onClick={() => {
+              router.push("/dashboard");
+            }}
+            className="bg-main-900 dark:bg-main-100 hover:bg-main-950 dark:hover:bg-main-50 transition-all duration-300"
+          >
+            Dashboard
+          </Button>
+        ) : session?.user?.type === "user" ? (
+          <Button
+            size={"sm"}
+            onClick={() => {
+              router.push("/profile");
+            }}
+            className="bg-main-900 dark:bg-main-100 hover:bg-main-950 dark:hover:bg-main-50 transition-all duration-300"
+          >
+            Profile
+          </Button>
+        ) : (
           <Button
             size={"sm"}
             onClick={() => {
@@ -72,16 +93,27 @@ const Nav = () => {
             Register
           </Button>
         )}
-
-        <Button
-          size={"sm"}
-          onClick={() => {
-            router.push("/signin");
-          }}
-          className="bg-main-900 dark:bg-main-100 hover:bg-main-950 dark:hover:bg-main-50 transition-all duration-300"
-        >
-          Signin
-        </Button>
+        {session ? (
+          <Button
+            size={"sm"}
+            onClick={() => {
+              signOut();
+            }}
+            className="bg-main-900 dark:bg-main-100 hover:bg-main-950 dark:hover:bg-main-50 transition-all duration-300"
+          >
+            Signout
+          </Button>
+        ) : (
+          <Button
+            size={"sm"}
+            onClick={() => {
+              router.push("/signin");
+            }}
+            className="bg-main-900 dark:bg-main-100 hover:bg-main-950 dark:hover:bg-main-50 transition-all duration-300"
+          >
+            Signin
+          </Button>
+        )}
       </div>
     </div>
   );
