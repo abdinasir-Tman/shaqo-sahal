@@ -22,7 +22,7 @@ import { CldUploadWidget } from "next-cloudinary";
 import toast from "react-hot-toast";
 
 const EmployerForm = () => {
-  const { data: session } = useSession();
+  const { data: session }: any = useSession();
   const [file, setFile] = useState<string>();
 
   const form = useForm<z.infer<typeof validateEmployer>>({
@@ -36,7 +36,7 @@ const EmployerForm = () => {
   async function onSubmit(values: z.infer<typeof validateEmployer>) {
     try {
       const formData: any = values;
-      formData["email"] = session.user.email;
+      formData["email"] = session?.user.email;
       formData["newImage"] = file;
 
       await axios.post("http://localhost:3000/api/employer", formData);

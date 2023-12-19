@@ -3,12 +3,13 @@ import { Button } from "@/components/ui/button";
 import { SunIcon, Moon } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useState, useEffect } from "react";
 const Nav = () => {
   const [theme, setTheme] = useState<string>("light");
-  const { data: session } = useSession();
+  const { data: session }: any = useSession();
 
   const getThemefromLocalStorage = () => {
     const Theme = localStorage.getItem("theme")
@@ -36,12 +37,14 @@ const Nav = () => {
     <div className="w-full flex justify-between items-center bg-main-100 dark:bg-main-900/60  p-3">
       {/* logo  */}
       <div>
-        <Image
-          src={`/${theme === "dark" ? "dark_logo.svg" : "light_logo.svg"}`}
-          width={33}
-          height={33}
-          alt="logo"
-        />
+        <Link href="/">
+          <Image
+            src={`/${theme === "dark" ? "dark_logo.svg" : "light_logo.svg"}`}
+            width={33}
+            height={33}
+            alt="logo"
+          />
+        </Link>
       </div>
 
       <div className="flex items-center gap-x-2">
