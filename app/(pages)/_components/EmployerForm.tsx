@@ -44,6 +44,7 @@ const EmployerForm = () => {
       setFile("");
       toast.success("success Registered");
     } catch (error) {
+      console.log(error);
       toast.error("unknown error");
     }
   }
@@ -198,9 +199,5 @@ export const ButtonLoading = ({
     );
   }
 
-  return (
-    <Button type="submit">
-      {isUpdate ? "Update Product" : "Register Product"}
-    </Button>
-  );
+  return <Button type="submit">{isUpdate ? "Update" : "Register"}</Button>;
 };
