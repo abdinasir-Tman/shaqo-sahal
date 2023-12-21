@@ -17,36 +17,42 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader } from "lucide-react";
 import axios from "axios";
-import { useSession } from "next-auth/react";
 
 import toast from "react-hot-toast";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
+import { JobListing } from "@prisma/client";
 
-const JobForm = () => {
+const JobForm = ({ joblist }: { joblist: JobListing }) => {
   const router = useRouter();
-  const { data: session }: any = useSession();
-  const [file, setFile] = useState<string>();
 
   const form = useForm<z.infer<typeof jobListValidator>>({
     resolver: zodResolver(jobListValidator),
     defaultValues: {
-      title: "",
-      description: "",
-      salary: 0,
+      title: joblist?.title,
+      description: joblist?.description,
+      salary: joblist?.salary,
     },
   });
 
   async function onSubmit(values: z.infer<typeof jobListValidator>) {
     try {
       const formData: any = values;
-      formData["email"] = session?.user.email;
 
-      await axios.post("http://localhost:3000/api/employer/job", formData);
+      if (joblist) {
+        await axios.patch(
+          `http://localhost:3000/api/employer/job/${joblist?.id}`,
+          formData
+        );
+        toast.success("success Updated");
+      } else {
+        await axios.post("http://localhost:3000/api/employer/job", formData);
+        toast.success("success Registered");
+      }
+
       form.reset();
-      setFile("");
-      toast.success("success Registered");
-      router.push("./job");
+
+      router.push("./");
     } catch (error) {
       toast.error("unknown error");
     }
@@ -124,7 +130,7 @@ const JobForm = () => {
                 )}
               />
               <ButtonLoading
-                isUpdate={false}
+                isUpdate={!!joblist}
                 loading={form.formState.isSubmitting}
               />
             </form>
@@ -148,7 +154,7 @@ export const ButtonLoading = ({
     return (
       <Button className="bg-main-900 dark:bg-main-100 hover:bg-main-950 dark:hover:bg-main-50 transition-all duration-300 space-x-2 gap-x-1">
         {isUpdate ? "Updating" : "Registering"}
-        <Loader className="animate-spin h-5 w-5 text-white mx-2" />
+        <Loader className="animate-spin h-5 w-5  mx-2" />
       </Button>
     );
   }

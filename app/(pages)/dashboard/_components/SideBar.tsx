@@ -20,7 +20,7 @@ const sideRoutes = [
 const SideBar = () => {
   return (
     <div className="h-full  flex flex-col overflow-y-auto dark:bg-main-900 bg-main-50">
-      <h1 className="text-gray-400">sidebar</h1>
+      <h1 className="text-gray-400">S</h1>
       {/* sidebar items  */}
       <div className="mt-16">
         {sideRoutes.map((route) => (

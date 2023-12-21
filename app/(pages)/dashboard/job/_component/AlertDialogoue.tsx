@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { API } from "@/lib/config";
 import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { Loader, Loader2 } from "lucide-react";
+import { Loader } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 export const AlertDialogBox = ({ id }: { id: string }) => {
@@ -23,8 +23,8 @@ export const AlertDialogBox = ({ id }: { id: string }) => {
   const handleDelete = async () => {
     setLoading(true);
     try {
-      await axios.delete(`${API}/admin/category/${id}`);
-      queryClient.invalidateQueries({ queryKey: ["category"] });
+      await axios.delete(`${API}/employer/job/${id}`);
+      queryClient.invalidateQueries({ queryKey: ["job"] });
       toast.success("Deleted successfully");
       setLoading(false);
     } catch (error) {

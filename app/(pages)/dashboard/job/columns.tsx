@@ -34,6 +34,11 @@ export const columns: ColumnDef<JobList>[] = [
     accessorKey: "description",
     header: "Description",
   },
+  ,
+  {
+    accessorKey: "salary",
+    header: "Salary",
+  },
   {
     accessorKey: "created",
     header: () => <div className="text-right">Created</div>,
@@ -47,16 +52,14 @@ export const columns: ColumnDef<JobList>[] = [
     id: "actions",
     header: "Actions",
     cell: ({ row }) => {
-      const categoryInfo = row.original;
+      const joblistInfo = row.original;
       const router = useRouter();
       return (
         <div className="space-x-3">
-          <Button
-            onClick={() => router.push("./categories/" + categoryInfo.id)}
-          >
+          <Button onClick={() => router.push("./job/" + joblistInfo.id)}>
             Update
           </Button>
-          <AlertDialogBox id={categoryInfo.id} />
+          <AlertDialogBox id={joblistInfo.id} />
         </div>
       );
     },

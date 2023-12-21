@@ -10,11 +10,12 @@ import { useRouter } from "next/navigation";
 
 const List = () => {
   const router = useRouter();
+
   const { data, isLoading } = useQuery({
     queryKey: ["job"],
     queryFn: () => axios.get(`${API}/employer/job`).then((res) => res.data),
-    staleTime: 60 * 1000,
-    retry: 3,
+    // staleTime: 60 * 1000,
+    // retry: 3,
   });
   if (isLoading) return <h1>Loading...</h1>;
   return (
