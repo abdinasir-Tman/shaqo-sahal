@@ -1,8 +1,8 @@
 "use client";
 import { MoonIcon, SunIcon } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+
 import React, { useEffect, useState } from "react";
+import MobileMenu from "./MobileMenue";
 
 const Navbar = () => {
   const [theme, setTheme] = useState<string>("light");
@@ -28,14 +28,8 @@ const Navbar = () => {
   };
   return (
     <div className="p-3 h-full shadow-sm   w-full flex justify-between items-center bg-main-50 dark:bg-main-900">
-      <Link href="/">
-        <Image
-          src={`/${theme === "dark" ? "dark_logo.svg" : "light_logo.svg"}`}
-          width={33}
-          height={33}
-          alt="logo"
-        />
-      </Link>
+      <MobileMenu />
+
       <span>
         {theme === "dark" ? (
           <SunIcon

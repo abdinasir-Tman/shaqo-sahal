@@ -1,6 +1,8 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { Briefcase, HeartHandshake, LucideIcon } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 const sideRoutes = [
@@ -20,7 +22,11 @@ const sideRoutes = [
 const SideBar = () => {
   return (
     <div className="h-full  flex flex-col overflow-y-auto dark:bg-main-900 bg-main-50">
-      <h1 className="text-gray-400">S</h1>
+      <h1 className="text-gray-400 flex items-center justify-center pt-5">
+        <Link href="/">
+          <Image src="/dark_logo.svg" width={53} height={53} alt="logo" />
+        </Link>
+      </h1>
       {/* sidebar items  */}
       <div className="mt-16">
         {sideRoutes.map((route) => (
