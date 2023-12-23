@@ -27,6 +27,7 @@ const JobSkeleton = () => {
             <div>
               <p className="bg-gradient-to-tr h-10 w-50 dark:from-main-800 dark:to-main-900  from-main-100 to-main-200 my-1 animate-pulse"></p>
               <h1 className="bg-gradient-to-tr h-6 w-6 dark:from-main-800 dark:to-main-900  from-main-100 to-main-200 mt-2 float-right animate-pulse"></h1>
+              <h1 className="bg-gradient-to-tr h-6 w-6 dark:from-main-800 dark:to-main-900  from-main-100 to-main-200 mt-2 float-left animate-pulse"></h1>
             </div>
           </div>
         ))}

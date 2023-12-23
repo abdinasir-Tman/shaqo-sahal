@@ -34,6 +34,10 @@ export const columns: ColumnDef<JobList>[] = [
     accessorKey: "description",
     header: "Description",
   },
+  {
+    accessorKey: "jobCategory",
+    header: "Job Category",
+  },
   ,
   {
     accessorKey: "salary",

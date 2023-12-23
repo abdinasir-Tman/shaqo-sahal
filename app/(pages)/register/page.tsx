@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import React, { useState } from "react";
 import EmployerForm from "../_components/EmployerForm";
+import JobSeekerForm from "../_components/JobSeekerForm";
 
 const Register = () => {
   const [currentForm, setCurrentForm] = useState<string>("JobSeeker");
@@ -36,7 +37,7 @@ const Register = () => {
           </Button>
         </div>
         <div className="max-w-5xl mx-auto md:px-6 px-2">
-          {currentForm === "Employer" ? <EmployerForm /> : "somethin else"}
+          {currentForm === "Employer" ? <EmployerForm /> : <JobSeekerForm />}
         </div>
       </div>
     </div>

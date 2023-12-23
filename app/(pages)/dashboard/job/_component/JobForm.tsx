@@ -22,7 +22,28 @@ import toast from "react-hot-toast";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
 import { JobListing } from "@prisma/client";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+const items = [
+  {
+    id: "computer science",
+    label: "Computer Science",
+  },
+  {
+    id: "it",
+    label: "IT",
+  },
 
+  {
+    id: "writer",
+    label: "Writer",
+  },
+] as const;
 const JobForm = ({ joblist }: { joblist: JobListing }) => {
   const router = useRouter();
 
@@ -32,13 +53,14 @@ const JobForm = ({ joblist }: { joblist: JobListing }) => {
       title: joblist?.title,
       description: joblist?.description,
       salary: joblist?.salary,
+      jobCategory: joblist?.jobCategory,
     },
   });
 
   async function onSubmit(values: z.infer<typeof jobListValidator>) {
     try {
       const formData: any = values;
-
+      console.log(formData);
       if (joblist) {
         await axios.patch(
           `http://localhost:3000/api/employer/job/${joblist?.id}`,
@@ -61,7 +83,7 @@ const JobForm = ({ joblist }: { joblist: JobListing }) => {
     <div className="w-full">
       <Card className="w-full">
         <CardHeader>
-          <CardTitle>Employer Form</CardTitle>
+          <CardTitle>Job Form</CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -123,6 +145,36 @@ const JobForm = ({ joblist }: { joblist: JobListing }) => {
                         placeholder="Description"
                         {...field}
                       />
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="jobCategory"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="dark:text-gray-200">
+                      Job Category
+                    </FormLabel>
+                    <FormControl>
+                      <Select
+                        value={field.value}
+                        onValueChange={field.onChange}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Job Categories" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {items.map((item) => (
+                            <SelectItem value={item.id}>
+                              {item.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </FormControl>
 
                     <FormMessage />

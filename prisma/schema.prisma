@@ -61,7 +61,8 @@ model VerificationToken {
 model JobSeeker {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   email String @unique
-
+  name String 
+  jobCategory String[]
   applications Application[]
   created DateTime @default(now())
   updated DateTime @updatedAt
@@ -83,6 +84,7 @@ model JobListing {
   title       String
   description String
   salary      Float
+  jobCategory String @default("")
   applications Application[]
   Employer     Employer?     @relation(fields: [employerId], references: [id])
   employerId   String?       @db.ObjectId

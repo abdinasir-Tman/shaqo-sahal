@@ -32,6 +32,7 @@ export const PATCH = async (
         title: body.title,
         description: body.description,
         salary: body.salary,
+        jobCategory: body.jobCategory,
       },
     });
 

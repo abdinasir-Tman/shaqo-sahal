@@ -4,6 +4,7 @@ import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 export const POST = async (req: NextRequest) => {
   const body = await req.json();
+
   const { user }: any = await getToken();
   try {
     const employer = await prisma.employer.findUnique({
@@ -13,15 +14,17 @@ export const POST = async (req: NextRequest) => {
     });
 
     if (!employer) return NextResponse.json("this email is not exist");
+
     const jobList = await prisma?.jobListing.create({
       data: {
         title: body.title,
         description: body.description,
         salary: body.salary,
+        jobCategory: body.jobCategory,
         employerId: employer.id,
       },
     });
-
+    console.log(jobList);
     return NextResponse.json(jobList, { status: 201 });
   } catch (error) {
     console.log("error at register job ", error);
@@ -42,6 +45,9 @@ export const GET = async () => {
     const jobLists = await prisma.jobListing.findMany({
       where: {
         employerId: employer?.id,
+      },
+      orderBy: {
+        created: "desc",
       },
     });
 

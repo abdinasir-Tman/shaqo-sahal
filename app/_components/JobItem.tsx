@@ -2,7 +2,8 @@ import { Button } from "@/components/ui/button";
 import { CalendarIcon } from "lucide-react";
 import Image from "next/image";
 import React from "react";
-import { FcMoneyTransfer } from "react-icons/fc";
+import { FaMoneyBillWave } from "react-icons/fa";
+
 interface JobItems {
   Employer: any;
   id: string;
@@ -10,6 +11,7 @@ interface JobItems {
   salary: number;
   description: string;
   created: string;
+  jobCategory: string;
 }
 const JobItem = ({
   Employer,
@@ -18,9 +20,10 @@ const JobItem = ({
   salary,
   description,
   created,
+  jobCategory,
 }: JobItems) => {
   return (
-    <div className="flex flex-col rounded-sm dark:bg-main-900 p-2 bg-main-100 cursor-pointer">
+    <div className="flex flex-col rounded-sm dark:bg-main-900 p-2 bg-main-200 cursor-pointer">
       {/* title  */}
       <div className="flex space-x-3">
         {/* logo  */}
@@ -35,22 +38,27 @@ const JobItem = ({
         </div>
 
         <div>
-          <h1 className="">{title}</h1>
+          <h1 className="dark:text-white text-2xl font-semibold text-black">
+            {title}
+          </h1>
         </div>
       </div>
       <hr />
       <div className="flex justify-between mt-3">
-        <span className="flex items-center gap-x-2">
+        <span className="flex dark:text-white text-black items-center gap-x-2">
           <CalendarIcon />
 
           {new Date(created).toDateString()}
         </span>
-        <span className="flex items-center gap-x-2">
-          <FcMoneyTransfer />${salary}
+        <span className="flex dark:text-white text-black items-center gap-x-2">
+          <FaMoneyBillWave /> ${salary}
         </span>
       </div>
       <div>
-        <p className="mt-2">{description}</p>
+        <p className="mt-2 dark:text-white text-black">{description}</p>
+        <span className="dark:text-white text-black float-left mt-2 font-serif italic">
+          {jobCategory}
+        </span>
         <Button
           size={"sm"}
           className="bg-main-900 dark:bg-main-100 hover:bg-main-950 dark:hover:bg-main-50 transition-all duration-300 mt-2 float-right"

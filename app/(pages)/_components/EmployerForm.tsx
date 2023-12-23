@@ -194,7 +194,7 @@ export const ButtonLoading = ({
     return (
       <Button className="bg-main-900 dark:bg-main-100 hover:bg-main-950 dark:hover:bg-main-50 transition-all duration-300 space-x-2 gap-x-1">
         {isUpdate ? "Updating" : "Registering"}
-        <Loader2 className="animate-spin h-5 w-5 text-white mx-2" />
+        <Loader2 className="animate-spin h-5 w-5  mx-2" />
       </Button>
     );
   }
