@@ -4,6 +4,7 @@ import "./globals.css";
 import NextAuthProvider from "./providers/NextAuthProvider";
 import { Toaster } from "react-hot-toast";
 import ReactQueryClientProvider from "./providers/ReactQueryClientProvider";
+import { ThemeProvider } from "./providers/ThemeProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -19,14 +20,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="">
-        <ReactQueryClientProvider>
-          <NextAuthProvider>
-            <main className="h-full">
-              {children}
-              <Toaster />
-            </main>
-          </NextAuthProvider>
-        </ReactQueryClientProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ReactQueryClientProvider>
+            <NextAuthProvider>
+              <main className="h-full">
+                {children}
+                <Toaster />
+              </main>
+            </NextAuthProvider>
+          </ReactQueryClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

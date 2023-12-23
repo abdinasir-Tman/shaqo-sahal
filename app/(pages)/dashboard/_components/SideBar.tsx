@@ -21,8 +21,8 @@ const sideRoutes = [
 ];
 const SideBar = () => {
   return (
-    <div className="h-full  flex flex-col overflow-y-auto dark:bg-main-900 bg-main-50">
-      <h1 className="text-gray-400 flex items-center justify-center pt-5">
+    <div className="h-full  flex flex-col overflow-y-auto ">
+      <h1 className="flex items-center justify-center pt-5">
         <Link href="/">
           <Image src="/dark_logo.svg" width={53} height={53} alt="logo" />
         </Link>
@@ -61,7 +61,7 @@ const ItemsList = ({ icon: Icon, label, path }: SidebarItemProps) => {
       onClick={() => router.push(`/dashboard/${path}`)}
       type="button"
       className={cn(
-        "flex items-center gap-x-2 w-full dark:text-main-50  font-[500] pl-6 transition-all group hover:dark:bg-main-50 hover:bg-main-900 hover:text-main-50 hover:dark:text-main-900",
+        "flex items-center gap-x-2 w-full   font-[500] pl-6 transition-all",
         isActive &&
           "dark:text-main-900 text-main-50 dark:bg-main-50 bg-main-900"
       )}

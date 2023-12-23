@@ -18,10 +18,10 @@ const AllJobs = () => {
   return (
     <div className="flex items-center flex-col">
       {/* search bar  */}
-      <div className="relative dark:bg-main-800 bg-main-200 flex md:justify-between w-full flex-shrink">
+      <div className="relative flex md:justify-between w-full flex-shrink">
         <div className="w-56">
           <Input className="w-full opacity-60 border" />
-          <button className="dark:bg-main-950 bg-main-300 p-2 rounded-r-md absolute inset-y-0 right-0">
+          <button className="p-2 rounded-r-md absolute inset-y-0 right-0">
             <BsSearch className="text-2xl" />
           </button>
         </div>

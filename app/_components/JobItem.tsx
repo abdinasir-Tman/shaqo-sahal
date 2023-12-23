@@ -23,7 +23,7 @@ const JobItem = ({
   jobCategory,
 }: JobItems) => {
   return (
-    <div className="flex flex-col rounded-sm dark:bg-main-900 p-2 bg-main-200 cursor-pointer">
+    <div className="flex flex-col rounded-sm cursor-pointer">
       {/* title  */}
       <div className="flex space-x-3">
         {/* logo  */}
@@ -38,14 +38,12 @@ const JobItem = ({
         </div>
 
         <div>
-          <h1 className="dark:text-white text-2xl font-semibold text-black">
-            {title}
-          </h1>
+          <h1 className="">{title}</h1>
         </div>
       </div>
       <hr />
       <div className="flex justify-between mt-3">
-        <span className="flex dark:text-white text-black items-center gap-x-2">
+        <span className="flex items-center gap-x-2">
           <CalendarIcon />
 
           {new Date(created).toDateString()}
@@ -55,13 +53,13 @@ const JobItem = ({
         </span>
       </div>
       <div>
-        <p className="mt-2 dark:text-white text-black">{description}</p>
-        <span className="dark:text-white text-black float-left mt-2 font-serif italic">
+        <p className="mt-2 ">{description}</p>
+        <span className=" float-left mt-2 font-serif italic">
           {jobCategory}
         </span>
         <Button
           size={"sm"}
-          className="bg-main-900 dark:bg-main-100 hover:bg-main-950 dark:hover:bg-main-50 transition-all duration-300 mt-2 float-right"
+          className="transition-all duration-300 mt-2 float-right"
         >
           Apply
         </Button>

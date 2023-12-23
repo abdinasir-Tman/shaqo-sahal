@@ -30,6 +30,7 @@
     "next": "14.0.3",
     "next-auth": "^4.24.5",
     "next-cloudinary": "^5.10.0",
+    "next-themes": "^0.2.1",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.48.2",
