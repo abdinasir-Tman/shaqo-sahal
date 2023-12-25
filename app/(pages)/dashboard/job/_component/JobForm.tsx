@@ -44,6 +44,21 @@ const items = [
     label: "Writer",
   },
 ] as const;
+const workTypes = [
+  {
+    id: "freelancer",
+    label: "Freelancer",
+  },
+  {
+    id: "fullTime",
+    label: "Full Time",
+  },
+
+  {
+    id: "partTime",
+    label: "Part Time",
+  },
+] as const;
 const JobForm = ({ joblist }: { joblist: JobListing }) => {
   const router = useRouter();
 
@@ -54,6 +69,8 @@ const JobForm = ({ joblist }: { joblist: JobListing }) => {
       description: joblist?.description,
       salary: joblist?.salary,
       jobCategory: joblist?.jobCategory,
+      workType: joblist?.workType,
+      location: joblist?.location,
     },
   });
 
@@ -131,26 +148,7 @@ const JobForm = ({ joblist }: { joblist: JobListing }) => {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="description"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="dark:text-gray-200">
-                      Description
-                    </FormLabel>
-                    <FormControl>
-                      <Textarea
-                        className="dark:text-gray-200"
-                        placeholder="Description"
-                        {...field}
-                      />
-                    </FormControl>
 
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
               <FormField
                 control={form.control}
                 name="jobCategory"
@@ -175,6 +173,76 @@ const JobForm = ({ joblist }: { joblist: JobListing }) => {
                           ))}
                         </SelectContent>
                       </Select>
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="location"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="dark:text-gray-200">
+                      Location
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        className="dark:text-gray-200"
+                        placeholder="Location"
+                        {...field}
+                      />
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="workType"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="dark:text-gray-200">
+                      Work Type
+                    </FormLabel>
+                    <FormControl>
+                      <Select
+                        value={field.value}
+                        onValueChange={field.onChange}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="work Type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {workTypes.map((item) => (
+                            <SelectItem value={item.id}>
+                              {item.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="dark:text-gray-200">
+                      Description
+                    </FormLabel>
+                    <FormControl>
+                      <Textarea
+                        className="dark:text-gray-200"
+                        placeholder="Description"
+                        {...field}
+                      />
                     </FormControl>
 
                     <FormMessage />

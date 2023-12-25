@@ -17,6 +17,9 @@ export const GET = async () => {
         salary: true,
         id: true,
         jobCategory: true,
+        workType: true,
+        location: true,
+
         created: true,
         Employer: {
           select: {

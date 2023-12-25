@@ -22,6 +22,8 @@ export const POST = async (req: NextRequest) => {
         salary: body.salary,
         jobCategory: body.jobCategory,
         employerId: employer.id,
+        workType: body.workType,
+        location: body.location,
       },
     });
     console.log(jobList);

@@ -85,6 +85,8 @@ model JobListing {
   description String
   salary      Float
   jobCategory String @default("")
+  location    String
+  workType    String
   applications Application[]
   Employer     Employer?     @relation(fields: [employerId], references: [id])
   employerId   String?       @db.ObjectId

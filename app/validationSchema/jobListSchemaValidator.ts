@@ -5,5 +5,7 @@ const jobListValidator = z.object({
   description: z.string().min(7, "at least four characters"),
   salary: z.number(),
   jobCategory: z.string(),
+  workType: z.string(),
+  location: z.string(),
 });
 export default jobListValidator;

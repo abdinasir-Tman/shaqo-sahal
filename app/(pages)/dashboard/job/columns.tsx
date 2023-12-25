@@ -44,6 +44,14 @@ export const columns: ColumnDef<JobList>[] = [
     header: "Salary",
   },
   {
+    accessorKey: "location",
+    header: "Location",
+  },
+  {
+    accessorKey: "workType",
+    header: "Work Type",
+  },
+  {
     accessorKey: "created",
     header: () => <div className="text-right">Created</div>,
     cell: ({ row }) => {
