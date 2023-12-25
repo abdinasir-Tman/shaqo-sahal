@@ -14,7 +14,7 @@ const Nav = () => {
   const router = useRouter();
 
   return (
-    <div className="w-full flex justify-between items-center  p-3 ">
+    <div className="w-full flex justify-between items-center  p-3 shadow-lg dark:shadow-gray-900">
       {/* logo  */}
       <div>
         <Link href="/">

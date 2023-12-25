@@ -33,7 +33,11 @@ export const columns: ColumnDef<JobList>[] = [
   {
     accessorKey: "description",
     header: "Description",
+    cell: ({ row }) => {
+      return <div className="truncate w-56">{row.original.description}</div>;
+    },
   },
+
   {
     accessorKey: "jobCategory",
     header: "Job Category",

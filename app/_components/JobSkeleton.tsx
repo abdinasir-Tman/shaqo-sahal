@@ -2,7 +2,7 @@ import React from "react";
 
 const JobSkeleton = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 animate-pulse">
+    <div className="grid lg:grid-cols-2 gap-4 animate-pulse">
       {Array(20)
         .fill()
         .map((_, idx) => (

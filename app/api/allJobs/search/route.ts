@@ -1,14 +1,10 @@
-import { getToken } from "@/app/utils/token";
 import prisma from "@/prisma/client";
 
 import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async () => {
-  // const session: any = await getToken();
-
-  // if (!session.user)
-  //   return NextResponse.json("please sign the page", { status: 501 });
-
+export const POST = async (req: NextRequest) => {
+  const query = await req.json();
+  console.log(query);
   try {
     const jobLists = await prisma.jobListing.findMany({
       select: {
@@ -27,6 +23,12 @@ export const GET = async () => {
             email: true,
             companyName: true,
           },
+        },
+      },
+      where: {
+        title: {
+          contains: query.title,
+          mode: "insensitive",
         },
       },
     });

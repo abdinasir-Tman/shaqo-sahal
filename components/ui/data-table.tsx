@@ -147,7 +147,7 @@ export function DataTable<TData, TValue>({
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
-                      className="dark:text-white text-black"
+                      className="dark:text-white text-black truncate"
                       key={cell.id}
                     >
                       {flexRender(
