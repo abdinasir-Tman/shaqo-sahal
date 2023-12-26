@@ -5,6 +5,9 @@ import React from "react";
 import { HiLocationMarker } from "react-icons/hi";
 import { FaMoneyBillWave } from "react-icons/fa";
 import { HiClock } from "react-icons/hi";
+import { formatDistance } from "date-fns";
+import { useRouter } from "next/navigation";
+
 interface JobItems {
   Employer: any;
   id: string;
@@ -27,12 +30,12 @@ const JobItem = ({
   location,
   workType,
 }: JobItems) => {
+  const router = useRouter();
   return (
     <div className="flex flex-col rounded-sm cursor-pointer p-2 w-full shadow-md dark:shadow-gray-900">
       {/* title  */}
-      <div className="flex space-x-3 py-2">
+      <div className="flex space-x-3 py-2 w-full">
         {/* logo  */}
-
         <Image
           src={Employer?.logo}
           className="rounded-md border border-gray-500 object-cover"
@@ -40,13 +43,18 @@ const JobItem = ({
           width={66}
           alt="logo"
         />
-
         <div className="flex flex-col">
           <h1 className="text-sm dark:text-gray-300">
             {Employer?.companyName}
           </h1>
           <h1 className="text-lg font-serif font-bold">{title}</h1>
         </div>
+        {/* <div className="float-right"> */}
+        <span className="float-left flex space-x-2">
+          {formatDistance(new Date(created), new Date())} ago
+        </span>
+
+        {/* </div> */}
       </div>
       <hr />
       <div className="flex space-x-2 mt-3">
@@ -71,8 +79,11 @@ const JobItem = ({
           {jobCategory}
         </span>
         <Button
+          onClick={() => {
+            router.push("./jobSeeker/applicant/" + id);
+          }}
           size={"sm"}
-          className="transition-all duration-300 my-2 float-right "
+          className="transition-all duration-300 my-2 float-right"
         >
           Apply
         </Button>

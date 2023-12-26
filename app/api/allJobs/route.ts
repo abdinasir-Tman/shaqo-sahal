@@ -29,8 +29,11 @@ export const GET = async () => {
           },
         },
       },
+      orderBy: {
+        created: "desc",
+      },
     });
-    console.log(jobLists);
+
     return NextResponse.json(jobLists, { status: 200 });
   } catch (error) {
     console.log("error at get job", error);

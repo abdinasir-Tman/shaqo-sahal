@@ -1,0 +1,84 @@
+import { formatDistance } from "date-fns";
+import Image from "next/image";
+import { notFound } from "next/navigation";
+import React from "react";
+import { FaMoneyBillWave } from "react-icons/fa";
+import { HiClock, HiLocationMarker, HiOutlineCalendar } from "react-icons/hi";
+import ApplicantModal from "./_components/Modal";
+
+const Applicants = async ({ params }: { params: { jobId: string } }) => {
+  let data;
+  try {
+    data = await prisma?.jobListing.findFirst({
+      include: {
+        Employer: true,
+        applications: true,
+      },
+      where: {
+        id: params.jobId,
+      },
+    });
+  } catch (error) {
+    notFound();
+  }
+  return (
+    <div className="p-2 rounded-md shadow-md dark:bg-gray-800 w-full relative">
+      {/* title  */}
+      <div className="flex space-x-2">
+        <Image
+          src={data?.Employer?.logo!}
+          width={70}
+          height={88}
+          className="object-cover overflow-hidden"
+          alt="logo"
+        />
+        <div>
+          <h1 className="text-sm gray-700">{data?.Employer?.companyName}</h1>
+          <h1 className="text-3xl font-serif font-thin">{data?.title}</h1>
+        </div>
+        <span className="absolute right-2">
+          {" "}
+          {formatDistance(new Date(data?.created!), new Date())}{" "}
+        </span>
+      </div>
+      {/* content  */}
+      <div className="flex justify-between space-x-3 mt-3">
+        {/* left side location and employement time  */}
+        <div>
+          <span className="flex dark:text-white text-black items-center gap-x-1">
+            <small className="text-lg font-bold"> Location:</small>
+            <i>{data?.location}</i>
+          </span>
+          <span className="flex dark:text-white text-black items-center gap-x-1">
+            <small className="text-lg font-bold"> Employment Type:</small>
+            <i>{data?.workType}</i>
+          </span>
+        </div>
+
+        {/* right side salary and date posted  */}
+        <div>
+          <span className="flex dark:text-white text-black items-center gap-x-1">
+            <small className="text-lg font-bold"> Date Posted: </small>
+            <i>{new Date(data?.created!).toDateString()}</i>
+          </span>
+          <span className="flex dark:text-white text-black items-center gap-x-1">
+            <small className="text-lg font-bold"> Salary : </small>
+            <i>{data?.salary}</i>
+          </span>
+        </div>
+      </div>
+      {/* description  */}
+      <div>
+        <p className="text-md mt-3">{data?.description}</p>
+      </div>
+      <h1 className="text-red-500">
+        Applications : <i>{data?.applications?.length}</i>
+      </h1>
+      <div className="flex justify-end">
+        <ApplicantModal jobId={data?.id!} employerId={data?.Employer?.id!} />
+      </div>
+    </div>
+  );
+};
+
+export default Applicants;

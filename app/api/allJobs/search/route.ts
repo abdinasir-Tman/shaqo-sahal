@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {
   const query = await req.json();
-  console.log(query);
+
   try {
     const jobLists = await prisma.jobListing.findMany({
       select: {
@@ -31,8 +31,11 @@ export const POST = async (req: NextRequest) => {
           mode: "insensitive",
         },
       },
+      orderBy: {
+        created: "desc",
+      },
     });
-    console.log(jobLists);
+
     return NextResponse.json(jobLists, { status: 200 });
   } catch (error) {
     console.log("error at get job", error);

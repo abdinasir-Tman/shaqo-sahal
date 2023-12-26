@@ -62,6 +62,7 @@ model JobSeeker {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   email String @unique
   name String 
+  role String
   jobCategory String[]
   applications Application[]
   created DateTime @default(now())
