@@ -1,31 +1,10 @@
-import { getToken } from "@/app/utils/token";
 import { cn } from "@/lib/utils";
 import React from "react";
 import { AiFillSchedule } from "react-icons/ai";
 import { FaLock } from "react-icons/fa";
 import { RiPassPendingFill } from "react-icons/ri";
 
-const AppPage = async () => {
-  let data;
-  const { user }: any = await getToken();
-  try {
-    data = await prisma?.application.findMany({
-      include: {
-        JobListing: {
-          include: {
-            Employer: {
-              where: {
-                email: user?.email,
-              },
-            },
-          },
-        },
-      },
-    });
-  } catch (error) {
-    console.log(error);
-  }
-
+const ApplicationItems = ({ data }: any) => {
   return (
     <div className="grid md:grid-cols-2  gap-3">
       {data?.map((app: any) => (
@@ -57,4 +36,4 @@ const AppPage = async () => {
   );
 };
 
-export default AppPage;
+export default ApplicationItems;

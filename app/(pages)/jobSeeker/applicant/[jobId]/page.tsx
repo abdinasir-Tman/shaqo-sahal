@@ -33,7 +33,9 @@ const Applicants = async ({ params }: { params: { jobId: string } }) => {
           alt="logo"
         />
         <div>
-          <h1 className="text-sm gray-700">{data?.Employer?.companyName}</h1>
+          <h1 className="text-sm text-gray-500">
+            {data?.Employer?.companyName}
+          </h1>
           <h1 className="text-3xl font-serif font-thin">{data?.title}</h1>
         </div>
         <span className="absolute right-2">
