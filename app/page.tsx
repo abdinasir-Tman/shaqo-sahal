@@ -4,7 +4,7 @@ import Nav from "./_components/Nav";
 export default function Home() {
   return (
     <div className="max-w-[1024px] w-full h-screen">
-      <div className="fixed top-0 inset-x-0 ">
+      <div className="fixed top-0 inset-x-0 z-30">
         <Nav />
       </div>
 

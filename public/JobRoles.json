@@ -1,0 +1,25 @@
+[
+  {
+    "id": "it",
+    "name": "IT",
+    "category": [
+      { "id": 1, "name": "Software Engineer" },
+      { "id": 2, "name": "Frontend Developer" },
+      { "id": 3, "name": "Backend Developer" },
+      { "id": 4, "name": "Full Stack Developer" }
+    ]
+  },
+  {
+    "id": "accounting and financial",
+    "name": "Accounting and Financial",
+    "category": [{ "id": 1, "name": "Computerized Accounting" }]
+  },
+  {
+    "id": "health and medical services",
+    "name": "Health and Medical Services",
+    "category": [
+      { "id": 1, "name": "Nursing" },
+      { "id": 2, "name": "Pharmacy and Functional" }
+    ]
+  }
+]

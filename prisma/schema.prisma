@@ -88,6 +88,8 @@ model JobListing {
   jobCategory String @default("")
   location    String @default("")
   workType    String @default("")
+  requirement String @default("")
+  salaryType String @default("")
   applications Application[]
   Employer     Employer?     @relation(fields: [employerId], references: [id])
   employerId   String?       @db.ObjectId

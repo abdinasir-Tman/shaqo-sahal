@@ -205,7 +205,7 @@ const JobForm = ({ joblist }: { joblist: JobListing }) => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="dark:text-gray-200">
-                      Work Type
+                      Job Type
                     </FormLabel>
                     <FormControl>
                       <Select

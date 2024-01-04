@@ -2,18 +2,23 @@ import { getToken } from "@/app/utils/token";
 import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
-export const POST = async (req: NextRequest) => {
+export const PATCH = async (
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) => {
   const body: any = await req.json();
   console.log(body);
   const { user }: any = await getToken();
   if (!user) return NextResponse.json("not authenticated", { status: 500 });
   try {
-    const newJobSeeker = await prisma?.jobSeeker.create({
+    const newJobSeeker = await prisma?.jobSeeker.update({
       data: {
         name: body.name,
         jobCategory: body.jobCategory,
         email: user?.email,
-        role: body.role,
+      },
+      where: {
+        id: params.id,
       },
     });
     if (!newJobSeeker) return NextResponse.json("error", { status: 500 });

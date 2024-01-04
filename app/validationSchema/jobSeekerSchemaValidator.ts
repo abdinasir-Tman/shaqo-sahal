@@ -10,5 +10,6 @@ const jobSeekerValidator = z.object({
     .refine((value) => value.some((item) => item), {
       message: "You have to select at least one item.",
     }),
+  roles: z.string(),
 });
 export default jobSeekerValidator;

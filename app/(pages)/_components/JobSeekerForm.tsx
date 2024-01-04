@@ -13,16 +13,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
-// import {
-//   DropdownMenu,
-//   DropdownMenuCheckboxItem,
-//   DropdownMenuContent,
-//   DropdownMenuLabel,
-//   DropdownMenuSeparator,
-//   DropdownMenuTrigger,
-// } from "@/components/ui/dropdown-menu";
-// type Checked = DropdownMenuCheckboxItemProps["checked"];
+
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
@@ -33,42 +24,33 @@ import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
   SelectContent,
+  SelectItem,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-const items = [
-  {
-    id: "computer science",
-    label: "Computer Science",
-  },
-  {
-    id: "it",
-    label: "IT",
-  },
+import jobroles from "@/public/JobRoles.json";
 
-  {
-    id: "writer",
-    label: "Writer",
-  },
-] as const;
 const JobSeekerForm = () => {
+  // full up the categories
+  const [roleCategories, setRoleCategories] = useState([]);
+
+  const fullUpCategories = (e: any) => {
+    let categories: any = jobroles.filter((role: any) => role.id === e);
+
+    setRoleCategories(categories[0]?.category);
+  };
+
   const form = useForm<z.infer<typeof jobSeekerValidator>>({
     resolver: zodResolver(jobSeekerValidator),
     defaultValues: {
       name: "",
       jobCategory: [],
+      roles: "",
     },
   });
 
   async function onSubmit(values: z.infer<typeof jobSeekerValidator>) {
-    try {
-      const formData: any = values;
-      await axios.post("http://localhost:3000/api/jobSeeker", formData);
-      form.reset();
-      toast.success("success Registered");
-    } catch (error: any) {
-      toast.error(error.response.data);
-    }
+    alert("submited");
   }
   return (
     <div className="w-full">
@@ -102,7 +84,38 @@ const JobSeekerForm = () => {
                   </FormItem>
                 )}
               />
+
+              {/* job roles  */}
+
+              <FormField
+                control={form.control}
+                name="roles"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="dark:text-gray-200">Roles</FormLabel>
+                    <FormControl>
+                      <Select
+                        value={field.value}
+                        onValueChange={field.onChange}
+                        onOpenChange={() => fullUpCategories(field.value)}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="work Type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {jobroles.map((item) => (
+                            <SelectItem value={item.id}>{item.name}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <div>
+                {/* job categories  */}
                 <FormLabel className=" dark:text-gray-200">
                   Job Categories
                 </FormLabel>
@@ -111,7 +124,7 @@ const JobSeekerForm = () => {
                     <SelectValue placeholder="Job Categories" />
                   </SelectTrigger>
                   <SelectContent>
-                    {items.map((item) => (
+                    {roleCategories?.map((item: any) => (
                       <FormField
                         key={item.id}
                         control={form.control}
@@ -140,7 +153,7 @@ const JobSeekerForm = () => {
                                 />
                               </FormControl>
                               <FormLabel className="text-sm font-normal">
-                                {item.label}
+                                {item.name}
                               </FormLabel>
                             </FormItem>
                           );
@@ -174,7 +187,10 @@ export const ButtonLoading = ({
 }) => {
   if (loading) {
     return (
-      <Button className="bg-main-900 dark:bg-main-100 hover:bg-main-950 dark:hover:bg-main-50 transition-all duration-300 space-x-2 gap-x-1">
+      <Button
+        type="submit"
+        className="bg-main-900 dark:bg-main-100 hover:bg-main-950 dark:hover:bg-main-50 transition-all duration-300 space-x-2 gap-x-1"
+      >
         {isUpdate ? "Updating" : "Registering"}
         <Loader2 className="animate-spin h-5 w-5 mx-2" />
       </Button>
