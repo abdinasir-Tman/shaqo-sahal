@@ -6,12 +6,7 @@ type User = {
 };
 
 export const config = {
-  matcher: [
-    "/register/:path*",
-    "/dashboard/:path*",
-    "/api/employer/:path*",
-    "/api/jobSeeker/:path*",
-  ],
+  matcher: ["/register/:path*", "/dashboard/:path*"],
 };
 
 export default withAuth(

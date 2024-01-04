@@ -1,0 +1,21 @@
+[
+  {
+    "id": "it",
+    "name": "IT",
+    "category": [
+      { "id": 1, "name": "Full Stack Developer" },
+      { "id": 2, "name": "Frontend Developer" },
+      { "id": 3, "name": "Backend Developer" },
+      { "id": 4, "name": "Mobile Developer" }
+    ]
+  },
+  {
+    "id": "account and financial",
+    "name": "Account and Financial",
+    "category": [
+      { "id": 1, "name": "Computerized Accounting" },
+      { "id": 2, "name": "Auditor" },
+      { "id": 3, "name": "Cashier" }
+    ]
+  }
+]
