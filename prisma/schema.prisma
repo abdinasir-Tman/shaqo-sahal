@@ -44,9 +44,9 @@ model User {
   hashedPassword String?
   emailVerified  DateTime?
   image          String?
-  type String @default("init")
-  accounts Account[]
-  sessions Session[]
+  type           String    @default("init")
+  accounts       Account[]
+  sessions       Session[]
 }
 
 model VerificationToken {
@@ -59,14 +59,14 @@ model VerificationToken {
 }
 
 model JobSeeker {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  email String @unique
-  name String 
-  role String
-  jobCategory String[]
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  email        String        @unique
+  name         String
+  role         String
+  jobCategory  String[]
   applications Application[]
-  created DateTime @default(now())
-  updated DateTime @updatedAt
+  created      DateTime      @default(now())
+  updated      DateTime      @updatedAt
 }
 
 model Employer {
@@ -74,35 +74,48 @@ model Employer {
   companyName String
   address     String
   logo        String
-  email       String @unique
+  email       String       @unique
   jobListings JobListing[]
-  created DateTime @default(now())
-  updated DateTime @updatedAt
+  created     DateTime     @default(now())
+  updated     DateTime     @updatedAt
 }
 
 model JobListing {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
-  title       String
-  description String
-  salary      Float
-  jobCategory String @default("")
-  location    String @default("")
-  workType    String @default("")
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  title        String
+  description  String
+  salary       Float
+  jobCategory  String        @default("")
+  location     String        @default("")
+  workType     String        @default("")
   applications Application[]
   Employer     Employer?     @relation(fields: [employerId], references: [id])
   employerId   String?       @db.ObjectId
-  created DateTime @default(now())
-  updated DateTime @updatedAt
+  created      DateTime      @default(now())
+  updated      DateTime      @updatedAt
 }
 
 model Application {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
   coverLetter  String?
   status       String      @default("pending")
   JobSeeker    JobSeeker?  @relation(fields: [jobSeekerId], references: [id])
   jobSeekerId  String?     @db.ObjectId
   JobListing   JobListing? @relation(fields: [jobListingId], references: [id])
   jobListingId String?     @db.ObjectId
-  created DateTime @default(now())
-  updated DateTime @updatedAt
+  created      DateTime    @default(now())
+  updated      DateTime    @updatedAt
+}
+
+model JobRoles {
+  id           String           @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  roleCategory RoleCategories[]
+}
+
+model RoleCategories {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  JobRoles   JobRoles? @relation(fields: [jobRolesId], references: [id])
+  jobRolesId String?   @db.ObjectId
 }

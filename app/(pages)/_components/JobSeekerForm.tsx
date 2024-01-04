@@ -14,15 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
-// import {
-//   DropdownMenu,
-//   DropdownMenuCheckboxItem,
-//   DropdownMenuContent,
-//   DropdownMenuLabel,
-//   DropdownMenuSeparator,
-//   DropdownMenuTrigger,
-// } from "@/components/ui/dropdown-menu";
-// type Checked = DropdownMenuCheckboxItemProps["checked"];
+
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
@@ -33,42 +25,46 @@ import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
   SelectContent,
+  SelectItem,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-const items = [
-  {
-    id: "computer science",
-    label: "Computer Science",
-  },
-  {
-    id: "it",
-    label: "IT",
-  },
-
-  {
-    id: "writer",
-    label: "Writer",
-  },
-] as const;
+import jobRoles from "@/public/jobRoles.json";
+import { API } from "@/lib/config";
 const JobSeekerForm = () => {
+  // full up role categories
+  const [roleCategories, setRoleCategories] = useState<
+    { id: number; name: string }[]
+  >([{ id: 1, name: "default" }]);
+  const fullUpRoleCategories = async (value: any) => {
+    try {
+      const { data } = await axios.get(`${API}/allJobs`);
+      setRoleCategories(data);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const form = useForm<z.infer<typeof jobSeekerValidator>>({
     resolver: zodResolver(jobSeekerValidator),
     defaultValues: {
       name: "",
       jobCategory: [],
+      role: "",
     },
   });
 
   async function onSubmit(values: z.infer<typeof jobSeekerValidator>) {
-    try {
-      const formData: any = values;
-      await axios.post("http://localhost:3000/api/jobSeeker", formData);
-      form.reset();
-      toast.success("success Registered");
-    } catch (error: any) {
-      toast.error(error.response.data);
-    }
+    console.log(values);
+    alert(1);
+    // try {
+    //   const formData: any = values;
+    //   await axios.post("http://localhost:3000/api/jobSeeker", formData);
+    //   form.reset();
+    //   toast.success("success Registered");
+    // } catch (error: any) {
+    //   toast.error(error.response.data);
+    // }
   }
   return (
     <div className="w-full">
@@ -102,6 +98,38 @@ const JobSeekerForm = () => {
                   </FormItem>
                 )}
               />
+              {/* job roles  */}
+              <FormField
+                control={form.control}
+                name="role"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="dark:text-gray-200">
+                      Job Roles
+                    </FormLabel>
+                    <FormControl>
+                      <Select
+                        value={field.value}
+                        onOpenChange={() => fullUpRoleCategories(field.value)}
+                        onValueChange={field.onChange}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="work Type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {jobRoles.map((item) => (
+                            <SelectItem key={item.id} value={item.id}>
+                              {item.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <div>
                 <FormLabel className=" dark:text-gray-200">
                   Job Categories
@@ -111,7 +139,7 @@ const JobSeekerForm = () => {
                     <SelectValue placeholder="Job Categories" />
                   </SelectTrigger>
                   <SelectContent>
-                    {items.map((item) => (
+                    {roleCategories.map((item: any) => (
                       <FormField
                         key={item.id}
                         control={form.control}
@@ -140,7 +168,7 @@ const JobSeekerForm = () => {
                                 />
                               </FormControl>
                               <FormLabel className="text-sm font-normal">
-                                {item.label}
+                                {item.jobCategory}
                               </FormLabel>
                             </FormItem>
                           );
