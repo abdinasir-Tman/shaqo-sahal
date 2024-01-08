@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import ReactQueryClientProvider from "./providers/ReactQueryClientProvider";
 import { ThemeProvider } from "./providers/ThemeProvider";
 import Nav from "./_components/Nav";
+import { CategoryProvider } from "@/hooks/CategoryContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,11 +31,13 @@ export default function RootLayout({
         >
           <ReactQueryClientProvider>
             <NextAuthProvider>
-              <main className="h-full w-full">
-                {children}
+              <CategoryProvider>
+                <main className="h-full w-full">
+                  {children}
 
-                <Toaster />
-              </main>
+                  <Toaster />
+                </main>
+              </CategoryProvider>
             </NextAuthProvider>
           </ReactQueryClientProvider>
         </ThemeProvider>

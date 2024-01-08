@@ -35,7 +35,7 @@ const Nav = () => {
           >
             Dashboard
           </Button>
-        ) : session?.user?.type === "user" ? (
+        ) : session?.user?.type === "jobSeeker" ? (
           <Button
             size={"sm"}
             onClick={() => {

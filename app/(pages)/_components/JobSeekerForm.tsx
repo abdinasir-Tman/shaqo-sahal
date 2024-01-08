@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import z from "zod";
+import { useCategory } from "@/hooks/CategoryContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import jobSeekerValidator from "@/app/validationSchema/jobSeekerSchemaValidator";
@@ -29,22 +30,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import jobRoles from "@/public/jobRoles.json";
+
 import { API } from "@/lib/config";
+import JobRolesItems from "./JobRolesItems";
+
 const JobSeekerForm = () => {
-  // full up role categories
-  const [roleCategories, setRoleCategories] = useState<
-    { id: number; name: string }[]
-  >([{ id: 1, name: "default" }]);
-  const fullUpRoleCategories = async (value: any) => {
-    try {
-      const { data } = await axios.get(`${API}/allJobs`);
-      setRoleCategories(data);
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const { roleCategories } = useCategory();
+
   const form = useForm<z.infer<typeof jobSeekerValidator>>({
     resolver: zodResolver(jobSeekerValidator),
     defaultValues: {
@@ -55,17 +47,16 @@ const JobSeekerForm = () => {
   });
 
   async function onSubmit(values: z.infer<typeof jobSeekerValidator>) {
-    console.log(values);
-    alert(1);
-    // try {
-    //   const formData: any = values;
-    //   await axios.post("http://localhost:3000/api/jobSeeker", formData);
-    //   form.reset();
-    //   toast.success("success Registered");
-    // } catch (error: any) {
-    //   toast.error(error.response.data);
-    // }
+    try {
+      const formData: any = values;
+      await axios.post("http://localhost:3000/api/jobSeeker", formData);
+      form.reset();
+      toast.success("success Registered");
+    } catch (error: any) {
+      toast.error(error.response.data);
+    }
   }
+
   return (
     <div className="w-full">
       <Card className="w-full">
@@ -99,38 +90,10 @@ const JobSeekerForm = () => {
                 )}
               />
               {/* job roles  */}
-              <FormField
-                control={form.control}
-                name="role"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="dark:text-gray-200">
-                      Job Roles
-                    </FormLabel>
-                    <FormControl>
-                      <Select
-                        value={field.value}
-                        onOpenChange={() => fullUpRoleCategories(field.value)}
-                        onValueChange={field.onChange}
-                      >
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="work Type" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {jobRoles.map((item) => (
-                            <SelectItem key={item.id} value={item.id}>
-                              {item.name}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </FormControl>
+              <JobRolesItems control={form.control} />
 
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div>
+              {/* job categories  */}
+              <div className="flex flex-col gap-3">
                 <FormLabel className=" dark:text-gray-200">
                   Job Categories
                 </FormLabel>
@@ -152,23 +115,23 @@ const JobSeekerForm = () => {
                             >
                               <FormControl>
                                 <Checkbox
-                                  checked={field.value?.includes(item.id)}
+                                  checked={field.value?.includes(item.name)}
                                   onCheckedChange={(checked) => {
                                     return checked
                                       ? field.onChange([
                                           ...field.value,
-                                          item.id,
+                                          item.name,
                                         ])
                                       : field.onChange(
                                           field.value?.filter(
-                                            (value: any) => value !== item.id
+                                            (value: any) => value !== item.name
                                           )
                                         );
                                   }}
                                 />
                               </FormControl>
                               <FormLabel className="text-sm font-normal">
-                                {item.jobCategory}
+                                {item.name}
                               </FormLabel>
                             </FormItem>
                           );
