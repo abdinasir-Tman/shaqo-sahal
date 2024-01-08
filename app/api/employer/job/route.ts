@@ -24,9 +24,11 @@ export const POST = async (req: NextRequest) => {
         employerId: employer.id,
         workType: body.workType,
         location: body.location,
+        salaryType: body.salaryType,
+        requirements: body.requirements,
       },
     });
-    console.log(jobList);
+
     return NextResponse.json(jobList, { status: 201 });
   } catch (error) {
     console.log("error at register job ", error);

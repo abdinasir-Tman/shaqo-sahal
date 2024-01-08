@@ -31,6 +31,13 @@ export const columns: ColumnDef<JobList>[] = [
     },
   },
   {
+    accessorKey: "requirements",
+    header: "Requirements",
+    cell: ({ row }) => {
+      return <div className="truncate w-56">{row.original.requirements}</div>;
+    },
+  },
+  {
     accessorKey: "description",
     header: "Description",
     cell: ({ row }) => {
@@ -43,6 +50,10 @@ export const columns: ColumnDef<JobList>[] = [
     header: "Job Category",
   },
   ,
+  {
+    accessorKey: "salaryType",
+    header: "Salary Type",
+  },
   {
     accessorKey: "salary",
     header: "Salary",

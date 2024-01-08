@@ -1,30 +1,3 @@
-// "use client";
-
-// import { API } from "@/lib/config";
-// import axios from "axios";
-// import { useState } from "react";
-
-// export const useCategory = () => {
-//   const [roleCategories, setRoleCategories] = useState<
-//     { id: string; name: string; jobRolesId?: string }[]
-//   >([]);
-
-//   const getCategory = async (id: string) => {
-//     const { data } = await axios.get(`${API}/jobSeeker/jobRoles`);
-
-//     data.map((role: any) => {
-//       if (role.id === id) {
-//         setRoleCategories(role.roleCategory);
-//       }
-//     });
-//   };
-//   console.log(roleCategories);
-//   return {
-//     roleCategories,
-//     getCategory,
-//   };
-// };
-// CategoryContext.js
 "use client";
 import React, { createContext, useContext, useState } from "react";
 import axios from "axios";
@@ -33,9 +6,15 @@ interface RoleCategory {
   id: string;
   name: string;
 }
+interface AllCategory {
+  id: string;
+  name: string;
+}
 
 interface CategoryContextType {
   roleCategories: RoleCategory[];
+  allCategories: AllCategory[];
+  getAllCategories: () => Promise<void>;
   getCategory: (id: string) => Promise<void>;
 }
 // Create a context
@@ -46,6 +25,7 @@ const CategoryContext = createContext<CategoryContextType | undefined>(
 // Provider component
 export const CategoryProvider = ({ children }: any) => {
   const [roleCategories, setRoleCategories] = useState<RoleCategory[]>([]);
+  const [allCategories, setAllCategories] = useState<AllCategory[]>([]);
 
   const getCategory = async (id: string) => {
     const { data } = await axios.get(`${API}/jobSeeker/jobRoles`);
@@ -56,9 +36,17 @@ export const CategoryProvider = ({ children }: any) => {
       }
     });
   };
+  const getAllCategories = async () => {
+    const { data } = await axios.get(`${API}/jobSeeker/jobRoles`);
+    const category = data.flatMap((role: any) => role.roleCategory);
+
+    setAllCategories(category);
+  };
 
   return (
-    <CategoryContext.Provider value={{ roleCategories, getCategory }}>
+    <CategoryContext.Provider
+      value={{ roleCategories, getCategory, getAllCategories, allCategories }}
+    >
       {children}
     </CategoryContext.Provider>
   );

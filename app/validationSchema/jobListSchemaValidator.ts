@@ -7,5 +7,7 @@ const jobListValidator = z.object({
   jobCategory: z.string(),
   workType: z.string(),
   location: z.string(),
+  salaryType: z.string().optional(),
+  requirements: z.string().optional(),
 });
 export default jobListValidator;

@@ -29,19 +29,28 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-const items = [
+import { JobCategoryItem } from "./jobCategory";
+const salaryType = [
   {
-    id: "computer science",
-    label: "Computer Science",
+    id: "year",
+    label: "Year",
   },
   {
-    id: "it",
-    label: "IT",
+    id: "month",
+    label: "Month",
   },
 
   {
-    id: "writer",
-    label: "Writer",
+    id: "week",
+    label: "Week",
+  },
+  {
+    id: "day",
+    label: "Day",
+  },
+  {
+    id: "hour",
+    label: "Hour",
   },
 ] as const;
 const workTypes = [
@@ -71,13 +80,15 @@ const JobForm = ({ joblist }: { joblist: JobListing }) => {
       jobCategory: joblist?.jobCategory,
       workType: joblist?.workType,
       location: joblist?.location,
+      salaryType: joblist?.salaryType,
+      requirements: joblist?.requirements,
     },
   });
 
   async function onSubmit(values: z.infer<typeof jobListValidator>) {
     try {
       const formData: any = values;
-      console.log(formData);
+
       if (joblist) {
         await axios.patch(
           `http://localhost:3000/api/employer/job/${joblist?.id}`,
@@ -149,35 +160,9 @@ const JobForm = ({ joblist }: { joblist: JobListing }) => {
                 )}
               />
 
-              <FormField
+              <JobCategoryItem
                 control={form.control}
-                name="jobCategory"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="dark:text-gray-200">
-                      Job Category
-                    </FormLabel>
-                    <FormControl>
-                      <Select
-                        value={field.value}
-                        onValueChange={field.onChange}
-                      >
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Job Categories" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {items.map((item) => (
-                            <SelectItem value={item.id}>
-                              {item.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </FormControl>
-
-                    <FormMessage />
-                  </FormItem>
-                )}
+                setValue={form.setValue}
               />
               <FormField
                 control={form.control}
@@ -223,6 +208,56 @@ const JobForm = ({ joblist }: { joblist: JobListing }) => {
                           ))}
                         </SelectContent>
                       </Select>
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="salaryType"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="dark:text-gray-200">
+                      Salary Type
+                    </FormLabel>
+                    <FormControl>
+                      <Select
+                        value={field.value}
+                        onValueChange={field.onChange}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Salary Type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {salaryType.map((item) => (
+                            <SelectItem value={item.id}>
+                              {item.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="requirements"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="dark:text-gray-200">
+                      Job Requirements
+                    </FormLabel>
+                    <FormControl>
+                      <Textarea
+                        className="dark:text-gray-200"
+                        placeholder="requirements"
+                        {...field}
+                      />
                     </FormControl>
 
                     <FormMessage />

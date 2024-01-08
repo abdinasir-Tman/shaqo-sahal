@@ -85,6 +85,8 @@ model JobListing {
   title        String
   description  String
   salary       Float
+  salaryType   String        @default("")
+  requirements String        @default("")
   jobCategory  String        @default("")
   location     String        @default("")
   workType     String        @default("")
