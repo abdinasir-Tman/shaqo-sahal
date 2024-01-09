@@ -1,4 +1,5 @@
 import AllJobs from "./_components/AllJobs";
+import Filters from "./_components/Filters";
 import Nav from "./_components/Nav";
 
 export default function Home() {
@@ -8,14 +9,9 @@ export default function Home() {
         <Nav />
       </div>
 
-      <div className="hidden md:flex h-full w-56 flex-col fixed inset-y-0 z-10 shadow-lg dark:shadow-gray-800 mt-48">
+      <div className="hidden md:flex h-full w-56 flex-col fixed inset-y-0 z-10 overflow-auto shadow-lg dark:shadow-gray-800 mt-44">
         <h1 className="text-2xl font-bold font-serif">Filters</h1>
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Obcaecati
-          ratione repellendus, officia voluptate totam assumenda voluptatem
-          fugit, nam corrupti voluptates, tempore nisi temporibus amet suscipit
-          quos corporis et a provident.
-        </p>
+        <Filters />
       </div>
       <main className="mt-[75px] md:pl-60 h-full container mx-auto py-7">
         <div className="py-10">

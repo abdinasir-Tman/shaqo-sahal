@@ -28,7 +28,7 @@ const Preview = async () => {
   } catch (error) {
     console.log(error);
   }
-  if (data?.length < 3)
+  if (data?.length <= 3)
     return (
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
         <div className="p-3 border-b-4 rounded-md bg-gray-100 dark:bg-gray-800 border-green-800">
@@ -55,7 +55,9 @@ const Preview = async () => {
         <div className="p-3 border-b-4 rounded-md bg-gray-100 dark:bg-gray-800 border-red-800">
           <h1>Diclained</h1>
           <div className="flex justify-between items-center">
-            <h1 className="text-4xl font-sans font-bold">{0}</h1>
+            <h1 className="text-4xl font-sans font-bold">
+              {data[2]?._count.status ? data[2]?._count.status : 0}
+            </h1>
             <FaLock className="text-7xl text-red-800" />
           </div>
         </div>

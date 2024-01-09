@@ -10,6 +10,9 @@ const AppPage = async () => {
   const { user }: any = await getToken();
   try {
     data = await prisma?.application.findMany({
+      orderBy: {
+        created: "desc",
+      },
       include: {
         JobListing: {
           include: {

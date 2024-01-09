@@ -40,11 +40,11 @@ const Applicants = async ({ params }: { params: { jobId: string } }) => {
         </div>
         <span className="absolute right-2">
           {" "}
-          {formatDistance(new Date(data?.created!), new Date())}{" "}
+          {formatDistance(new Date(data?.created!), new Date())}
         </span>
       </div>
       {/* content  */}
-      <div className="flex justify-between space-x-3 mt-3">
+      <div className="flex flex-col space-y-3 md:justify-between md:flex-row md:space-x-3 mt-3">
         {/* left side location and employement time  */}
         <div>
           <span className="flex dark:text-white text-black items-center gap-x-1">
@@ -54,6 +54,10 @@ const Applicants = async ({ params }: { params: { jobId: string } }) => {
           <span className="flex dark:text-white text-black items-center gap-x-1">
             <small className="text-lg font-bold"> Employment Type:</small>
             <i>{data?.workType}</i>
+          </span>
+          <span className="flex dark:text-white text-black items-center gap-x-1">
+            <small className="text-lg font-bold"> Salary Type:</small>
+            <i>{data?.salaryType}</i>
           </span>
         </div>
 
@@ -67,10 +71,20 @@ const Applicants = async ({ params }: { params: { jobId: string } }) => {
             <small className="text-lg font-bold"> Salary : </small>
             <i>{data?.salary}</i>
           </span>
+          <span className="flex dark:text-white text-black items-center gap-x-1">
+            <small className="text-lg font-bold"> Job Category : </small>
+            <i>{data?.jobCategory}</i>
+          </span>
         </div>
+      </div>
+      {/* Requirements  */}
+      <div>
+        <span className="text-2xl italic">Requirements</span>
+        <p className="text-md mt-3">{data?.requirements}</p>
       </div>
       {/* description  */}
       <div>
+        <span className="text-2xl italic">job Description</span>
         <p className="text-md mt-3">{data?.description}</p>
       </div>
       <h1 className="text-red-500">
