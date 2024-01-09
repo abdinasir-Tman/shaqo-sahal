@@ -1,11 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import {
-  Briefcase,
-  HeartHandshake,
-  LucideIcon,
-  SquareUser,
-} from "lucide-react";
+import { HeartHandshake, LucideIcon, SquareUser } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -13,21 +8,15 @@ import React from "react";
 const sideRoutes = [
   {
     id: 1,
-    path: "/job",
-    label: "Job",
-    icon: Briefcase,
+    path: "/profile",
+    label: "Profile",
+    icon: SquareUser,
   },
   {
     id: 2,
     path: "/application",
     label: "Application",
     icon: HeartHandshake,
-  },
-  {
-    id: 1,
-    path: "/profile",
-    label: "Profile",
-    icon: SquareUser,
   },
 ];
 const SideBar = () => {
@@ -69,7 +58,7 @@ const ItemsList = ({ icon: Icon, label, path }: SidebarItemProps) => {
 
   return (
     <button
-      onClick={() => router.push(`/dashboard/${path}`)}
+      onClick={() => router.push(`/profile/${path}`)}
       type="button"
       className={cn(
         "flex items-center gap-x-2 w-full   font-[500] pl-6 transition-all",

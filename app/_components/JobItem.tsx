@@ -37,7 +37,7 @@ const JobItem = ({
       <div className="flex space-x-3 py-2 w-full">
         {/* logo  */}
         <Image
-          src={Employer?.logo}
+          src={Employer?.logo.url}
           className="rounded-md border border-gray-500 object-cover"
           height={80}
           width={66}

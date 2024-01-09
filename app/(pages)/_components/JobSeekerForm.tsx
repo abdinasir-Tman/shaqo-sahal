@@ -33,23 +33,32 @@ import {
 
 import { API } from "@/lib/config";
 import JobRolesItems from "./JobRolesItems";
+import { JobSeeker } from "@prisma/client";
 
-const JobSeekerForm = () => {
+const JobSeekerForm = ({ jobSeeker }: { jobSeeker: JobSeeker }) => {
   const { roleCategories } = useCategory();
 
   const form = useForm<z.infer<typeof jobSeekerValidator>>({
     resolver: zodResolver(jobSeekerValidator),
     defaultValues: {
-      name: "",
-      jobCategory: [],
-      role: "",
+      name: jobSeeker?.name,
+      jobCategory: jobSeeker?.jobCategory,
+      role: jobSeeker?.role,
     },
   });
 
   async function onSubmit(values: z.infer<typeof jobSeekerValidator>) {
     try {
       const formData: any = values;
-      await axios.post("http://localhost:3000/api/jobSeeker", formData);
+      if (jobSeeker) {
+        await axios.patch(
+          `http://localhost:3000/api/jobSeeker/${jobSeeker.id}`,
+          formData
+        );
+      } else {
+        await axios.post("http://localhost:3000/api/jobSeeker", formData);
+      }
+
       form.reset();
       toast.success("success Registered");
     } catch (error: any) {
@@ -58,7 +67,7 @@ const JobSeekerForm = () => {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full md:w-[42rem]">
       <Card className="w-full">
         <CardHeader>
           <CardTitle>JobSeeker Form</CardTitle>
@@ -143,7 +152,7 @@ const JobSeekerForm = () => {
               </div>
 
               <ButtonLoading
-                isUpdate={false}
+                isUpdate={!!jobSeeker}
                 loading={form.formState.isSubmitting}
               />
             </form>

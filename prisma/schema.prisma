@@ -73,7 +73,7 @@ model Employer {
   id          String       @id @default(auto()) @map("_id") @db.ObjectId
   companyName String
   address     String
-  logo        String
+  logo        Json
   email       String       @unique
   jobListings JobListing[]
   created     DateTime     @default(now())

@@ -9,7 +9,7 @@ export default function Home() {
         <Nav />
       </div>
 
-      <div className="hidden md:flex h-full w-56 flex-col fixed inset-y-0 z-10 overflow-auto shadow-lg dark:shadow-gray-800 mt-44">
+      <div className="hidden md:flex h-full w-56 flex-col fixed inset-y-0 z-10 overflow-y-auto shadow-lg dark:shadow-gray-800 mt-44">
         <h1 className="text-2xl font-bold font-serif">Filters</h1>
         <Filters />
       </div>

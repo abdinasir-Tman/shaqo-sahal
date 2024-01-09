@@ -26,7 +26,8 @@ const Applicants = async ({ params }: { params: { jobId: string } }) => {
       {/* title  */}
       <div className="flex space-x-2">
         <Image
-          src={data?.Employer?.logo!}
+          // @ts-ignore
+          src={data?.Employer?.logo?.url}
           width={70}
           height={88}
           className="object-cover overflow-hidden"

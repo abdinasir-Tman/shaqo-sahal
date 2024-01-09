@@ -20,16 +20,17 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { CldUploadWidget } from "next-cloudinary";
 import toast from "react-hot-toast";
+import { Employer } from "@prisma/client";
 
-const EmployerForm = () => {
+const EmployerForm = ({ Employer }: { Employer: Employer }) => {
   const { data: session }: any = useSession();
-  const [file, setFile] = useState<string>();
+  const [file, setFile] = useState<{ url: string; public_id: string }>();
 
   const form = useForm<z.infer<typeof validateEmployer>>({
     resolver: zodResolver(validateEmployer),
     defaultValues: {
-      companyName: "",
-      address: "",
+      companyName: Employer?.companyName,
+      address: Employer?.address,
     },
   });
 
@@ -38,11 +39,18 @@ const EmployerForm = () => {
       const formData: any = values;
       formData["email"] = session?.user.email;
       formData["newImage"] = file;
+      if (Employer) {
+        await axios.patch(
+          "http://localhost:3000/api/employer/" + Employer.id,
+          formData
+        );
+        toast.success("success Updated");
+      } else {
+        await axios.post("http://localhost:3000/api/employer", formData);
+        toast.success("success Registered");
+      }
 
-      await axios.post("http://localhost:3000/api/employer", formData);
       form.reset();
-      setFile("");
-      toast.success("success Registered");
     } catch (error) {
       console.log(error);
       toast.error("unknown error");
@@ -132,7 +140,7 @@ const EmployerForm = () => {
                   uploadPreset="ml_default"
                   onUpload={(result, widget) =>
                     // @ts-ignore
-                    setFile(result.info.url)
+                    setFile(result.info)
                   }
                 >
                   {({ open }) => {
@@ -159,7 +167,7 @@ const EmployerForm = () => {
                       Image Preview:
                     </label>
                     <img
-                      src={file}
+                      src={file.url}
                       alt="Preview"
                       className="w-full h-64 object-cover rounded-md"
                     />
@@ -170,7 +178,7 @@ const EmployerForm = () => {
               {file && (
                 <ButtonLoading
                   loading={form.formState.isSubmitting}
-                  isUpdate={false}
+                  isUpdate={!!Employer}
                 />
               )}
             </form>
