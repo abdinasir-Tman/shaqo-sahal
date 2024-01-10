@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { HiOutlineCalendar } from "react-icons/hi";
 import Image from "next/image";
@@ -31,8 +32,9 @@ const JobItem = ({
   workType,
 }: JobItems) => {
   const router = useRouter();
+
   return (
-    <div className="flex flex-col rounded-sm cursor-pointer p-2 w-full shadow-md dark:shadow-gray-900">
+    <div className="flex flex-col rounded-sm cursor-pointer p-2 w-full shadow-lg dark:shadow-gray-900">
       {/* title  */}
       <div className="flex space-x-3 py-2 w-full">
         {/* logo  */}
@@ -50,8 +52,8 @@ const JobItem = ({
           <h1 className="text-lg font-serif font-bold">{title}</h1>
         </div>
         {/* <div className="float-right"> */}
-        <span className="float-left flex space-x-2">
-          {formatDistance(new Date(created), new Date())} ago
+        <span className="float-right  flex space-x-2">
+          {formatDistance(new Date(created || new Date()), new Date())} ago
         </span>
 
         {/* </div> */}

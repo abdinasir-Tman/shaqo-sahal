@@ -67,6 +67,18 @@ const workTypes = [
     id: "partTime",
     label: "Part Time",
   },
+  {
+    id: "consultant",
+    label: "Consultant",
+  },
+  {
+    id: "internship",
+    label: "Internship",
+  },
+  {
+    id: "temporary",
+    label: "Temporary",
+  },
 ] as const;
 const JobForm = ({ joblist }: { joblist: JobListing }) => {
   const router = useRouter();

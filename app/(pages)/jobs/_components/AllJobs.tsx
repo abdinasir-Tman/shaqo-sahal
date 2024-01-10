@@ -59,7 +59,7 @@ const AllJobs = () => {
         </div>
       </div>
 
-      <div className="p-2 w-full spacey-2">
+      <div className="p-2 w-full space-y-3">
         <h3 className="my-2 text-2xl dark:gray-400 font-semibold overflow-y-auto">
           {data?.length} Job Found
         </h3>

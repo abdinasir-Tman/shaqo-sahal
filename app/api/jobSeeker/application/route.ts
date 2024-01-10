@@ -1,4 +1,4 @@
-import sendApplicationEmail from "@/app/utils/emails/email";
+import sendApplicationEmail from "@/app/utils/emails/applicationemail";
 import { getToken } from "@/app/utils/token";
 import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
@@ -9,6 +9,11 @@ export const POST = async (req: NextRequest) => {
   const { user }: any = await getToken();
 
   if (!user) return NextResponse.json("not authenticated", { status: 500 });
+  const usr = await prisma.jobSeeker.findFirst({
+    where: {
+      email: user?.email,
+    },
+  });
   try {
     const existRequest = await prisma?.application.findFirst({
       where: {
@@ -22,7 +27,7 @@ export const POST = async (req: NextRequest) => {
     const newApplication = await prisma?.application.create({
       data: {
         coverLetter: body.coverLetter,
-        jobSeekerId: user?.id,
+        jobSeekerId: usr?.id,
         jobListingId: body.jobId,
       },
     });
@@ -35,15 +40,21 @@ export const POST = async (req: NextRequest) => {
           Employer: true,
         },
       });
+      const person = {
+        name: usr?.name,
+        description: body.coverLetter,
+        jobTitle: job?.title,
+      };
       await sendApplicationEmail(
         user?.email,
         job?.Employer?.email!,
-        body.coverLetter + " \n" + job?.title,
+        person,
         newApplication.id
       );
     }
     return NextResponse.json(newApplication, { status: 201 });
   } catch (error) {
+    console.log(error);
     return NextResponse.json("error", { status: 501 });
   }
 };

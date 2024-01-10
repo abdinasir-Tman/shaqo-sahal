@@ -5,7 +5,7 @@ import NextAuthProvider from "./providers/NextAuthProvider";
 import { Toaster } from "react-hot-toast";
 import ReactQueryClientProvider from "./providers/ReactQueryClientProvider";
 import { ThemeProvider } from "./providers/ThemeProvider";
-import Nav from "./_components/Nav";
+import Nav from "./(pages)/jobs/_components/Nav";
 import { CategoryProvider } from "@/hooks/CategoryContext";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -32,7 +32,7 @@ export default function RootLayout({
           <ReactQueryClientProvider>
             <NextAuthProvider>
               <CategoryProvider>
-                <main className="h-full w-full">
+                <main className="">
                   {children}
 
                   <Toaster />

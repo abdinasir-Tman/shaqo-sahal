@@ -28,8 +28,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { useRouter } from "next/navigation";
 
 const ApplicationForm = ({ jobId }: { jobId: string }) => {
+  const router = useRouter();
   const form = useForm<z.infer<typeof applicationValidator>>({
     resolver: zodResolver(applicationValidator),
     defaultValues: {
@@ -46,6 +48,7 @@ const ApplicationForm = ({ jobId }: { jobId: string }) => {
         "http://localhost:3000/api/jobSeeker/application",
         formData
       );
+      router.refresh();
       form.reset();
       toast.success("success Registered");
     } catch (error: any) {

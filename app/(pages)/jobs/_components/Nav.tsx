@@ -21,7 +21,9 @@ const Nav = () => {
           <Image src="/dark_logo.svg" width={33} height={33} alt="logo" />
         </Link>
       </div>
-
+      <Link href="/jobs" className="transition-all duration-300">
+        Jobs
+      </Link>
       <div className="flex items-center gap-x-2">
         <ModeToggle />
 

@@ -3,7 +3,7 @@ import { MoonIcon, SunIcon } from "lucide-react";
 
 import React, { useEffect, useState } from "react";
 import MobileMenu from "./MobileMenue";
-import { ModeToggle } from "@/app/_components/ThemeMode";
+import { ModeToggle } from "@/app/(pages)/jobs/_components/ThemeMode";
 
 const Navbar = () => {
   return (

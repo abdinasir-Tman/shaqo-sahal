@@ -1,4 +1,4 @@
-import Nav from "@/app/_components/Nav";
+import Nav from "@/app/(pages)/jobs/_components/Nav";
 import React from "react";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
