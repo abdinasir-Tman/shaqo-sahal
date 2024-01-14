@@ -27,6 +27,9 @@ export const POST = async (req: NextRequest) => {
     const newApplication = await prisma?.application.create({
       data: {
         coverLetter: body.coverLetter,
+        linkedIn: body.linkedIn,
+        portfolio: body.portfolio,
+        resume: body.resume,
         jobSeekerId: usr?.id,
         jobListingId: body.jobId,
       },
@@ -46,8 +49,8 @@ export const POST = async (req: NextRequest) => {
         jobTitle: job?.title,
       };
       await sendApplicationEmail(
-        user?.email,
         job?.Employer?.email!,
+        user?.email,
         person,
         newApplication.id
       );

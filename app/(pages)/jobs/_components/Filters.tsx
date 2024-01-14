@@ -10,7 +10,7 @@ const Filters = () => {
     <div className="flex items-center flex-col gap-6 ">
       {/* Time ago posted  */}
       <div className="flex items-start flex-col gap-3 overflow-y-auto">
-        <h1 className="font-mono italic text-3xl font-bold leading-[3rem]">
+        <h1 className="font-mono italic text-2xl font-bold leading-[3rem]">
           Time Ago
         </h1>
         <RadioGroup
@@ -34,7 +34,7 @@ const Filters = () => {
       </div>
       {/* job types  */}
       <div className="flex items-start flex-col gap-3 overflow-y-auto">
-        <h1 className="font-mono italic text-3xl font-bold leading-[3rem]">
+        <h1 className="font-mono italic text-2xl font-bold leading-[3rem]">
           Job Types
         </h1>
         <RadioGroup

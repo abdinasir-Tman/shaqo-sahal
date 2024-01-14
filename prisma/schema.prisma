@@ -105,6 +105,9 @@ model Application {
   jobSeekerId  String?     @db.ObjectId
   JobListing   JobListing? @relation(fields: [jobListingId], references: [id],onDelete: Cascade)
   jobListingId String?     @db.ObjectId
+  resume String  @default("")
+  linkedIn String @default("")
+  portfolio String @default("")
   created      DateTime    @default(now())
   updated      DateTime    @updatedAt
 }

@@ -14,17 +14,18 @@ const Nav = () => {
   const router = useRouter();
 
   return (
-    <div className="w-full flex justify-between items-center  p-3 shadow-lg dark:shadow-gray-900">
+    <div className="z-50 w-full flex justify-between items-center  p-3 shadow-lg bg-white dark:bg-black  dark:shadow-gray-900">
       {/* logo  */}
       <div>
         <Link href="/">
           <Image src="/dark_logo.svg" width={33} height={33} alt="logo" />
         </Link>
       </div>
-      <Link href="/jobs" className="transition-all duration-300">
-        Jobs
-      </Link>
+
       <div className="flex items-center gap-x-2">
+        <Link href="/jobs" className="transition-all duration-300 mr-10">
+          Jobs
+        </Link>
         <ModeToggle />
 
         {session?.user?.type === "employer" ? (

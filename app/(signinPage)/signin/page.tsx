@@ -9,7 +9,7 @@ const Signin = () => {
     <div className="bg-main-50 dark:bg-main-950 max-w-5xl w-full h-screen flex justify-center items-center">
       <Button
         onClick={() => {
-          signIn("google");
+          signIn("google", { callbackUrl: "http://localhost:3000/" });
         }}
         className="max-w-lg p-3 space-x-3 bg-main-300 dark:bg-main-800 dark:hover:bg-main-900 dark:text-white text-black"
       >

@@ -22,7 +22,7 @@ const Applicants = async ({ params }: { params: { jobId: string } }) => {
     notFound();
   }
   return (
-    <div className="p-2 rounded-md shadow-md dark:bg-gray-800 w-full relative">
+    <div className="p-10 rounded-md shadow-md dark:bg-gray-800 w-full relative">
       {/* title  */}
       <div className="flex space-x-2">
         <Image

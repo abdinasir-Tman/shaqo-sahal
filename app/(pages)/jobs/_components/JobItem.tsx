@@ -34,7 +34,7 @@ const JobItem = ({
   const router = useRouter();
 
   return (
-    <div className="flex flex-col rounded-sm cursor-pointer p-2 w-full shadow-lg dark:shadow-gray-900">
+    <div className="flex flex-col rounded-sm cursor-pointer p-5 w-full shadow-lg dark:shadow-gray-900">
       {/* title  */}
       <div className="flex space-x-3 py-2 w-full">
         {/* logo  */}
@@ -77,7 +77,7 @@ const JobItem = ({
       </div>
       <div>
         <p className="mt-2 truncate">{description}</p>
-        <span className=" float-left mt-2 font-serif italic p-2 bg-green-900 rounded-full text-white">
+        <span className=" float-left mt-2 font-serif italic p-2 bg-green-900 rounded-md text-white">
           {jobCategory}
         </span>
         <Button

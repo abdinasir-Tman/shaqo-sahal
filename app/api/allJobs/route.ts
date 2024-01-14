@@ -4,10 +4,11 @@ import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async () => {
+  const session: any = (await getToken()) || null;
+  console.log(session);
   try {
-    const { user }: any = await getToken();
     let jobLists;
-    if (!user) {
+    if (!session) {
       jobLists = await prisma.jobListing.findMany({
         select: {
           title: true,
@@ -32,10 +33,10 @@ export const GET = async () => {
         },
       });
     } else {
-      if (user.type == "jobSeeker") {
+      if (session.user.type == "jobSeeker") {
         const usr = await prisma.jobSeeker.findFirst({
           where: {
-            email: user.email,
+            email: session.user.email,
           },
         });
         jobLists = await prisma.jobListing.findMany({

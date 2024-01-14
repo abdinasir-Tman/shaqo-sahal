@@ -5,7 +5,7 @@ import { MdFilterAlt } from "react-icons/md";
 export default function Home({ children }: { children: React.ReactNode }) {
   return (
     <div className="max-w-[1024px] w-full h-screen">
-      <div className="fixed top-0 inset-x-0 ">
+      <div className="fixed  z-50 top-0 inset-x-0 ">
         <Nav />
       </div>
 
