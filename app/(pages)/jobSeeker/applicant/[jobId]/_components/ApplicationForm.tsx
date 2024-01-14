@@ -121,7 +121,7 @@ const ApplicationForm = ({ jobId }: { jobId: string }) => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="dark:text-gray-200">
-                      Portfolio Link
+                      Portfolio url
                     </FormLabel>
                     <FormControl>
                       <Input

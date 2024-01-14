@@ -17,7 +17,7 @@ export const POST = async (req: NextRequest) => {
   try {
     const existRequest = await prisma?.application.findFirst({
       where: {
-        jobSeekerId: user?.id,
+        jobSeekerId: usr?.id,
         jobListingId: body.jobId,
       },
     });
