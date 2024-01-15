@@ -43,17 +43,8 @@ export const POST = async (req: NextRequest) => {
           Employer: true,
         },
       });
-      const person = {
-        name: usr?.name,
-        description: body.coverLetter,
-        jobTitle: job?.title,
-      };
-      await sendApplicationEmail(
-        job?.Employer?.email!,
-        user?.email,
-        person,
-        newApplication.id
-      );
+
+      await sendApplicationEmail(job?.Employer?.email!, user?.email);
     }
     return NextResponse.json(newApplication, { status: 201 });
   } catch (error) {

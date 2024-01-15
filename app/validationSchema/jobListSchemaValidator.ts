@@ -7,6 +7,9 @@ const jobListValidator = z.object({
   jobCategory: z.string(),
   workType: z.string(),
   location: z.string(),
+  deadline: z.date({
+    required_error: "A date of Deadline is required.",
+  }),
   salaryType: z.string().optional(),
   requirements: z.string().optional(),
 });

@@ -4,12 +4,14 @@ import { AiFillSchedule } from "react-icons/ai";
 import { FaLock } from "react-icons/fa";
 import { RiPassPendingFill } from "react-icons/ri";
 import ChangeToDecline from "./ChangeToDecline";
+import Link from "next/link";
 
 const ApplicationItems = ({ data }: any) => {
   return (
     <div className="grid md:grid-cols-2  gap-3">
       {data?.map((app: any) => (
-        <div
+        <Link
+          href={"/dashboard/appliers?id=" + app.id}
           className={`
             p-3 border-b-3 rounded-md bg-gray-100 dark:bg-gray-800
             ${
@@ -23,7 +25,7 @@ const ApplicationItems = ({ data }: any) => {
         >
           <h1 className="text-gray-500 text-sm">{app?.status}</h1>
           <div className="flex justify-between">
-            <h1 className="text-2xl font-sans">{app?.JobListing.title}</h1>
+            <h1 className="text-2xl font-sans">{app?.title}</h1>
             {app?.status == "interview" && (
               <h1>
                 <ChangeToDecline id={app?.id} />
@@ -39,7 +41,7 @@ const ApplicationItems = ({ data }: any) => {
               <FaLock className="text-7xl text-red-800" />
             )}
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

@@ -24,6 +24,7 @@ export const POST = async (req: NextRequest) => {
         employerId: employer.id,
         workType: body.workType,
         location: body.location,
+        deadline: body.deadline,
         salaryType: body.salaryType,
         requirements: body.requirements,
       },
@@ -47,6 +48,20 @@ export const GET = async () => {
   });
   try {
     const jobLists = await prisma.jobListing.findMany({
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        salary: true,
+
+        salaryType: true,
+        requirements: true,
+        jobCategory: true,
+        location: true,
+        workType: true,
+
+        created: true,
+      },
       where: {
         employerId: employer?.id,
       },

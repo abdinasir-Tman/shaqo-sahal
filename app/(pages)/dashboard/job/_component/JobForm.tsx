@@ -5,6 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import jobListValidator from "@/app/validationSchema/jobListSchemaValidator";
 import { Button } from "@/components/ui/button";
+import { addDays, format } from "date-fns";
+import { Calendar as CalendarIcon } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -30,6 +32,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { JobCategoryItem } from "./jobCategory";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import { Calendar } from "@/components/ui/calendar";
 const salaryType = [
   {
     id: "year",
@@ -92,11 +101,13 @@ const JobForm = ({ joblist }: { joblist: JobListing }) => {
       jobCategory: joblist?.jobCategory,
       workType: joblist?.workType,
       location: joblist?.location,
+      deadline: joblist?.deadline!,
       salaryType: joblist?.salaryType,
       requirements: joblist?.requirements,
     },
   });
-
+  //set date
+  const setDate = (date: any) => form.setValue("deadline", date);
   async function onSubmit(values: z.infer<typeof jobListValidator>) {
     try {
       const formData: any = values;
@@ -291,6 +302,71 @@ const JobForm = ({ joblist }: { joblist: JobListing }) => {
                         {...field}
                       />
                     </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="deadline"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="dark:text-gray-200">
+                      Deadline Date
+                    </FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-[240px] pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent
+                        className="flex w-auto flex-col space-y-2 p-2"
+                        align="start"
+                      >
+                        <Select
+                          onValueChange={(value) =>
+                            setDate(addDays(new Date(), parseInt(value)))
+                          }
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select" />
+                          </SelectTrigger>
+                          <SelectContent position="popper">
+                            <SelectItem value="7">In a Week</SelectItem>
+                            <SelectItem value="30">In a Month</SelectItem>
+                            <SelectItem value="60">In 2 Months</SelectItem>
+                            <SelectItem value="180">In 6 Months</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <div className="rounded-md border">
+                          <Calendar
+                            mode="single"
+                            selected={form.watch("deadline")}
+                            onSelect={setDate}
+                            // disabled={(date: any) =>
+                            //   date > new Date(new Date().getFullYear() + 1) ||
+                            //   date < new Date("2000-01-01")
+                            // }
+                            // initialFocus
+                          />
+                        </div>
+                      </PopoverContent>
+                    </Popover>
 
                     <FormMessage />
                   </FormItem>

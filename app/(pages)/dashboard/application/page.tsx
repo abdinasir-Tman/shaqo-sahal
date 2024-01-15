@@ -1,5 +1,6 @@
 import { getToken } from "@/app/utils/token";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 import React from "react";
 import { AiFillSchedule } from "react-icons/ai";
 import { FaLock } from "react-icons/fa";
@@ -9,18 +10,15 @@ const AppPage = async () => {
   let data;
   const { user }: any = await getToken();
   try {
-    data = await prisma?.application.findMany({
+    data = await prisma?.jobListing.findMany({
       orderBy: {
         created: "desc",
       },
+
       include: {
-        JobListing: {
-          include: {
-            Employer: {
-              where: {
-                email: user?.email,
-              },
-            },
+        Employer: {
+          where: {
+            email: user?.email,
           },
         },
       },
@@ -32,7 +30,8 @@ const AppPage = async () => {
   return (
     <div className="grid md:grid-cols-2  gap-3">
       {data?.map((app: any) => (
-        <div
+        <Link
+          href={"/dashboard/appliers?id=" + app.id}
           className={cn(
             "p-3 border-b-3 rounded-md bg-gray-100 dark:bg-gray-800",
             app?.status === "pending"
@@ -44,7 +43,7 @@ const AppPage = async () => {
         >
           {" "}
           <h1 className="text-gray-500 text-sm">{app?.status}</h1>
-          <h1 className="text-2xl font-sans">{app?.JobListing.title}</h1>
+          <h1 className="text-2xl font-sans">{app?.title}</h1>
           <div className="flex justify-between items-center">
             {app?.status == "pending" ? (
               <RiPassPendingFill className="text-7xl text-green-800" />
@@ -54,7 +53,7 @@ const AppPage = async () => {
               <FaLock className="text-7xl text-red-800" />
             )}
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

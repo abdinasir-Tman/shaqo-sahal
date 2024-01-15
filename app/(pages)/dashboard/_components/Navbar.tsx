@@ -7,7 +7,7 @@ import { ModeToggle } from "@/app/(pages)/jobs/_components/ThemeMode";
 
 const Navbar = () => {
   return (
-    <div className="p-3 h-full shadow-sm   w-full flex justify-between items-center">
+    <div className="p-3 h-full shadow-sm   w-full flex justify-between items-center dark:bg-black bg-white">
       <MobileMenu />
 
       <ModeToggle />

@@ -34,7 +34,12 @@ const JobItem = ({
   const router = useRouter();
 
   return (
-    <div className="flex flex-col rounded-sm cursor-pointer p-5 w-full shadow-lg dark:shadow-gray-900">
+    <div
+      onClick={() => {
+        router.push("./jobSeeker/applicant/" + id);
+      }}
+      className="flex flex-col rounded-sm cursor-pointer p-5 w-full shadow-lg dark:shadow-gray-900"
+    >
       {/* title  */}
       <div className="flex space-x-3 py-2 w-full">
         {/* logo  */}

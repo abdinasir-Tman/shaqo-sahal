@@ -85,6 +85,8 @@ model JobListing {
   title        String
   description  String
   salary       Float
+  status String   @default("pending")
+  deadline  DateTime?  
   salaryType   String        @default("")
   requirements String        @default("")
   jobCategory  String        @default("")

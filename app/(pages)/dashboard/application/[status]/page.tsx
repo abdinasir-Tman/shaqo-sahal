@@ -8,32 +8,25 @@ const Application = async ({ params }: { params: { status: string } }) => {
   const { user }: any = await getToken();
   try {
     if (params.status == "all") {
-      data = await prisma?.application.findMany({
+      data = await prisma?.jobListing.findMany({
         include: {
-          JobListing: {
-            include: {
-              Employer: {
-                where: {
-                  email: user?.email,
-                },
-              },
+          Employer: {
+            where: {
+              email: user?.email,
             },
           },
         },
       });
     } else {
-      data = await prisma?.application.findMany({
+      data = await prisma?.jobListing.findMany({
         where: {
           status: params.status,
         },
+
         include: {
-          JobListing: {
-            include: {
-              Employer: {
-                where: {
-                  email: user?.email,
-                },
-              },
+          Employer: {
+            where: {
+              email: user?.email,
             },
           },
         },
