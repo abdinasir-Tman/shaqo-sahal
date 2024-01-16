@@ -69,6 +69,9 @@ export const GET = async (req: NextRequest) => {
   if (!session) return NextResponse.json("please login first", { status: 501 });
   try {
     const meetings = await prisma.meeting.findMany({
+      orderBy: {
+        created: "desc",
+      },
       include: {
         Application: {
           include: {
