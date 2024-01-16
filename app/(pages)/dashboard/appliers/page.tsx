@@ -18,18 +18,21 @@ const Appliers = async ({ searchParams }: any) => {
         },
       },
     });
-    console.log(data);
   } catch (error) {
     console.log(error);
   }
 
   return (
-    <div className="flex flex-col items-start justify-start  gap-3 w-full md:w-[48rem] overflow-x-auto">
-      <div className="flex gap-4 w-full">
-        <h1 className="text-lg font-medium">Applier</h1>
-        <h1 className="text-lg font-medium">Personal Description</h1>
-        <h1 className="text-lg font-medium">Resume</h1>
-        <h1 className="text-lg font-medium">Admited</h1>
+    <div className="flex flex-col items-start justify-start  gap-3 w-full md:w-[60rem] overflow-x-auto">
+      <div className="p-9 mb-10 w-full">
+        <h1>Job Title :{data.title}</h1>
+      </div>
+      <div className="flex gap-1">
+        <h1 className="text-lg font-medium w-[15rem]">Applier</h1>
+        <h1 className="text-lg font-medium w-[5rem]">Status</h1>
+        <h1 className="text-lg font-medium w-[15rem]">Personal Description</h1>
+        <h1 className="text-lg font-medium w-[15rem]">Resume</h1>
+        <h1 className="text-lg font-medium w-[5rem]">Admited</h1>
       </div>
       <ApplierList data={data} />
     </div>

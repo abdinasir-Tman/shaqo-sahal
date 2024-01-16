@@ -7,6 +7,7 @@ import { DataTable } from "@/components/ui/data-table";
 import { columns } from "../columns";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 
 const List = () => {
   const router = useRouter();
@@ -17,7 +18,12 @@ const List = () => {
     // staleTime: 60 * 1000,
     // retry: 3,
   });
-  if (isLoading) return <h1>Loading...</h1>;
+  if (isLoading)
+    return (
+      <div className="h-screen w-full flex justify-center items-center">
+        <Loader2 className="animate-spin md:h-24 md:w-24  mx-2" />
+      </div>
+    );
   return (
     <div className="my-4 space-y-4 sm:p-6 lg:p-2">
       <div className="flex justify-end">

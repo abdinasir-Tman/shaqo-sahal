@@ -1,3 +1,4 @@
+// @ts-ignore
 import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
@@ -8,7 +9,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const sendInterviewEmail = async (from: string, to: string, date: any) => {
+const sendInterviewEmail = async (from: string, to: string, meeting: any) => {
   let html: any = `<!DOCTYPE html>
 <html>
   <head> <title>Apply job</title>
@@ -29,7 +30,12 @@ const sendInterviewEmail = async (from: string, to: string, date: any) => {
       Interview Scheduled
     </h1>
     
-    <div>Date : ${date}</div>
+    <div>Date : ${meeting.date}</div>
+    <div>Time : ${meeting.time}</div> 
+    <div>Time Duration : ${meeting.timeDuration} m</div> 
+    <div>via : ${meeting.type}</div> 
+    <div style="padding-top-20px;"> ${meeting.note}</div> 
+
     <h3>don't be late man!</h3>
     
 </body>

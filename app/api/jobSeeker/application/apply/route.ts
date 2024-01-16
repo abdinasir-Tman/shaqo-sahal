@@ -4,23 +4,24 @@ import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest, { searchParams }: any) => {
-  const { appId }: any = searchParams;
-  console.log(appId);
+  const body = await req.json();
+
   const session: any = await getToken();
-  console.log(session);
+
   if (!session) return NextResponse.json("not authenticated", { status: 500 });
   try {
     const updatedApp = await prisma?.application.update({
       where: {
-        id: appId,
+        id: body.appId,
       },
       data: {
-        admited: true,
+        admited: body.admited,
       },
     });
 
     if (updatedApp) return NextResponse.json(updatedApp, { status: 202 });
   } catch (error) {
-    return NextResponse.json("error", { status: 501 });
+    console.log(error);
+    return NextResponse.json(error, { status: 501 });
   }
 };

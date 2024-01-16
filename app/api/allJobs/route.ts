@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async () => {
   const session: any = (await getToken()) || null;
-  console.log(session);
+
   try {
     let jobLists;
     if (!session) {

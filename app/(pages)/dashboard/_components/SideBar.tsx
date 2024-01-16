@@ -5,6 +5,7 @@ import {
   HeartHandshake,
   LucideIcon,
   SquareUser,
+  Videotape,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,10 +25,16 @@ const sideRoutes = [
     icon: HeartHandshake,
   },
   {
-    id: 1,
+    id: 3,
     path: "/profile",
     label: "Profile",
     icon: SquareUser,
+  },
+  {
+    id: 4,
+    path: "/meeting",
+    label: "Meeting",
+    icon: Videotape,
   },
 ];
 const SideBar = () => {
