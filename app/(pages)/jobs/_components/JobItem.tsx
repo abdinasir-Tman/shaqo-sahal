@@ -36,7 +36,7 @@ const JobItem = ({
   return (
     <div
       onClick={() => {
-        router.push("./jobSeeker/applicant/" + id);
+        router.push("/jobSeeker/applicant/" + id);
       }}
       className="flex flex-col rounded-sm cursor-pointer p-5 w-full shadow-lg dark:shadow-gray-900"
     >

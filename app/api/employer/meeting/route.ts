@@ -19,6 +19,19 @@ export const POST = async (req: NextRequest) => {
       },
     });
     if (newMeeting) {
+      const { id }: any = await prisma.jobListing.findFirst({
+        where: {
+          applications: { some: { id: newMeeting.applicationId! } },
+        },
+      });
+      await prisma.jobListing.update({
+        where: {
+          id,
+        },
+        data: {
+          status: "interview",
+        },
+      });
       const meeting = {
         type: newMeeting.type,
         date: new Date(newMeeting.Date).toDateString(),
@@ -75,7 +88,15 @@ export const GET = async (req: NextRequest) => {
       include: {
         Application: {
           include: {
-            JobListing: true,
+            JobListing: {
+              include: {
+                Employer: {
+                  where: {
+                    email: session.user.email,
+                  },
+                },
+              },
+            },
             JobSeeker: true,
           },
         },

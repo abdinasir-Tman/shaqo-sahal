@@ -1,6 +1,11 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { HeartHandshake, LucideIcon, SquareUser } from "lucide-react";
+import {
+  HeartHandshake,
+  LucideIcon,
+  SquareUser,
+  Videotape,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -17,6 +22,12 @@ const sideRoutes = [
     path: "/application",
     label: "Application",
     icon: HeartHandshake,
+  },
+  {
+    id: 3,
+    path: "/meeting",
+    label: "Meeting",
+    icon: Videotape,
   },
 ];
 const SideBar = () => {

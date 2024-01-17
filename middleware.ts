@@ -18,6 +18,8 @@ export default withAuth(
 
     if (url?.includes("/dashboard") && userRole !== "employer") {
       return NextResponse.redirect(new URL("/", req.url));
+    } else if (url?.includes("/profile") && userRole !== "jobSeeker") {
+      return NextResponse.redirect(new URL("/", req.url));
     }
     return NextResponse.next();
   },

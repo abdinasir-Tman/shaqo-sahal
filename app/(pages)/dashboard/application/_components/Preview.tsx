@@ -9,7 +9,7 @@ const Preview = async () => {
 
   let data: any;
   try {
-    data = await prisma?.application.groupBy({
+    data = await prisma?.jobListing.groupBy({
       by: ["status"],
       _count: {
         status: true,
@@ -18,13 +18,12 @@ const Preview = async () => {
         status: "desc",
       },
       where: {
-        JobListing: {
-          Employer: {
-            email: user?.email,
-          },
+        Employer: {
+          email: user?.email,
         },
       },
     });
+    console.log(data);
   } catch (error) {
     console.log(error);
   }
@@ -35,7 +34,7 @@ const Preview = async () => {
           <h1>Pending</h1>
           <div className="flex justify-between items-center">
             <h1 className="text-4xl font-sans font-bold">
-              {data[0]?._count.status}
+              {data[0]?._count.status ? data[0]?._count.status : 0}
             </h1>
             <RiPassPendingFill className="text-7xl text-green-800" />
           </div>

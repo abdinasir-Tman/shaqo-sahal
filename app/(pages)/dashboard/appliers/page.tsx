@@ -29,7 +29,7 @@ const Appliers = async ({ searchParams }: any) => {
       </div>
       <div className="flex gap-1">
         <h1 className="text-lg font-medium w-[15rem]">Applier</h1>
-        <h1 className="text-lg font-medium w-[5rem]">Status</h1>
+        <h1 className="text-lg font-medium w-[12rem]">Status</h1>
         <h1 className="text-lg font-medium w-[15rem]">Personal Description</h1>
         <h1 className="text-lg font-medium w-[15rem]">Resume</h1>
         <h1 className="text-lg font-medium w-[5rem]">Admited</h1>

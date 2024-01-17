@@ -10,6 +10,19 @@ const Filters = () => {
     <div className="flex items-center flex-col gap-6 ">
       {/* Time ago posted  */}
       <div className="flex items-start flex-col gap-3 overflow-y-auto">
+        <span className="flex gap-x-2 justify-between items-center pl-3 py-2">
+          <input
+            className="scale-150"
+            onChange={() => {
+              router.push("/jobs");
+            }}
+            type="radio"
+            name="all"
+            value={"all"}
+            id=""
+          />
+          All
+        </span>
         <h1 className="font-mono italic text-2xl font-bold leading-[3rem]">
           Time Ago
         </h1>
@@ -38,7 +51,9 @@ const Filters = () => {
           Job Types
         </h1>
         <RadioGroup
-          onValueChange={(e) => {}}
+          onValueChange={(e) => {
+            router.push(`/jobs/employment?employment=${e}`);
+          }}
           className="flex items-start gap-2 text-lg font-serif flex-col"
         >
           <li className="flex gap-x-2 justify-between items-center">

@@ -9,16 +9,23 @@ const Application = async ({ params }: { params: { status: string } }) => {
   try {
     if (params.status == "all") {
       data = await prisma?.jobListing.findMany({
+        orderBy: {
+          created: "desc",
+        },
         include: {
           Employer: {
             where: {
               email: user?.email,
             },
           },
+          applications: true,
         },
       });
     } else {
       data = await prisma?.jobListing.findMany({
+        orderBy: {
+          created: "desc",
+        },
         where: {
           status: params.status,
         },
@@ -29,6 +36,7 @@ const Application = async ({ params }: { params: { status: string } }) => {
               email: user?.email,
             },
           },
+          applications: true,
         },
       });
     }

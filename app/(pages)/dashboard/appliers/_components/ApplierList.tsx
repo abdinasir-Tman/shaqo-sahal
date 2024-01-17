@@ -32,26 +32,29 @@ export const ApplierList = ({ data }: any) => {
               <span className="h-12 w-14 rounded-md"></span>{" "}
               <span className="text-gray">{applier.JobSeeker?.name}</span>
             </div>
-            <div className="w-[5rem] text-left">
+            <div className="w-[12rem] text-left flex flex-col gap-y-2">
               {applier.admited ? (
-                <span className="px-3 py-1 w-full rounded-full bg-green-300 text-black">
+                <span className="px-3 py-1 w-1/2 rounded-full bg-green-300 text-black">
                   approved
                 </span>
               ) : (
-                <span className="px-3 py-1 w-full rounded-full bg-red-300 text-black">
+                <span className="px-3 py-1 w-1/2 rounded-full bg-red-300 text-black">
                   Rejected
                 </span>
               )}
+              <span className="flex items-center justify-start gap-x-2">
+                Date: {new Date(applier.created).toDateString()}
+              </span>
             </div>
             <div className="truncate w-[15rem]">{applier.coverLetter}</div>
             <div className="flex items-center justify-around  w-[15rem]">
-              {/* @ts-ignore  */}
-              <MeetingModal id={applier.id} />
               <EmbedPDF>
                 <a className="cursor-pointer" href={applier.resume}>
                   <EyeClosedIcon />
                 </a>
-              </EmbedPDF>
+              </EmbedPDF>{" "}
+              {/* @ts-ignore  */}
+              <MeetingModal id={applier.id} />
             </div>
             <div className=" w-[5rem]">
               <Checkbox

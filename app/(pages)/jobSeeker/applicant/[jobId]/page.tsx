@@ -88,9 +88,12 @@ const Applicants = async ({ params }: { params: { jobId: string } }) => {
         <span className="text-2xl italic">job Description</span>
         <p className="text-md mt-3">{data?.description}</p>
       </div>
-      <h1 className="text-red-500">
-        Applications : <i>{data?.applications?.length}</i>
-      </h1>
+      <div className="flex justify-between my-2 items-center">
+        <h1 className="text-red-500">
+          Applications : <i>{data?.applications?.length}</i>
+        </h1>
+        <h1>Deadline Date: {new Date(data?.deadline!).toDateString()}</h1>
+      </div>
       <div className="flex justify-end">
         <ApplicantModal jobId={data?.id!} employerId={data?.Employer?.id!} />
       </div>

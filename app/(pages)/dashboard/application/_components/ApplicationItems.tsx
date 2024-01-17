@@ -14,16 +14,15 @@ const ApplicationItems = ({ data }: any) => {
           href={"/dashboard/appliers?id=" + app.id}
           className={`
             p-3 border-b-3 rounded-md bg-gray-100 dark:bg-gray-800
-            ${
-              app?.status == "pending"
-                ? "border-b-green-800"
-                : app?.status == "interview"
-                ? "border-b-blue-800"
-                : "border-b-red-800"
-            }
+            
           `}
         >
-          <h1 className="text-gray-500 text-sm">{app?.status}</h1>
+          <div className="flex justify-between items-center">
+            <h1 className="text-gray-500 text-sm">{app?.status}</h1>
+            <h1 className="text-gray-500 text-sm">
+              {app?.applications.length}
+            </h1>
+          </div>
           <div className="flex justify-between">
             <h1 className="text-2xl font-sans">{app?.title}</h1>
             {app?.status == "interview" && (

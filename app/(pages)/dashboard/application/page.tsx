@@ -21,6 +21,7 @@ const AppPage = async () => {
             email: user?.email,
           },
         },
+        applications: true,
       },
     });
   } catch (error) {
@@ -42,7 +43,12 @@ const AppPage = async () => {
           )}
         >
           {" "}
-          <h1 className="text-gray-500 text-sm">{app?.status}</h1>
+          <div className="flex justify-between items-center">
+            <h1 className="text-gray-500 text-sm">{app?.status}</h1>
+            <h1 className="text-gray-500 text-sm">
+              {app?.applications.length}
+            </h1>
+          </div>
           <h1 className="text-2xl font-sans">{app?.title}</h1>
           <div className="flex justify-between items-center">
             {app?.status == "pending" ? (

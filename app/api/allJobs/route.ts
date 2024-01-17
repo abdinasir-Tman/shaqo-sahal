@@ -31,6 +31,11 @@ export const GET = async () => {
         orderBy: {
           created: "desc",
         },
+        where: {
+          status: {
+            not: "declined",
+          },
+        },
       });
     } else {
       if (session.user.type == "jobSeeker") {
@@ -63,6 +68,9 @@ export const GET = async () => {
           },
           where: {
             jobCategory: { in: usr?.jobCategory },
+            status: {
+              not: "declined",
+            },
           },
         });
       } else {
@@ -87,6 +95,11 @@ export const GET = async () => {
           },
           orderBy: {
             created: "desc",
+          },
+          where: {
+            status: {
+              not: "declined",
+            },
           },
         });
       }

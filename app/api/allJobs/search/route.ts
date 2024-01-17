@@ -34,6 +34,9 @@ export const POST = async (req: NextRequest) => {
             contains: query.title,
             mode: "insensitive",
           },
+          status: {
+            not: "declined",
+          },
         },
         orderBy: {
           created: "desc",
@@ -71,6 +74,9 @@ export const POST = async (req: NextRequest) => {
               contains: query.title,
               mode: "insensitive",
             },
+            status: {
+              not: "declined",
+            },
           },
           orderBy: {
             created: "desc",
@@ -101,6 +107,9 @@ export const POST = async (req: NextRequest) => {
             title: {
               contains: query.title,
               mode: "insensitive",
+            },
+            status: {
+              not: "declined",
             },
           },
           orderBy: {

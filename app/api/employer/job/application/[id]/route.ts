@@ -22,7 +22,7 @@ export const PATCH = async (
   { params }: { params: { id: string } }
 ) => {
   try {
-    const jobLists = await prisma.application.update({
+    const jobLists = await prisma.jobListing.update({
       where: {
         id: params.id,
       },
