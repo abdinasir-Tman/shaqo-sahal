@@ -49,7 +49,7 @@ const TimePage = async ({ searchParams }: any) => {
       <h3 className="my-2 text-2xl dark:gray-400 font-semibold overflow-y-auto">
         {data?.length} Job Found
       </h3>
-      {data.map((job: any) => (
+      {data?.map((job: any) => (
         <JobItem key={job.id} {...job} />
       ))}
     </div>

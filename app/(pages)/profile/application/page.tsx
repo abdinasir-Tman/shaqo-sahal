@@ -23,7 +23,7 @@ const AppPage = async () => {
         },
         JobSeeker: {
           where: {
-            email: session.user.email,
+            email: session.user?.email,
           },
         },
       },
@@ -38,20 +38,20 @@ const AppPage = async () => {
         total applied jobs {data?.length}
       </h1>
       <span></span>
-      {data?.map((app: any) => (
+      {data?.map((app: any, i: any) => (
         <div
-          key={app.id}
+          key={i}
           className="py-5 px-10 border-b-3 rounded-md bg-gray-100 dark:bg-gray-800 flex flex-col gap-y-2"
         >
           {/* title and status  */}
           <div className="flex justify-between items-center">
             <div className="flex flex-col gap-y-2">
               <h1 className="text-xl font-semibold font-fans">
-                {app?.JobListing.title}
+                {app?.JobListing?.title}
               </h1>
               <h1 className="text-md font-thin">
-                {app?.JobListing.jobCategory}/ {app?.JobListing.workType}/
-                {app?.JobListing.location}
+                {app?.JobListing?.jobCategory}/ {app?.JobListing?.workType}/
+                {app?.JobListing?.location}
               </h1>
             </div>
             <div className="w-[11rem] text-left flex flex-col gap-y-2">
@@ -65,7 +65,7 @@ const AppPage = async () => {
                 </span>
               )}
               <span className="flex items-center justify-start gap-x-2">
-                Date: {new Date(app.created).toDateString()}
+                Date: {new Date(app?.created).toDateString()}
               </span>
             </div>
           </div>

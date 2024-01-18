@@ -36,7 +36,7 @@ export function JobCategoryItem({ control, setValue }: CategoryControl) {
   const { allCategories, getAllCategories } = useCategory();
   useEffect(() => {
     getAllCategories();
-  }, []);
+  });
 
   return (
     <FormField
