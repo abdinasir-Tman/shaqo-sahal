@@ -1,11 +1,12 @@
 import { getToken } from "@/app/utils/token";
 import React from "react";
+import prisma from "@/prisma/client";
 import ApplicationItems from "../_components/ApplicationItems";
 import { FaDatabase } from "react-icons/fa";
 
 const Application = async ({ params }: { params: { status: string } }) => {
   let data;
-  const { user }: any = await getToken();
+  const session: any = await getToken();
   try {
     if (params.status == "all") {
       data = await prisma?.jobListing.findMany({
@@ -15,7 +16,7 @@ const Application = async ({ params }: { params: { status: string } }) => {
         include: {
           Employer: {
             where: {
-              email: user?.email,
+              email: session.user?.email,
             },
           },
           applications: true,
@@ -33,7 +34,7 @@ const Application = async ({ params }: { params: { status: string } }) => {
         include: {
           Employer: {
             where: {
-              email: user?.email,
+              email: session.user?.email,
             },
           },
           applications: true,

@@ -4,6 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { AlertDialogBox } from "./_component/AlertDialogoue";
+import { UpdateBtn } from "./_component/UpdateBtn";
 export type JobList = {
   id: string;
   title: string;
@@ -96,12 +97,3 @@ export const columns: ColumnDef<JobList>[] = [
     },
   },
 ];
-
-export const UpdateBtn = ({ joblistInfo }: any) => {
-  const router = useRouter();
-  return (
-    <Button onClick={() => router.push("./job/" + joblistInfo.id)}>
-      Update
-    </Button>
-  );
-};

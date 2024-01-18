@@ -1,5 +1,4 @@
-import { EyeClosedIcon } from "@radix-ui/react-icons";
-
+import prisma from "@/prisma/client";
 import React from "react";
 import { ApplierList } from "./_components/ApplierList";
 
@@ -25,7 +24,7 @@ const Appliers = async ({ searchParams }: any) => {
   return (
     <div className="flex flex-col items-start justify-start  gap-3 w-full md:w-[60rem] overflow-x-auto">
       <div className="p-9 mb-10 w-full">
-        <h1>Job Title :{data.title}</h1>
+        <h1>Job Title :{data?.title}</h1>
       </div>
       <div className="flex gap-1">
         <h1 className="text-lg font-medium w-[15rem]">Applier</h1>

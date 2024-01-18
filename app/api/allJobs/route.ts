@@ -3,11 +3,11 @@ import prisma from "@/prisma/client";
 
 import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async () => {
-  const session: any = (await getToken()) || null;
+export const GET = async (req: NextRequest) => {
+  const session: any = await getToken();
 
   try {
-    let jobLists;
+    let jobLists: any;
     if (!session) {
       jobLists = await prisma.jobListing.findMany({
         select: {
@@ -38,10 +38,10 @@ export const GET = async () => {
         },
       });
     } else {
-      if (session.user.type == "jobSeeker") {
+      if (session.user?.type == "jobSeeker") {
         const usr = await prisma.jobSeeker.findFirst({
           where: {
-            email: session.user.email,
+            email: session.user?.email,
           },
         });
         jobLists = await prisma.jobListing.findMany({
@@ -107,6 +107,6 @@ export const GET = async () => {
 
     return NextResponse.json(jobLists, { status: 200 });
   } catch (error) {
-    console.log("error at get job", error);
+    console.log("error at get alljobs", error);
   }
 };

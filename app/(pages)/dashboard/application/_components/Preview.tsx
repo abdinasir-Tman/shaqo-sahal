@@ -1,11 +1,12 @@
 import { getToken } from "@/app/utils/token";
 import { cn } from "@/lib/utils";
+import prisma from "@/prisma/client";
 import { RiPassPendingFill } from "react-icons/ri";
 import React from "react";
 import { AiFillSchedule } from "react-icons/ai";
 import { FaLock } from "react-icons/fa";
 const Preview = async () => {
-  const { user }: any = await getToken();
+  const session: any = await getToken();
 
   let data: any;
   try {
@@ -19,11 +20,10 @@ const Preview = async () => {
       },
       where: {
         Employer: {
-          email: user?.email,
+          email: session.user?.email,
         },
       },
     });
-    console.log(data);
   } catch (error) {
     console.log(error);
   }

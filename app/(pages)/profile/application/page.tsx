@@ -2,13 +2,14 @@ import { getToken } from "@/app/utils/token";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import React from "react";
+import prisma from "@/prisma/client";
 import { AiFillSchedule } from "react-icons/ai";
 import { FaLock } from "react-icons/fa";
 import { RiPassPendingFill } from "react-icons/ri";
 
 const AppPage = async () => {
   let data: any;
-  const { user }: any = await getToken();
+  const session: any = await getToken();
   try {
     data = await prisma?.application.findMany({
       orderBy: {
@@ -22,7 +23,7 @@ const AppPage = async () => {
         },
         JobSeeker: {
           where: {
-            email: user.email,
+            email: session.user.email,
           },
         },
       },

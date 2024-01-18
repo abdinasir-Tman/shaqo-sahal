@@ -1,5 +1,6 @@
 import { getToken } from "@/app/utils/token";
 import { cn } from "@/lib/utils";
+import prisma from "@/prisma/client";
 import Link from "next/link";
 import React from "react";
 import { AiFillSchedule } from "react-icons/ai";
@@ -8,7 +9,7 @@ import { RiPassPendingFill } from "react-icons/ri";
 
 const AppPage = async () => {
   let data;
-  const { user }: any = await getToken();
+  const session: any = await getToken();
   try {
     data = await prisma?.jobListing.findMany({
       orderBy: {
@@ -18,7 +19,7 @@ const AppPage = async () => {
       include: {
         Employer: {
           where: {
-            email: user?.email,
+            email: session.user?.email,
           },
         },
         applications: true,

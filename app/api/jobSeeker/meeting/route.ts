@@ -6,7 +6,7 @@ export const GET = async (req: NextRequest) => {
   const session: any = await getToken();
   if (!session) return NextResponse.json("please login first", { status: 501 });
   try {
-    const meetings = await prisma.meeting.findMany({
+    const meetings: any = await prisma.meeting.findMany({
       orderBy: {
         created: "desc",
       },
@@ -20,7 +20,7 @@ export const GET = async (req: NextRequest) => {
             },
             JobSeeker: {
               where: {
-                email: session.user.email,
+                email: session.user?.email,
               },
             },
           },
@@ -31,5 +31,6 @@ export const GET = async (req: NextRequest) => {
     return NextResponse.json(meetings, { status: 200 });
   } catch (error) {
     console.log("error at get the meetings", error);
+    return NextResponse.json("unknown error");
   }
 };

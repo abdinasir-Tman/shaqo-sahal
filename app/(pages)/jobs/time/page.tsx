@@ -1,9 +1,9 @@
 import { getToken } from "@/app/utils/token";
 import JobItem from "../_components/JobItem";
-
+import prisma from "@/prisma/client";
 const TimePage = async ({ searchParams }: any) => {
   let date = new Date();
-  const { user }: any = await getToken();
+  const session: any = await getToken();
   if (searchParams.time == "month") {
     date.setMonth(date.getMonth() + 1);
   } else if (searchParams.time == "2month") {
@@ -13,10 +13,10 @@ const TimePage = async ({ searchParams }: any) => {
   }
   let data: any;
 
-  if (user.type == "jobSeeker") {
-    const usr = await prisma?.jobSeeker.findFirst({
+  if (session.user?.type == "jobSeeker") {
+    const { usr }: any = await prisma?.jobSeeker.findFirst({
       where: {
-        email: user.email,
+        email: session.user?.email,
       },
     });
     data = await prisma?.jobListing.findMany({
@@ -50,7 +50,6 @@ const TimePage = async ({ searchParams }: any) => {
     });
   }
 
-  console.log(searchParams.time, date, data);
   return (
     <div className="p-2 w-full space-y-3">
       <h3 className="my-2 text-2xl dark:gray-400 font-semibold overflow-y-auto">

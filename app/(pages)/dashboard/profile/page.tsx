@@ -1,16 +1,16 @@
 import { getToken } from "@/app/utils/token";
-
+import prisma from "@/prisma/client";
 import React from "react";
 
 import EmployerForm from "../../_components/EmployerForm";
 
 const AppPage = async () => {
   let data;
-  const { user }: any = await getToken();
+  const session: any = await getToken();
   try {
     data = await prisma?.employer.findFirst({
       where: {
-        email: user?.email,
+        email: session.user?.email,
       },
     });
   } catch (error) {

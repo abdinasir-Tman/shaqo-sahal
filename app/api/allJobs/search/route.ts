@@ -43,10 +43,10 @@ export const POST = async (req: NextRequest) => {
         },
       });
     } else {
-      if (session.user.type == "jobSeeker") {
+      if (session.user?.type == "jobSeeker") {
         const usr = await prisma.jobSeeker.findFirst({
           where: {
-            email: session.user.email,
+            email: session.user?.email,
           },
         });
         jobLists = await prisma.jobListing.findMany({
@@ -105,7 +105,7 @@ export const POST = async (req: NextRequest) => {
           },
           where: {
             title: {
-              contains: query.title,
+              contains: query?.title,
               mode: "insensitive",
             },
             status: {

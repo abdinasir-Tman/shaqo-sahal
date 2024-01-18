@@ -47,7 +47,7 @@ export const GET = async () => {
     },
   });
   try {
-    const jobLists = await prisma.jobListing.findMany({
+    const jobLists: any = await prisma.jobListing.findMany({
       select: {
         id: true,
         title: true,
