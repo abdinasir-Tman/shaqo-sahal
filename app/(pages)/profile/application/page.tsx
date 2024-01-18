@@ -38,7 +38,10 @@ const AppPage = async () => {
       </h1>
       <span></span>
       {data?.map((app: any) => (
-        <div className="py-5 px-10 border-b-3 rounded-md bg-gray-100 dark:bg-gray-800 flex flex-col gap-y-2">
+        <div
+          key={app.id}
+          className="py-5 px-10 border-b-3 rounded-md bg-gray-100 dark:bg-gray-800 flex flex-col gap-y-2"
+        >
           {/* title and status  */}
           <div className="flex justify-between items-center">
             <div className="flex flex-col gap-y-2">

@@ -86,15 +86,22 @@ export const columns: ColumnDef<JobList>[] = [
     header: "Actions",
     cell: ({ row }) => {
       const joblistInfo = row.original;
-      const router = useRouter();
+
       return (
         <div className="space-x-3">
-          <Button onClick={() => router.push("./job/" + joblistInfo.id)}>
-            Update
-          </Button>
+          <UpdateBtn joblistInfo={joblistInfo} />
           <AlertDialogBox id={joblistInfo.id} />
         </div>
       );
     },
   },
 ];
+
+export const UpdateBtn = ({ joblistInfo }: any) => {
+  const router = useRouter();
+  return (
+    <Button onClick={() => router.push("./job/" + joblistInfo.id)}>
+      Update
+    </Button>
+  );
+};
