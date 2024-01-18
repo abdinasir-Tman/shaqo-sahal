@@ -14,7 +14,7 @@ const List = () => {
 
   const { data, isLoading } = useQuery({
     queryKey: ["job"],
-    queryFn: () => axios.get(`${API}/employer/job`).then((res) => res.data),
+    queryFn: () => axios.get(`${API}/api/employer/job`).then((res) => res.data),
     // staleTime: 60 * 1000,
     // retry: 3,
   });

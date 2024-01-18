@@ -32,6 +32,7 @@ const AppPage = async () => {
     <div className="grid md:grid-cols-2  gap-3">
       {data?.map((app: any) => (
         <Link
+          key={app.id}
           href={"/dashboard/appliers?id=" + app.id}
           className={cn(
             "p-3 border-b-3 rounded-md bg-gray-100 dark:bg-gray-800",

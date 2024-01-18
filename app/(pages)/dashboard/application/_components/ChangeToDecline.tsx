@@ -15,7 +15,7 @@ const ChangeToDecline = ({ id }: { id: string }) => {
       setIscomplete(false);
 
       const { data } = await axios.patch(
-        `${API}/employer/job/application/${id}`
+        `${API}/api/employer/job/application/${id}`
       );
       router.refresh();
       setIscomplete(true);

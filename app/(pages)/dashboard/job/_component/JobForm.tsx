@@ -39,6 +39,7 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
+import { API } from "@/lib/config";
 const salaryType = [
   {
     id: "year",
@@ -113,13 +114,10 @@ const JobForm = ({ joblist }: { joblist: JobListing }) => {
       const formData: any = values;
 
       if (joblist) {
-        await axios.patch(
-          `http://localhost:3000/api/employer/job/${joblist?.id}`,
-          formData
-        );
+        await axios.patch(`${API}/api/employer/job/${joblist?.id}`, formData);
         toast.success("success Updated");
       } else {
-        await axios.post("http://localhost:3000/api/employer/job", formData);
+        await axios.post(`${API}/api/employer/job`, formData);
         toast.success("success Registered");
       }
 
@@ -225,7 +223,7 @@ const JobForm = ({ joblist }: { joblist: JobListing }) => {
                         </SelectTrigger>
                         <SelectContent>
                           {workTypes.map((item) => (
-                            <SelectItem value={item.id}>
+                            <SelectItem key={item.id} value={item.id}>
                               {item.label}
                             </SelectItem>
                           ))}
@@ -255,7 +253,7 @@ const JobForm = ({ joblist }: { joblist: JobListing }) => {
                         </SelectTrigger>
                         <SelectContent>
                           {salaryType.map((item) => (
-                            <SelectItem value={item.id}>
+                            <SelectItem key={item.id} value={item.id}>
                               {item.label}
                             </SelectItem>
                           ))}

@@ -10,7 +10,8 @@ import { PopoverDemo } from "./Popover";
 const MeetingList = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["meeting"],
-    queryFn: () => axios.get(`${API}/employer/meeting`).then((res) => res.data),
+    queryFn: () =>
+      axios.get(`${API}/api/employer/meeting`).then((res) => res.data),
     // staleTime: 60 * 1000,
     // retry: 3,
   });

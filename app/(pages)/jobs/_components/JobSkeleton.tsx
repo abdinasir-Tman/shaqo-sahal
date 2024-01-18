@@ -4,6 +4,7 @@ const JobSkeleton = () => {
   return (
     <div className="grid  gap-4 animate-pulse">
       {Array(20)
+        // @ts-ignore
         .fill()
         .map((_, idx) => (
           <div

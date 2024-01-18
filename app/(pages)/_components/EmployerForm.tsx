@@ -21,6 +21,7 @@ import { useSession } from "next-auth/react";
 import { CldUploadWidget } from "next-cloudinary";
 import toast from "react-hot-toast";
 import { Employer } from "@prisma/client";
+import { API } from "@/lib/config";
 
 const EmployerForm = ({ Employer }: { Employer: Employer }) => {
   const { data: session }: any = useSession();
@@ -40,13 +41,10 @@ const EmployerForm = ({ Employer }: { Employer: Employer }) => {
       formData["email"] = session?.user.email;
       formData["newImage"] = file;
       if (Employer) {
-        await axios.patch(
-          "http://localhost:3000/api/employer/" + Employer.id,
-          formData
-        );
+        await axios.patch(`${API}/api/employer/${Employer.id}`, formData);
         toast.success("success Updated");
       } else {
-        await axios.post("http://localhost:3000/api/employer", formData);
+        await axios.post(`${API}/api/employer`, formData);
         toast.success("success Registered");
       }
 

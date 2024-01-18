@@ -23,7 +23,7 @@ export const AlertDialogBox = ({ id }: { id: string }) => {
   const handleDelete = async () => {
     setLoading(true);
     try {
-      await axios.delete(`${API}/employer/job/${id}`);
+      await axios.delete(`${API}/api/employer/job/${id}`);
       queryClient.invalidateQueries({ queryKey: ["job"] });
       toast.success("Deleted successfully");
       setLoading(false);

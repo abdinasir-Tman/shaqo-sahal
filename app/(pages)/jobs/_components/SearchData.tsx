@@ -12,7 +12,7 @@ const SearchData = ({ search }: { search: string }) => {
     queryKey: ["gotJobs"],
     queryFn: () =>
       axios
-        .post(`${API}/allJobs/search`, {
+        .post(`${API}/api/allJobs/search`, {
           title: search,
         })
         .then((res) => res.data),
@@ -26,7 +26,7 @@ const SearchData = ({ search }: { search: string }) => {
       </h3>
 
       {data.map((job: any) => (
-        <JobItem {...job} />
+        <JobItem key={job.id} {...job} />
       ))}
     </div>
   );

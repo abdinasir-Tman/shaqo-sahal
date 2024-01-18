@@ -2,8 +2,7 @@ import { formatDistance } from "date-fns";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import React from "react";
-import { FaMoneyBillWave } from "react-icons/fa";
-import { HiClock, HiLocationMarker, HiOutlineCalendar } from "react-icons/hi";
+
 import ApplicantModal from "./_components/Modal";
 
 const Applicants = async ({ params }: { params: { jobId: string } }) => {

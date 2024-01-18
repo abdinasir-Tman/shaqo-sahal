@@ -89,17 +89,14 @@ const MeetingModal = ({ meeting, id }: Data) => {
       if (meeting) {
         formData.appId = meeting.applicationId;
         await axios.patch(
-          `http://localhost:3000/api/employer/meeting/${meeting.id}`,
+          `${API}/api/employer/meeting/${meeting.id}`,
           formData
         );
         toast.success("success Updated");
         router.push("/dashboard/meeting");
       } else {
         formData.appId = id;
-        await axios.post(
-          "http://localhost:3000/api/employer/meeting",
-          formData
-        );
+        await axios.post(`${API}/api/employer/meeting`, formData);
         toast.success("success Registered");
         router.push("./");
       }
@@ -149,7 +146,7 @@ const MeetingModal = ({ meeting, id }: Data) => {
                                 </SelectTrigger>
                                 <SelectContent>
                                   {meetType.map((meet) => (
-                                    <SelectItem value={meet.name}>
+                                    <SelectItem key={meet.id} value={meet.name}>
                                       {meet.name}
                                     </SelectItem>
                                   ))}

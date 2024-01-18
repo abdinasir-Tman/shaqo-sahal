@@ -30,6 +30,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
 import { CldUploadWidget } from "next-cloudinary";
+import { API } from "@/lib/config";
 
 const ApplicationForm = ({ jobId }: { jobId: string }) => {
   const router = useRouter();
@@ -44,15 +45,11 @@ const ApplicationForm = ({ jobId }: { jobId: string }) => {
   });
 
   async function onSubmit(values: z.infer<typeof applicationValidator>) {
-    console.log(values);
     try {
       const formData: any = values;
       formData.jobId = jobId;
       formData.resume = file?.url;
-      await axios.post(
-        "http://localhost:3000/api/jobSeeker/application",
-        formData
-      );
+      await axios.post(`${API}/api/jobSeeker/application`, formData);
       router.refresh();
       form.reset();
       toast.success("success Registered");
@@ -60,9 +57,7 @@ const ApplicationForm = ({ jobId }: { jobId: string }) => {
       toast.error(error.response.data);
     }
   }
-  const handleUploadSuccess = (response: any) => {
-    console.log(response);
-  };
+  const handleUploadSuccess = (response: any) => {};
   return (
     <div className="w-full">
       <Card className="w-full">

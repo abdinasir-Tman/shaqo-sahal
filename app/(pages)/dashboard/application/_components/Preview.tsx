@@ -66,6 +66,7 @@ const Preview = async () => {
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
       {data?.map((app: any) => (
         <div
+          key={app.id}
           className={cn(
             "p-3 border-b-3 rounded-md bg-gray-100 dark:bg-gray-800",
             app?.status === "pending"

@@ -16,7 +16,7 @@ const AllJobs = () => {
   useQuery({
     queryKey: ["job"],
     queryFn: () =>
-      axios.get(`${API}/allJobs`).then((res: any) => {
+      axios.get(`${API}/api/allJobs`).then((res: any) => {
         setIsLoading(false);
         setData(res.data);
       }),
@@ -26,7 +26,7 @@ const AllJobs = () => {
   const DataSearch = async () => {
     try {
       setIsLoading(true);
-      const { data } = await axios.post(`${API}/allJobs/search`, {
+      const { data } = await axios.post(`${API}/api/allJobs/search`, {
         title: search,
       });
       setData(data);
@@ -66,7 +66,7 @@ const AllJobs = () => {
         {isLoading ? (
           <JobSkeleton />
         ) : (
-          data.map((job: any) => <JobItem {...job} />)
+          data.map((job: any) => <JobItem key={job.id} {...job} />)
         )}
       </div>
     </div>

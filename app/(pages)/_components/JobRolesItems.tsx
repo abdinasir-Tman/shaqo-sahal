@@ -25,7 +25,7 @@ const JobRolesItems = ({ control }: CategoryIdSelect) => {
   useEffect(() => {
     const fetchJobRoles = async () => {
       try {
-        const { data } = await axios.get(`${API}/jobSeeker/jobRoles`);
+        const { data } = await axios.get(`${API}/api/jobSeeker/jobRoles`);
         setJobRoles(data);
       } catch (err) {
         console.error("something went wrong", err);

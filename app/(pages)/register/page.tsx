@@ -37,6 +37,7 @@ const Register = () => {
           </Button>
         </div>
         <div className="max-w-5xl mx-auto md:px-6 px-2">
+          {/* @ts-ignore  */}
           {currentForm === "Employer" ? <EmployerForm /> : <JobSeekerForm />}
         </div>
       </div>

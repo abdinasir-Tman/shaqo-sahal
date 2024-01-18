@@ -23,7 +23,7 @@ export const AlertDialogBox = ({ id }: { id: string }) => {
   const handleDelete = async () => {
     setLoading(true);
     try {
-      await axios.delete(`${API}/employer/meeting/${id}`);
+      await axios.delete(`${API}/api/employer/meeting/${id}`);
       queryClient.invalidateQueries({ queryKey: ["meeting"] });
       toast.success("Deleted successfully");
       setLoading(false);

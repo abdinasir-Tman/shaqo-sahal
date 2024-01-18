@@ -14,10 +14,13 @@ export const ApplierList = ({ data }: any) => {
   const router = useRouter();
   const admitFunction = async (appId: string, checked: boolean) => {
     try {
-      const getData = await axios.post(`${API}/jobSeeker/application/apply`, {
-        appId,
-        admited: checked,
-      });
+      const getData = await axios.post(
+        `${API}/api/jobSeeker/application/apply`,
+        {
+          appId,
+          admited: checked,
+        }
+      );
 
       router.refresh();
     } catch (error) {}
@@ -26,7 +29,10 @@ export const ApplierList = ({ data }: any) => {
     <div>
       <div className="flex space-y-3 flex-col w-full">
         {data?.applications.map((applier: any) => (
-          <div className="flex items-center justify-start gap-2 space-y-2 text-sm w-full border-b-2">
+          <div
+            key={applier.id}
+            className="flex items-center justify-start gap-2 space-y-2 text-sm w-full border-b-2"
+          >
             {/* title name */}
             <div className="flex items-center justify-start gap-2 w-[15rem]">
               <span className="h-12 w-14 rounded-md"></span>{" "}

@@ -1,4 +1,5 @@
 "use client";
+// @ts-ignore
 import Modal from "react-modal";
 import { useState } from "react";
 import ApplicationForm from "./ApplicationForm";

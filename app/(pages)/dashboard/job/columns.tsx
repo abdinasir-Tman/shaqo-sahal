@@ -11,6 +11,7 @@ export type JobList = {
   salary: number;
   createdAt: string;
 };
+// @ts-ignore
 export const columns: ColumnDef<JobList>[] = [
   {
     accessorKey: "id",
@@ -34,6 +35,7 @@ export const columns: ColumnDef<JobList>[] = [
     accessorKey: "requirements",
     header: "Requirements",
     cell: ({ row }) => {
+      // @ts-ignore
       return <div className="truncate w-56">{row.original.requirements}</div>;
     },
   },

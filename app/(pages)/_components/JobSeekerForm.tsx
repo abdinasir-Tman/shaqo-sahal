@@ -51,12 +51,9 @@ const JobSeekerForm = ({ jobSeeker }: { jobSeeker: JobSeeker }) => {
     try {
       const formData: any = values;
       if (jobSeeker) {
-        await axios.patch(
-          `http://localhost:3000/api/jobSeeker/${jobSeeker.id}`,
-          formData
-        );
+        await axios.patch(`${API}/api/jobSeeker/${jobSeeker.id}`, formData);
       } else {
-        await axios.post("http://localhost:3000/api/jobSeeker", formData);
+        await axios.post(`${API}/api/jobSeeker`, formData);
       }
 
       form.reset();
