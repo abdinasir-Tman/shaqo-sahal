@@ -52,7 +52,7 @@ const Preview = async () => {
         </div>
         {/* /////////////  */}
         <div className="p-3 border-b-4 rounded-md bg-gray-100 dark:bg-gray-800 border-red-800">
-          <h1>Diclained</h1>
+          <h1>Declained</h1>
           <div className="flex justify-between items-center">
             <h1 className="text-4xl font-sans font-bold">
               {data[2]?._count.status ? data[2]?._count.status : 0}

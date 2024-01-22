@@ -10,7 +10,7 @@ const MeetingList = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["meeting"],
     queryFn: () =>
-      axios.get(`${API}/jobSeeker/meeting`).then((res) => res.data),
+      axios.get(`${API}/api/jobSeeker/meeting`).then((res) => res.data),
     // staleTime: 60 * 1000,
     // retry: 3,
   });

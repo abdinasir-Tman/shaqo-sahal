@@ -7,7 +7,7 @@ import { API } from "@/lib/config";
 
 const Signin = () => {
   return (
-    <div className="bg-main-50 dark:bg-main-950 max-w-5xl w-full h-screen flex justify-center items-center">
+    <div className="bg-main-50 dark:bg-main-950  w-full h-screen flex justify-center items-center">
       <Button
         onClick={() => {
           signIn("google", { callbackUrl: API });

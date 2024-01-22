@@ -24,7 +24,7 @@ const Filters = () => {
           All
         </span>
         <h1 className="font-mono italic text-2xl font-bold leading-[3rem]">
-          Time Ago
+          Time Left
         </h1>
         <RadioGroup
           onValueChange={(e) => {

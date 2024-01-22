@@ -7,19 +7,26 @@ import JobSkeleton from "./JobSkeleton";
 import JobItem from "./JobItem";
 import { Input } from "@/components/ui/input";
 import { HiOutlineSearch } from "react-icons/hi";
+import { useSearchParams } from "next/navigation";
 
 const AllJobs = () => {
   const [search, setSearch] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
-
+  let value: any;
+  useSearchParams().forEach((val, key) => {
+    value = val;
+  });
+  console.log(value);
   useQuery({
     queryKey: ["job"],
     queryFn: () =>
-      axios.get(`${API}/api/allJobs`).then((res: any) => {
-        setIsLoading(false);
-        setData(res.data);
-      }),
+      axios
+        .get(value ? `${API}/api/allJobs?val=${value}` : `${API}/api/allJobs`)
+        .then((res: any) => {
+          setIsLoading(false);
+          setData(res.data);
+        }),
     staleTime: 50 * 1000,
     retry: 3,
   });

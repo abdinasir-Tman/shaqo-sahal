@@ -81,6 +81,18 @@ export const GET = async (req: NextRequest) => {
   const session: any = await getToken();
   if (!session) return NextResponse.json("please login first", { status: 501 });
   try {
+    //expire meetings that not have
+    await prisma.meeting.updateMany({
+      where: {
+        Date: {
+          lte: new Date(),
+        },
+        status: "waiting",
+      },
+      data: {
+        status: "expired",
+      },
+    });
     const meetings = await prisma.meeting.findMany({
       orderBy: {
         created: "desc",

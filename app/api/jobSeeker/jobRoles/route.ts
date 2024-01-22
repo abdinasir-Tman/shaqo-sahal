@@ -3,8 +3,9 @@ import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (req: NextRequest) => {
-  const { user }: any = await getToken();
-  if (!user) return NextResponse.json("not authenticated", { status: 500 });
+  const session: any = await getToken();
+  if (!session.user)
+    return NextResponse.json("not authenticated", { status: 500 });
   try {
     const jobRoles = await prisma?.jobRoles.findMany({
       include: {

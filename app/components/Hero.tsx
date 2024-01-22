@@ -1,9 +1,12 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const Hero = () => {
+  const router = useRouter();
   return (
     <section className="flex flex-col  items-center md:flex-row gap-y-3 px-10 md:gap-x-3 bg-gray-100 dark:bg-gray-800 py-24">
       {/* left side  */}
@@ -31,7 +34,12 @@ const Hero = () => {
             </div>
           </div>
 
-          <Button className="rounded-lg p-5 ml-2 bg-main-400 text-white w-full md:w-[10rem] mt-3 md:mt-0">
+          <Button
+            onClick={() => {
+              router.push("/jobs?value=hargeisa");
+            }}
+            className="rounded-lg p-5 ml-2 bg-main-400 text-white w-full md:w-[10rem] mt-3 md:mt-0"
+          >
             Search
           </Button>
         </div>
