@@ -44,6 +44,12 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+
+        bounce200: "bounce 200ms infinite",
+        bounce300: "bounce 300ms infinite",
+        bounce500: "bounce 500ms infinite",
+        bounce4: "bounce 7000ms infinite",
+        // Define more custom animations as needed
       },
     },
   },

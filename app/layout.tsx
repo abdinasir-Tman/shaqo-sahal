@@ -32,7 +32,7 @@ export default function RootLayout({
           <ReactQueryClientProvider>
             <NextAuthProvider>
               <CategoryProvider>
-                <main className="">
+                <main className="w-full">
                   {children}
 
                   <Toaster />

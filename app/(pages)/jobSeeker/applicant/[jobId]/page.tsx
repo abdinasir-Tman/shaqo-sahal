@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import React from "react";
 
 import ApplicantModal from "./_components/Modal";
+import { getDaysLeft } from "@/app/utils/daysLeft";
 
 const Applicants = async ({ params }: { params: { jobId: string } }) => {
   let data;
@@ -91,7 +92,7 @@ const Applicants = async ({ params }: { params: { jobId: string } }) => {
         <h1 className="text-red-500">
           Applications : <i>{data?.applications?.length}</i>
         </h1>
-        <h1>Deadline Date: {new Date(data?.deadline!).toDateString()}</h1>
+        <h1>{getDaysLeft(data?.deadline)} Days left to apply </h1>
       </div>
       <div className="flex justify-end">
         <ApplicantModal jobId={data?.id!} employerId={data?.Employer?.id!} />
