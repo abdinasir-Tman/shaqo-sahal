@@ -8,6 +8,7 @@ import JobItem from "./JobItem";
 import { Input } from "@/components/ui/input";
 import { HiOutlineSearch } from "react-icons/hi";
 import { useSearchParams } from "next/navigation";
+import MobileFilter from "./MobileFilter";
 
 const AllJobs = () => {
   const [search, setSearch] = useState();
@@ -17,7 +18,7 @@ const AllJobs = () => {
   useSearchParams().forEach((val, key) => {
     value = val;
   });
-  console.log(value);
+
   useQuery({
     queryKey: ["job"],
     queryFn: () =>
@@ -67,9 +68,14 @@ const AllJobs = () => {
       </div>
 
       <div className="p-2 w-full space-y-3">
-        <h3 className="my-2 text-2xl dark:gray-400 font-semibold overflow-y-auto">
-          {data?.length} Job Found
-        </h3>
+        <div className="flex md:block items-center justify-around gap-x-4">
+          <h2 className="md:hidden">
+            <MobileFilter />
+          </h2>
+          <h3 className="my-2 text-2xl dark:gray-400 font-semibold overflow-y-auto">
+            {data?.length} Job Found
+          </h3>
+        </div>
         {isLoading ? (
           <JobSkeleton />
         ) : (

@@ -22,7 +22,7 @@ const Suggest = () => {
           <Image
             width={200}
             height={200}
-            className="animate-bounce4 ease-in-out"
+            className="animate-bounce4 ease-linear"
             src="/employer.svg"
             alt="employer"
           />

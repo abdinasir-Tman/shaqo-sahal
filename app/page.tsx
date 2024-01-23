@@ -5,6 +5,7 @@ import Nav from "./(pages)/jobs/_components/Nav";
 import { MdFilterAlt } from "react-icons/md";
 import Hero from "./components/Hero";
 import Suggest from "./components/Suggest";
+import { LatestJobs } from "./components/LatestJobs";
 export default function Home() {
   return (
     <div className="">
@@ -13,6 +14,7 @@ export default function Home() {
       </div>
       <Hero />
       <Suggest />
+      <LatestJobs />
     </div>
   );
 }

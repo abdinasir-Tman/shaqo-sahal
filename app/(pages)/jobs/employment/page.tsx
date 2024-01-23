@@ -1,6 +1,7 @@
 import { getToken } from "@/app/utils/token";
 import JobItem from "../_components/JobItem";
 import prisma from "@/prisma/client";
+import MobileFilter from "../_components/MobileFilter";
 const TimePage = async ({ searchParams }: any) => {
   const session: any = await getToken();
 
@@ -46,9 +47,14 @@ const TimePage = async ({ searchParams }: any) => {
 
   return (
     <div className="p-2 w-full space-y-3">
-      <h3 className="my-2 text-2xl dark:gray-400 font-semibold overflow-y-auto">
-        {data?.length} Job Found
-      </h3>
+      <div className="flex md:block items-center justify-around gap-x-4">
+        <h2 className="md:hidden">
+          <MobileFilter />
+        </h2>
+        <h3 className="my-2 text-2xl dark:gray-400 font-semibold overflow-y-auto">
+          {data?.length} Job Found
+        </h3>
+      </div>
       {data?.map((job: any) => (
         <JobItem key={job.id} {...job} />
       ))}

@@ -16,7 +16,7 @@ export default function Home({ children }: { children: React.ReactNode }) {
         </h1>
         <Filters />
       </div>
-      <main className="mt-[75px] md:pl-60 h-full container ml-36 py-7">
+      <main className="mt-[75px] md:pl-60 h-full mx-auto py-7 px-2">
         <div className="py-10">
           <div>
             <h1 className="text-center text-3xl font-serif font-bold">
