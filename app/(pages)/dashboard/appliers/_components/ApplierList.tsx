@@ -26,55 +26,77 @@ export const ApplierList = ({ data }: any) => {
     } catch (error) {}
   };
   return (
-    <div>
-      <div className="flex space-y-3 flex-col w-full">
-        {data?.applications.map((applier: any) => (
+    <div className="flex flex-col gap-4">
+      {data?.applications.map((applier: any) => {
+        const isRequest =
+          !applier.admited &&
+          new Date(applier.created).getTime() ===
+            new Date(applier.updated).getTime();
+        return (
           <div
             key={applier.id}
-            className="flex items-center justify-start gap-2 space-y-2 text-sm w-full border-b-2"
+            className={`flex flex-wrap items-center justify-start gap-4 p-4 rounded-lg  bg-white shadow-md
+            `}
           >
-            {/* title name */}
-            <div className="flex items-center justify-start gap-2 w-[15rem]">
-              <span className="h-12 w-14 rounded-md"></span>{" "}
-              <span className="text-gray">{applier.JobSeeker?.name}</span>
-            </div>
-            <div className="w-[12rem] text-left flex flex-col gap-y-2">
-              {applier.admited ? (
-                <span className="px-3 py-1 w-1/2 rounded-full bg-green-300 text-black">
-                  approved
-                </span>
-              ) : (
-                <span className="px-3 py-1 w-1/2 rounded-full bg-red-300 text-black">
-                  Rejected
-                </span>
-              )}
-              <span className="flex items-center justify-start gap-x-2">
-                Date: {new Date(applier.created).toDateString()}
+            <span className="text-lg font-semibold">
+              {applier.JobSeeker?.name}
+            </span>
+            {isRequest ? (
+              <span className="px-4 py-1 rounded-full text-white bg-purple-500">
+                Request
               </span>
-            </div>
-            <div className="truncate w-[15rem]">{applier.coverLetter}</div>
-            <div className="flex items-center justify-around  w-[15rem]">
-              <EmbedPDF>
-                <a className="cursor-pointer" href={applier.resume}>
-                  <EyeClosedIcon />
-                </a>
-              </EmbedPDF>{" "}
-              {/* @ts-ignore  */}
-              <MeetingModal id={applier.id} />
-            </div>
-            <div className=" w-[5rem]">
+            ) : (
+              <span
+                className={`px-4 py-1 rounded-full text-white ${
+                  applier.admited ? "bg-green-500" : "bg-red-500"
+                }`}
+              >
+                {applier.admited ? "Approved" : "Rejected"}
+              </span>
+            )}
+            <a
+              href={applier.JobSeeker?.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 hover:underline"
+            >
+              LinkedIn
+            </a>
+            <a
+              href={applier.JobSeeker?.portfolio}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 hover:underline"
+            >
+              Portfolio
+            </a>
+            <EmbedPDF>
+              <a
+                href={applier.resume}
+                className="text-blue-500 hover:underline"
+              >
+                Resume
+              </a>
+            </EmbedPDF>
+            {/* @ts-ignore  */}
+            <MeetingModal
+              id={applier.id}
+              className="text-blue-500 hover:underline"
+            >
+              Meeting
+            </MeetingModal>
+            <div className="ml-auto">
               <Checkbox
-                className="scale-150"
-                defaultChecked={applier.admited}
                 checked={applier.admited}
                 onCheckedChange={(checked: boolean) =>
-                  admitFunction(applier?.id, checked)
+                  admitFunction(applier.id, checked)
                 }
+                className="scale-125"
               />
             </div>
           </div>
-        ))}
-      </div>
+        );
+      })}
     </div>
   );
 };

@@ -83,7 +83,7 @@ const Filters = () => {
         </RadioGroup>
       </div>
       {/* salary type  */}
-      <div className="flex items-start flex-col  gap-3 overflow-y-auto">
+      <div className="flex mt-2 items-start flex-col  gap-3 overflow-y-auto">
         <h1 className="font-mono italic text-3xl font-bold leading-[3rem]">
           Salary Type
         </h1>

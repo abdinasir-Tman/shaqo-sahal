@@ -6,6 +6,7 @@ import { MdFilterAlt } from "react-icons/md";
 import Hero from "./components/Hero";
 import Suggest from "./components/Suggest";
 import { LatestJobs } from "./components/LatestJobs";
+import HowItworks from "./components/HowItworks";
 export default function Home() {
   return (
     <div className="">
@@ -15,6 +16,7 @@ export default function Home() {
       <Hero />
       <Suggest />
       <LatestJobs />
+      <HowItworks />
     </div>
   );
 }

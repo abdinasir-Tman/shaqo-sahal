@@ -3,9 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 
 const Hero = () => {
+  const [homeSearch, setHomeSearch] = useState({
+    location: "",
+    title: "",
+  });
+
   const router = useRouter();
   return (
     <section className="flex flex-col  items-center md:flex-row gap-y-3 px-10 md:gap-x-3 bg-gray-100 dark:bg-gray-800 py-24">
@@ -22,12 +27,20 @@ const Hero = () => {
           <div className="w-full pb-3 md:pb-0 flex flex-col md:flex-row justify-center md:items-center">
             <div className="border-b-2 md:border-r-2 md:border-b-0 w-full pb-3 md:pb-0">
               <input
+                onChange={(e: any) => {
+                  setHomeSearch(e.target.value);
+                }}
+                value={homeSearch.title}
                 className="text-xl h-full outline-none w-full bg-transparent"
                 placeholder="Job title or keyword"
               />
             </div>
             <div className="md:border-r-2 md:border-b-0 border-b-2 w-full pb-3 md:pb-0 md:pl-1">
               <input
+                value={homeSearch.location}
+                onChange={(e: any) => {
+                  setHomeSearch(e.target.value);
+                }}
                 className="text-xl outline-none h-full w-full bg-transparent"
                 placeholder="Mogadishu"
               />
@@ -36,7 +49,7 @@ const Hero = () => {
 
           <Button
             onClick={() => {
-              router.push("/jobs?value=hargeisa");
+              router.push(`/jobs?value=${homeSearch}`);
             }}
             className="rounded-lg p-5 ml-2 bg-main-400 text-white w-full md:w-[10rem] mt-3 md:mt-0"
           >

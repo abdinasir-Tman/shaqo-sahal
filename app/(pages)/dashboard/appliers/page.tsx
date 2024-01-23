@@ -22,16 +22,11 @@ const Appliers = async ({ searchParams }: any) => {
   }
 
   return (
-    <div className="flex flex-col items-start justify-start  gap-3 w-full md:w-[60rem] overflow-x-auto">
-      <div className="p-9 mb-10 w-full">
-        <h1>Job Title :{data?.title}</h1>
-      </div>
-      <div className="flex gap-1">
-        <h1 className="text-lg font-medium w-[15rem]">Applier</h1>
-        <h1 className="text-lg font-medium w-[12rem]">Status</h1>
-        <h1 className="text-lg font-medium w-[15rem]">Personal Description</h1>
-        <h1 className="text-lg font-medium w-[15rem]">Resume</h1>
-        <h1 className="text-lg font-medium w-[5rem]">Admited</h1>
+    <div className="max-w-4xl mx-auto p-8">
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold mb-2">Job Title: {data.title}</h1>
+        <p className="text-lg text-gray-700">Category: {data.jobCategory}</p>
+        <p className="text-md mt-4">{data.description}</p>
       </div>
       <ApplierList data={data} />
     </div>
