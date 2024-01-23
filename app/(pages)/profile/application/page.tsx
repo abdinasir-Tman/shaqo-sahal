@@ -55,13 +55,19 @@ const AppPage = async () => {
               </h1>
             </div>
             <div className="w-[11rem] text-left flex flex-col gap-y-2">
-              {app.admited ? (
-                <span className="px-3 py-1 w-1/2 rounded-full bg-green-300 text-black">
-                  approved
+              {!app.admited &&
+              new Date(app.created).getTime() ===
+                new Date(app.updated).getTime() ? (
+                <span className="px-4 py-1 rounded-full text-white bg-purple-500">
+                  Request
                 </span>
               ) : (
-                <span className="px-3 py-1 w-1/2 rounded-full bg-red-300 text-black">
-                  Rejected
+                <span
+                  className={`px-4 py-1 rounded-full text-white ${
+                    app.admited ? "bg-green-500" : "bg-red-500"
+                  }`}
+                >
+                  {app.admited ? "Approved" : "Rejected"}
                 </span>
               )}
               <span className="flex items-center justify-start gap-x-2">
