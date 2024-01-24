@@ -9,53 +9,42 @@ import MeetingModal from "../../meeting/_components/MeetingModal";
 import { Checkbox } from "@/components/ui/checkbox";
 import axios from "axios";
 import { API } from "@/lib/config";
+import Popup from "./Popup";
 export const ApplierList = ({ data }: any) => {
+  console.log(data);
   const [check, setCheck] = useState(false);
   const router = useRouter();
-  const admitFunction = async (appId: string, checked: boolean) => {
-    try {
-      const getData = await axios.post(
-        `${API}/api/jobSeeker/application/apply`,
-        {
-          appId,
-          admited: checked,
-        }
-      );
 
-      router.refresh();
-    } catch (error) {}
-  };
   return (
-    <div className="flex flex-col gap-4">
-      {data?.applications.map((applier: any) => {
-        const isRequest =
-          !applier.admited &&
-          new Date(applier.created).getTime() ===
-            new Date(applier.updated).getTime();
+    <div className="flex justify-center flex-col gap-4">
+      {data?.applications.map((applier: any, i: any) => {
         return (
           <div
             key={applier.id}
             className={`flex flex-wrap items-center justify-start gap-4 p-4 rounded-lg  bg-white shadow-md
             `}
           >
+            <span>{i + 1}</span>
             <span className="text-lg font-semibold">
               {applier.JobSeeker?.name}
             </span>
-            {isRequest ? (
-              <span className="px-4 py-1 rounded-full text-white bg-purple-500">
-                Request
-              </span>
-            ) : (
+            {
               <span
-                className={`px-4 py-1 rounded-full text-white ${
-                  applier.admited ? "bg-green-500" : "bg-red-500"
+                className={`px-4 py-1 rounded-full  ${
+                  applier.admited == "approved"
+                    ? "bg-green-200 text-green-600"
+                    : applier.admited == "request"
+                    ? "bg-purple-200 text-purple-600"
+                    : applier.admited == "meeting"
+                    ? "bg-purple-200 text-purple-600"
+                    : "bg-red-200 text-red-600"
                 }`}
               >
-                {applier.admited ? "Approved" : "Rejected"}
+                {applier.admited}
               </span>
-            )}
+            }
             <a
-              href={applier.JobSeeker?.linkedin}
+              href={applier?.linkedIn}
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-500 hover:underline"
@@ -63,7 +52,7 @@ export const ApplierList = ({ data }: any) => {
               LinkedIn
             </a>
             <a
-              href={applier.JobSeeker?.portfolio}
+              href={applier?.portfolio}
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-500 hover:underline"
@@ -86,13 +75,7 @@ export const ApplierList = ({ data }: any) => {
               Meeting
             </MeetingModal>
             <div className="ml-auto">
-              <Checkbox
-                checked={applier.admited}
-                onCheckedChange={(checked: boolean) =>
-                  admitFunction(applier.id, checked)
-                }
-                className="scale-125"
-              />
+              <Popup data={applier} />
             </div>
           </div>
         );

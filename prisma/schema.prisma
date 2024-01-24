@@ -102,8 +102,8 @@ model JobListing {
 model Application {
   id           String      @id @default(auto()) @map("_id") @db.ObjectId
   coverLetter  String?
-  admited      Boolean     @default(false)
-  status       String      @default("pending")
+
+  admited       String?      @default("request")
   JobSeeker    JobSeeker?  @relation(fields: [jobSeekerId], references: [id], onDelete: Cascade)
   jobSeekerId  String?     @db.ObjectId
   JobListing   JobListing? @relation(fields: [jobListingId], references: [id], onDelete: Cascade)

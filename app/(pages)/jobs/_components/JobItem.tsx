@@ -8,6 +8,8 @@ import { FaMoneyBillWave } from "react-icons/fa";
 import { HiClock } from "react-icons/hi";
 import { formatDistance } from "date-fns";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
 
 interface JobItems {
   Employer: any;
@@ -32,11 +34,19 @@ const JobItem = ({
   workType,
 }: JobItems) => {
   const router = useRouter();
-
+  const { data: session }: any = useSession();
+  const isOwner = (id: string, email: string) => {
+    if (session.user.email === email) {
+      // toast.error("sorry not allowed the owner");
+      router.push("./jobSeeker/applicant/" + id);
+    } else {
+      router.push("./jobSeeker/applicant/" + id);
+    }
+  };
   return (
     <div
       onClick={() => {
-        router.push("/jobSeeker/applicant/" + id);
+        isOwner(id, Employer?.email);
       }}
       className="flex flex-col rounded-sm cursor-pointer p-5 w-full shadow-lg dark:shadow-gray-900"
     >
@@ -87,7 +97,7 @@ const JobItem = ({
         </span>
         <Button
           onClick={() => {
-            router.push("./jobSeeker/applicant/" + id);
+            isOwner(id, Employer?.email);
           }}
           size={"sm"}
           className="transition-all duration-300 my-2 float-right"

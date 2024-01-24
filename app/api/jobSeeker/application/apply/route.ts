@@ -1,3 +1,4 @@
+import rejectionEmail from "@/app/utils/emails/rejectemail";
 import { getToken } from "@/app/utils/token";
 import prisma from "@/prisma/client";
 
@@ -9,6 +10,26 @@ export const POST = async (req: NextRequest, { searchParams }: any) => {
   const session: any = await getToken();
 
   if (!session) return NextResponse.json("not authenticated", { status: 500 });
+  if (body.admited == "rejected") {
+    const application = await prisma.application.findFirst({
+      where: {
+        id: body.appId,
+      },
+      select: {
+        JobSeeker: {
+          select: {
+            email: true,
+          },
+        },
+      },
+    });
+    rejectionEmail(
+      session?.user.email,
+      application?.JobSeeker?.email!,
+      body.note
+    );
+    return NextResponse.json(application, { status: 202 });
+  }
   try {
     const updatedApp = await prisma?.application.update({
       where: {

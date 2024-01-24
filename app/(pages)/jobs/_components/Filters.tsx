@@ -15,6 +15,7 @@ const Filters = () => {
             className="scale-150"
             onChange={() => {
               router.push("/jobs");
+              router.refresh();
             }}
             type="radio"
             name="all"
@@ -88,9 +89,7 @@ const Filters = () => {
           Salary Type
         </h1>
         <RadioGroup
-          onValueChange={(e) => {
-            alert(e);
-          }}
+          onValueChange={(e) => {}}
           className="flex flex-col items-start gap-2 text-lg font-serif"
         >
           <li className="flex gap-x-2 items-center ">

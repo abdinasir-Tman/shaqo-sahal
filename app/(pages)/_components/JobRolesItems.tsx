@@ -40,7 +40,7 @@ const JobRolesItems = ({ control }: CategoryIdSelect) => {
       name="role"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Choose Category</FormLabel>
+          <FormLabel>Choose Role</FormLabel>
           <Select
             value={field.value}
             onValueChange={field.onChange}

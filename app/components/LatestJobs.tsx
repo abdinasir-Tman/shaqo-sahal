@@ -35,7 +35,7 @@ export const LatestJobs = async () => {
   }
   return (
     <div className="px-10 py-16">
-      <h1 className="md:text-3xl font-medium text-gray-800 font-sans">
+      <h1 className="md:text-3xl font-medium text-gray-800 font-sans dark:text-gray-100">
         Latest Jobs
       </h1>
       <div className="flex items-center justify-between text-gray-600  py-3 md:text-xl">

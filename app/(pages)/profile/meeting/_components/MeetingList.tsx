@@ -1,4 +1,5 @@
 "use client";
+import CancelModal from "@/app/(pages)/dashboard/meeting/_components/CancelModal";
 import { API } from "@/lib/config";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -57,6 +58,9 @@ const MeetingList = () => {
             <h1 className="flex justify-center items-center gap-x-2">
               <Clock10 className="h-5" /> {meeting.timeDuration} m
             </h1>
+            <h2 className="flex justify-center items-center">
+              <CancelModal data={meeting} />
+            </h2>
           </div>
         </div>
       ))}

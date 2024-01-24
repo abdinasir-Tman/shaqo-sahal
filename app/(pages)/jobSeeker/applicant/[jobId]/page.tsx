@@ -70,7 +70,7 @@ const Applicants = async ({ params }: { params: { jobId: string } }) => {
           </span>
           <span className="flex dark:text-white text-black items-center gap-x-1">
             <small className="text-lg font-bold"> Salary : </small>
-            <i>{data?.salary}</i>
+            <i>${data?.salary}</i>
           </span>
           <span className="flex dark:text-white text-black items-center gap-x-1">
             <small className="text-lg font-bold"> Job Category : </small>

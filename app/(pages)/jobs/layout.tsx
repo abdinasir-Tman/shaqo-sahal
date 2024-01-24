@@ -9,7 +9,7 @@ export default function Home({ children }: { children: React.ReactNode }) {
         <Nav />
       </div>
 
-      <div className="hidden md:flex h-full w-56 flex-col fixed inset-y-0 overflow-y-auto shadow-lg dark:shadow-gray-800 mt-44">
+      <div className="hidden md:flex h-full w-56 flex-col fixed inset-y-0  overflow-y-auto shadow-lg dark:shadow-gray-800 mt-44">
         <h1 className="text-2xl flex items-center  gap-2 font-bold font-serif pl-7">
           <MdFilterAlt />
           Filters

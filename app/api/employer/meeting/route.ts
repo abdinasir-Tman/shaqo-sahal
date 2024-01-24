@@ -19,14 +19,26 @@ export const POST = async (req: NextRequest) => {
       },
     });
     if (newMeeting) {
-      const { id }: any = await prisma.jobListing.findFirst({
+      const app: any = await prisma.jobListing.findFirst({
         where: {
           applications: { some: { id: newMeeting.applicationId! } },
+        },
+        include: {
+          applications: true,
+        },
+      });
+
+      await prisma.application.update({
+        data: {
+          admited: "meeting",
+        },
+        where: {
+          id: app?.applications[0].id,
         },
       });
       await prisma.jobListing.update({
         where: {
-          id,
+          id: app?.id,
         },
         data: {
           status: "interview",
@@ -73,7 +85,7 @@ export const POST = async (req: NextRequest) => {
     }
     return NextResponse.json(newMeeting, { status: 201 });
   } catch (error) {
-    console.log("error at register employer ", error);
+    console.log("error at register meeting ", error);
     return NextResponse.json("unkown error", { status: 500 });
   }
 };

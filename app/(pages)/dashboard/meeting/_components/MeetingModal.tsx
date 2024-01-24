@@ -198,8 +198,7 @@ const MeetingModal = ({ meeting, id }: Data) => {
                                       nextMonthDate.getMonth() + 1
                                     );
                                     return (
-                                      date > nextMonthDate ||
-                                      date < new Date("2000-01-01")
+                                      date > nextMonthDate || date < new Date()
                                     );
                                   }}
                                   initialFocus

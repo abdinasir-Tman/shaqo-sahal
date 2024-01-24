@@ -8,7 +8,7 @@ import JobSeekerForm from "../_components/JobSeekerForm";
 const Register = () => {
   const [currentForm, setCurrentForm] = useState<string>("JobSeeker");
   return (
-    <div className="bg-main-50 dark:bg-main-950 max-w-5xl w-full h-screen flex justify-center items-start pt-5">
+    <div className="bg-main-50 dark:bg-main-950 w-full h-screen flex justify-center items-start pt-5">
       <div className="space-y-4">
         <div className="space-x-4 flex justify-center">
           <Button

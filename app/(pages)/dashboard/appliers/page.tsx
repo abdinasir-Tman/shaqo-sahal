@@ -26,8 +26,11 @@ const Appliers = async ({ searchParams }: any) => {
       <div className="mb-6">
         <h1 className="text-2xl font-bold mb-2">Job Title: {data.title}</h1>
         <p className="text-lg text-gray-700">Category: {data.jobCategory}</p>
-        <p className="text-md mt-4">{data.description}</p>
+        <p className="text-md mt-4">
+          Description <br /> {data.description}
+        </p>
       </div>
+      <h1 className="font-bold mb-2 text-2xl font-sans">Appliers</h1>
       <ApplierList data={data} />
     </div>
   );

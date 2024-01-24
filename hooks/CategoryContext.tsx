@@ -37,7 +37,7 @@ export const CategoryProvider = ({ children }: any) => {
     });
   };
   const getAllCategories = async () => {
-    const { data } = await axios.get(`${API}/jobSeeker/jobRoles`);
+    const { data } = await axios.get(`${API}/api/jobSeeker/jobRoles`);
     const category = data.flatMap((role: any) => role.roleCategory);
 
     setAllCategories(category);

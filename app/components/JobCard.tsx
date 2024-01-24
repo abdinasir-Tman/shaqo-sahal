@@ -22,8 +22,8 @@ const JobCard = ({
 }: JobCard) => {
   return (
     <div
-      className={`p-4 rounded-lg shadow-md 
-      "border-2 border-yellow-400"
+      className={`p-4 rounded-lg shadow 
+        dark:shadow-white
       `}
     >
       <div className="flex items-center justify-between">

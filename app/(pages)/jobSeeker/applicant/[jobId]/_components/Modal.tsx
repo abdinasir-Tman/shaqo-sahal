@@ -3,6 +3,8 @@
 import Modal from "react-modal";
 import { useState } from "react";
 import ApplicationForm from "./ApplicationForm";
+import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
 const customStyles = {
   content: {
     top: "50%",
@@ -30,12 +32,19 @@ const ApplicantModal = ({
   function closeModal() {
     setIsOpen(false);
   }
-
+  const { data: session }: any = useSession();
+  const isJobSeeker = () => {
+    if (session.user.type !== "jobSeeker") {
+      toast.error("sign as a job seeker");
+    } else {
+      openModal();
+    }
+  };
   return (
     <div>
       <button
         className="bg-main-600 text-white px-3 py-2 rounded-md hover:bg-main-700"
-        onClick={openModal}
+        onClick={isJobSeeker}
       >
         Apply
       </button>
