@@ -45,7 +45,7 @@ const TimePage = async ({ searchParams }: any) => {
       where: {
         jobCategory: { in: usr?.jobCategory },
         deadline: {
-          gte: date,
+          lte: date,
         },
       },
     });
