@@ -152,7 +152,7 @@ const ApplicationForm = ({ jobId }: { jobId: string }) => {
                           handleOnClick();
                         }}
                       >
-                        Resume
+                        Upload Resume
                       </Button>
                     );
                   }}

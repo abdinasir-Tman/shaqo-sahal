@@ -27,7 +27,7 @@ const NoteModal = ({ data }: any) => {
           note,
         }
       );
-      toast.dismiss("rejected");
+      toast.error("rejected");
       router.refresh();
     } catch (error) {
       console.log(error);

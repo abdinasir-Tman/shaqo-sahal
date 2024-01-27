@@ -9,7 +9,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const approvedEmail = async (from: string, to: string, note: string) => {
+const approvedEmail = async (from: string, to: string, note: any) => {
   let html: any = `<!DOCTYPE html>
 <html>
   <head> <title>Apply job</title>
@@ -26,9 +26,13 @@ const approvedEmail = async (from: string, to: string, note: string) => {
   
   </head>
   <body>
-    <h3 style="text-align: center; font-family: 'Lucida Sans'; padding: 10px">
-      ${note}
-    </h3>
+     <p>Dear ${note?.jobSeeker},</p>
+            <p>We are thrilled to inform you that your application for the position of <strong>${note?.jobTitle}</strong> at <strong>${note.companyName}</strong> has been approved. Welcome to our team!</p>
+            <p>Your skills and experience stood out among many impressive Job seekers, and we are excited about the potential you bring to our company.</p>
+            <p>We will be sending you an official offer letter shortly, but in the meantime, please feel free to reach out if you have any questions or need further information.</p>
+            <p>We look forward to working with you and seeing the great things we will accomplish together.</p>
+            <p>Warm regards,</p>
+            <p><strong>from ${note.companyName}'s HR Team</strong></p>
     
     
 </body>
@@ -37,7 +41,7 @@ const approvedEmail = async (from: string, to: string, note: string) => {
     const mailOptions = {
       from,
       to,
-      subject: "Job Rejection",
+      subject: "Job Approved",
       html: html,
     };
 
