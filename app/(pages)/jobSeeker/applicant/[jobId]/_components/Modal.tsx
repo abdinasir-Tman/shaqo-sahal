@@ -34,7 +34,9 @@ const ApplicantModal = ({
   }
   const { data: session }: any = useSession();
   const isJobSeeker = () => {
-    if (session.user.type !== "jobSeeker") {
+    if (!session) {
+      toast.error("sign in please");
+    } else if (session.user.type !== "jobSeeker") {
       toast.error("sign as a job seeker");
     } else {
       openModal();

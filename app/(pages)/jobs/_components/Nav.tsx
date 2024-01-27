@@ -62,9 +62,7 @@ const Nav = () => {
         {session ? (
           <Button
             size={"sm"}
-            onClick={() => {
-              signOut();
-            }}
+            onClick={() => signOut()}
             className="transition-all duration-300"
           >
             Signout

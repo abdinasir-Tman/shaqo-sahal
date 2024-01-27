@@ -9,9 +9,8 @@ const Signin = () => {
   return (
     <div className="bg-main-50 dark:bg-main-950  w-full h-screen flex justify-center items-center">
       <Button
-        onClick={() => {
-          signIn("google", { callbackUrl: API });
-        }}
+        variant={"ghost"}
+        onClick={() => signIn("google", { callbackUrl: API })}
         className="max-w-lg p-3 space-x-3 bg-main-300 dark:bg-main-800 dark:hover:bg-main-900 dark:text-white text-black"
       >
         <FcGoogle className="text-2xl" />

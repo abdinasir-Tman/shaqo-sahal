@@ -3,6 +3,7 @@ import React from "react";
 import prisma from "@/prisma/client";
 import ApplicationItems from "../_components/ApplicationItems";
 import { FaDatabase } from "react-icons/fa";
+import EmptyDataComponent from "@/app/components/EmptyComponent";
 
 const Application = async ({ params }: { params: { status: string } }) => {
   let data;
@@ -47,7 +48,7 @@ const Application = async ({ params }: { params: { status: string } }) => {
   if (data!?.length == 0)
     return (
       <div className="flex items-center justify-center w-full">
-        <FaDatabase className="text-9xl" />
+        <EmptyDataComponent />
       </div>
     );
   return (

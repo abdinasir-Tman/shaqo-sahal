@@ -1,5 +1,6 @@
 "use client";
 import CancelModal from "@/app/(pages)/dashboard/meeting/_components/CancelModal";
+import EmptyDataComponent from "@/app/components/EmptyComponent";
 import { API } from "@/lib/config";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -22,6 +23,7 @@ const MeetingList = () => {
         <Loader2 className="animate-spin md:h-24 md:w-24  mx-2" />
       </div>
     );
+  if (data?.length <= 0) return <EmptyDataComponent />;
   return (
     <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-2">
       {data.map((meeting: any) => (

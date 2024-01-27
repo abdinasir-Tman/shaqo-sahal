@@ -6,6 +6,7 @@ import prisma from "@/prisma/client";
 import { AiFillSchedule } from "react-icons/ai";
 import { FaLock } from "react-icons/fa";
 import { RiPassPendingFill } from "react-icons/ri";
+import EmptyDataComponent from "@/app/components/EmptyComponent";
 
 const AppPage = async () => {
   let data: any;
@@ -31,7 +32,7 @@ const AppPage = async () => {
   } catch (error) {
     console.log(error);
   }
-
+  if (data?.length <= 0) return <EmptyDataComponent />;
   return (
     <div className="grid md:grid-cols-2  gap-3">
       <h1 className="text-lg font-bold font-mono">
