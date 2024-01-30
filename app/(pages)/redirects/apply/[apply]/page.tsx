@@ -23,7 +23,7 @@ const Apply = async ({ params, searchParams }: Apply) => {
         id: jobId,
       },
       data: {
-        status: "interview",
+        admited: "interview",
       },
     });
     if (updatedApp) {

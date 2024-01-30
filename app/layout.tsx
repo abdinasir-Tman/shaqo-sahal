@@ -22,6 +22,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="icon"
+          href="/light_logo.svg"
+          type="image/svg"
+          sizes="<generated>"
+        />
+      </head>
       <body className="">
         <ThemeProvider
           attribute="class"
