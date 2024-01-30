@@ -22,6 +22,7 @@ import { CldUploadWidget } from "next-cloudinary";
 import toast from "react-hot-toast";
 import { Employer } from "@prisma/client";
 import { API } from "@/lib/config";
+import Image from "next/image";
 
 const EmployerForm = ({ Employer }: { Employer: Employer }) => {
   const { data: session }: any = useSession();
@@ -164,7 +165,9 @@ const EmployerForm = ({ Employer }: { Employer: Employer }) => {
                     <label className="block text-sm text-gray-600 mb-2">
                       Image Preview:
                     </label>
-                    <img
+                    <Image
+                      width={100}
+                      height={100}
                       src={file.url}
                       alt="Preview"
                       className="w-full h-64 object-cover rounded-md"
