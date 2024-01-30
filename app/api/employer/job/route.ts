@@ -1,3 +1,4 @@
+import receivedjobemail from "@/app/utils/emails/receivedjobemail";
 import { getToken } from "@/app/utils/token";
 import prisma from "@/prisma/client";
 
@@ -29,7 +30,25 @@ export const POST = async (req: NextRequest) => {
         requirements: body.requirements,
       },
     });
+    const jobSeekers = await prisma.jobSeeker.findMany({
+      where: {
+        jobCategory: {
+          has: jobList?.jobCategory,
+        },
+      },
+    });
 
+    jobSeekers.map((jobSeeker: any) => {
+      let note = {
+        jobSeeker: jobSeeker.name,
+        jobTitle: jobList.title,
+        companyName: employer?.companyName,
+        description: jobList.description,
+        location: jobList.location,
+        jobId: jobList.id,
+      };
+      receivedjobemail("abdinasirmursal2@gmail.com", jobSeeker?.email, note);
+    });
     return NextResponse.json(jobList, { status: 201 });
   } catch (error) {
     console.log("error at register job ", error);

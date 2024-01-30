@@ -346,9 +346,8 @@ const JobForm = ({ joblist }: { joblist: JobListing }) => {
                           </SelectTrigger>
                           <SelectContent position="popper">
                             <SelectItem value="7">In a Week</SelectItem>
+                            <SelectItem value="14">In 2 Weeks</SelectItem>
                             <SelectItem value="30">In a Month</SelectItem>
-                            <SelectItem value="60">In 2 Months</SelectItem>
-                            <SelectItem value="180">In 6 Months</SelectItem>
                           </SelectContent>
                         </Select>
                         <div className="rounded-md border">

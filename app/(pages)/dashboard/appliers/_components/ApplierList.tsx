@@ -11,7 +11,6 @@ import axios from "axios";
 import { API } from "@/lib/config";
 import Popup from "./Popup";
 export const ApplierList = ({ data }: any) => {
-  console.log(data);
   const [check, setCheck] = useState(false);
   const router = useRouter();
 

@@ -13,37 +13,39 @@ import { CompleteDialogueBox } from "./CompleteDialogue";
 import CancelModal from "./CancelModal";
 
 export function PopoverDemo({ data }: any) {
-  const isExpired = data.status === "expired" || data.status === "cancel";
+  const isExpired = data.status === "expired" || data.status === "canceled";
+
   return (
     <Popover>
       <PopoverTrigger asChild>
         <MoreVertical className="cursor-pointer" />
       </PopoverTrigger>
       <PopoverContent className="w-24 flex items-start justify-start flex-col space-y-2">
-        <span
+        <button
           className={`${isExpired ? "opacity-50 pointer-events-none" : ""}`}
-          aria-disabled={isExpired ? "true" : "false"}
+          disabled={isExpired}
         >
-          <MeetingModal meeting={data} id={data.id} />
-        </span>
+          <MeetingModal isExpired={isExpired} meeting={data} id={data.id} />
+        </button>
 
-        <span
+        <button
           className={`w-full cursor-pointer ${
             isExpired ? "opacity-50 pointer-events-none" : ""
           }`}
-          aria-disabled={isExpired ? "true" : "false"}
+          disabled={isExpired}
         >
           <CompleteDialogueBox id={data.id} />
-        </span>
+        </button>
+
         <span className="w-full cursor-pointer">
           <AlertDialogBox id={data.id} />
         </span>
-        <span
+        <button
           className={`${isExpired ? "opacity-50 pointer-events-none" : ""}`}
-          aria-disabled={isExpired ? "true" : "false"}
+          disabled={isExpired}
         >
           <CancelModal data={data} />
-        </span>
+        </button>
       </PopoverContent>
     </Popover>
   );

@@ -1,3 +1,4 @@
+import receivedjobemail from "@/app/utils/emails/receivedjobemail";
 import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 

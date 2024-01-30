@@ -9,14 +9,17 @@ import {
 } from "@/components/ui/popover";
 import { API } from "@/lib/config";
 import axios from "axios";
-import { MoreVertical } from "lucide-react";
+import { Loader, MoreVertical } from "lucide-react";
 import { useRouter } from "next/navigation";
 import NoteModal from "./NoteModal";
+import { useState } from "react";
 
 function Popup({ data }: any) {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const admitFunction = async (appId: string, status: string) => {
     try {
+      setLoading(true);
       const getData = await axios.post(
         `${API}/api/jobSeeker/application/apply`,
         {
@@ -24,11 +27,11 @@ function Popup({ data }: any) {
           admited: status,
         }
       );
-
+      setLoading(false);
       router.refresh();
     } catch (error) {}
   };
-  const isExpired = data.status === "request" || data.status === "canceled";
+  const isExpired = data.status == "request" || data.status == "canceled";
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -38,18 +41,18 @@ function Popup({ data }: any) {
         <span className="w-full cursor-pointer">
           <NoteModal data={data} />
         </span>
-
-        <span
+        {isExpired}
+        <button
           onClick={() => {
             admitFunction(data.id, "approved");
           }}
           className={`w-full cursor-pointer ${
             isExpired ? "opacity-50 pointer-events-none" : ""
           }`}
-          aria-disabled={isExpired ? "true" : "false"}
+          disabled={isExpired}
         >
-          Approved
-        </span>
+          {loading ? <Loader className="animate-spin w-13 h-13" /> : "Approved"}
+        </button>
       </PopoverContent>
     </Popover>
   );

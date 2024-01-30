@@ -63,13 +63,14 @@ import { useRouter } from "next/navigation";
 interface Data {
   meeting: Meeting;
   id: string;
+  isExpired: boolean;
 }
 const meetType = [
   { id: 1, name: "Zoom" },
   { id: 2, name: "interview" },
 ];
 
-const MeetingModal = ({ meeting, id }: Data) => {
+const MeetingModal = ({ meeting, id, isExpired }: Data) => {
   const queryClient = useQueryClient();
   const router = useRouter();
   const form = useForm<z.infer<typeof meetingValidator>>({
@@ -98,7 +99,7 @@ const MeetingModal = ({ meeting, id }: Data) => {
         formData.appId = id;
         await axios.post(`${API}/api/employer/meeting`, formData);
         toast.success("success Registered");
-        router.push("./");
+        router.push("/dashboard/meeting");
       }
       queryClient.invalidateQueries({ queryKey: ["meeting"] });
       form.reset();
@@ -111,7 +112,9 @@ const MeetingModal = ({ meeting, id }: Data) => {
       <Dialog>
         <DialogTrigger>
           {meeting ? (
-            <span className="w-full cursor-pointer">edit</span>
+            <button disabled={isExpired} className="w-full cursor-pointer">
+              edit
+            </button>
           ) : (
             <Videotape />
           )}
@@ -120,154 +123,148 @@ const MeetingModal = ({ meeting, id }: Data) => {
           <DialogHeader>
             <DialogTitle>Meeting</DialogTitle>
             <DialogDescription>
-              <Card className="md:w-full">
-                <CardHeader></CardHeader>
-                <CardContent>
-                  <Form {...form}>
-                    <form
-                      onSubmit={form.handleSubmit(onSubmit)}
-                      className="grid grid-cols-1 md:grid-cols-2 gap-3"
-                    >
-                      <FormField
-                        control={form.control}
-                        name="type"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="dark:text-gray-200">
-                              Meet Type
-                            </FormLabel>
-                            <FormControl>
-                              <Select
-                                value={field.value}
-                                onValueChange={field.onChange}
-                              >
-                                <SelectTrigger className="w-full">
-                                  <SelectValue placeholder="meeting type" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  {meetType.map((meet) => (
-                                    <SelectItem key={meet.id} value={meet.name}>
-                                      {meet.name}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                            </FormControl>
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)}>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {" "}
+                    <FormField
+                      control={form.control}
+                      name="type"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="dark:text-gray-200">
+                            Meet Type
+                          </FormLabel>
+                          <FormControl>
+                            <Select
+                              value={field.value}
+                              onValueChange={field.onChange}
+                            >
+                              <SelectTrigger className="w-full">
+                                <SelectValue placeholder="meeting type" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {meetType.map((meet) => (
+                                  <SelectItem key={meet.id} value={meet.name}>
+                                    {meet.name}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
 
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      {/* date  */}
-                      <FormField
-                        control={form.control}
-                        name="date"
-                        render={({ field }) => (
-                          <FormItem className="flex flex-col">
-                            <FormLabel>Date</FormLabel>
-                            <Popover>
-                              <PopoverTrigger asChild>
-                                <FormControl>
-                                  <Button
-                                    variant={"outline"}
-                                    className={cn(
-                                      "md:w-[220px] pl-3 text-left font-normal",
-                                      !field.value && "text-muted-foreground"
-                                    )}
-                                  >
-                                    {field.value ? (
-                                      format(field.value, "PPP")
-                                    ) : (
-                                      <span>Pick a date</span>
-                                    )}
-                                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                                  </Button>
-                                </FormControl>
-                              </PopoverTrigger>
-                              <PopoverContent
-                                className="w-auto p-0"
-                                align="start"
-                              >
-                                <Calendar
-                                  mode="single"
-                                  selected={field.value}
-                                  onSelect={field.onChange}
-                                  disabled={(date) => {
-                                    const nextMonthDate = new Date();
-                                    nextMonthDate.setMonth(
-                                      nextMonthDate.getMonth() + 1
-                                    );
-                                    return (
-                                      date > nextMonthDate || date < new Date()
-                                    );
-                                  }}
-                                  initialFocus
-                                />
-                              </PopoverContent>
-                            </Popover>
-
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      {/* time  */}
-                      <Time control={form.control} setValue={form.setValue} />
-                      {/* duration time  */}
-                      <FormField
-                        control={form.control}
-                        name="timeDuration"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="dark:text-gray-200">
-                              Time Duration
-                            </FormLabel>
-                            <FormControl>
-                              <Input
-                                className="dark:text-gray-200"
-                                placeholder="40"
-                                {...field}
-                                onChange={(e) => {
-                                  field.onChange(
-                                    parseFloat(e.target.value) || 0
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    {/* date  */}
+                    <FormField
+                      control={form.control}
+                      name="date"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-col">
+                          <FormLabel>Date</FormLabel>
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <FormControl>
+                                <Button
+                                  variant={"outline"}
+                                  className={cn(
+                                    "md:w-[220px] pl-3 text-left font-normal",
+                                    !field.value && "text-muted-foreground"
+                                  )}
+                                >
+                                  {field.value ? (
+                                    format(field.value, "PPP")
+                                  ) : (
+                                    <span>Pick a date</span>
+                                  )}
+                                  <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                </Button>
+                              </FormControl>
+                            </PopoverTrigger>
+                            <PopoverContent
+                              className="w-auto p-0"
+                              align="start"
+                            >
+                              <Calendar
+                                mode="single"
+                                selected={field.value}
+                                onSelect={field.onChange}
+                                disabled={(date) => {
+                                  const nextMonthDate = new Date();
+                                  nextMonthDate.setMonth(
+                                    nextMonthDate.getMonth() + 1
+                                  );
+                                  return (
+                                    date > nextMonthDate || date < new Date()
                                   );
                                 }}
+                                initialFocus
                               />
-                            </FormControl>
+                            </PopoverContent>
+                          </Popover>
 
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      {/* note  */}
-                      <FormField
-                        control={form.control}
-                        name="note"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="dark:text-gray-200">
-                              Note
-                            </FormLabel>
-                            <FormControl>
-                              <Textarea
-                                className="dark:text-gray-200 w-full"
-                                placeholder="desc.."
-                                {...field}
-                              />
-                            </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    {/* time  */}
+                    <Time control={form.control} setValue={form.setValue} />
+                    {/* duration time  */}
+                    <FormField
+                      control={form.control}
+                      name="timeDuration"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="dark:text-gray-200">
+                            Time Duration
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              className="dark:text-gray-200"
+                              placeholder="40"
+                              {...field}
+                              onChange={(e) => {
+                                field.onChange(parseFloat(e.target.value) || 0);
+                              }}
+                            />
+                          </FormControl>
 
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
 
-                      <ButtonLoading
-                        isUpdate={!!meeting}
-                        loading={form.formState.isSubmitting}
-                      />
-                    </form>
-                  </Form>
-                </CardContent>
-              </Card>
+                  {/* note  */}
+                  <FormField
+                    control={form.control}
+                    name="note"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="dark:text-gray-200">
+                          Note
+                        </FormLabel>
+                        <FormControl>
+                          <Textarea
+                            className="dark:text-gray-200 w-full"
+                            placeholder="desc.."
+                            {...field}
+                          />
+                        </FormControl>
+
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <ButtonLoading
+                    isUpdate={!!meeting}
+                    loading={form.formState.isSubmitting}
+                  />
+                </form>
+              </Form>
             </DialogDescription>
           </DialogHeader>
         </DialogContent>
@@ -286,7 +283,7 @@ export const ButtonLoading = ({
 }) => {
   if (loading) {
     return (
-      <Button className="bg-main-900 md:mt-36 dark:bg-main-100 hover:bg-main-950 dark:hover:bg-main-50 transition-all duration-300 space-x-2 gap-x-1">
+      <Button className="bg-main-900 mt-3 dark:bg-main-100 hover:bg-main-950 w-full dark:hover:bg-main-50 transition-all duration-300 space-x-2 gap-x-1">
         {isUpdate ? "Updating" : "Registering"}
         <Loader2 className="animate-spin h-5 w-5 mx-2" />
       </Button>
@@ -294,7 +291,7 @@ export const ButtonLoading = ({
   }
 
   return (
-    <Button className="md:mt-36" type="submit">
+    <Button className="mt-3 w-full" type="submit">
       {isUpdate ? "Update" : "Register"}
     </Button>
   );
