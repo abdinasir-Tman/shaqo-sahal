@@ -15,35 +15,38 @@ export const POST = async (req: NextRequest, { searchParams }: any) => {
   const session: any = await getToken();
   let application: any;
   if (!session) return NextResponse.json("not authenticated", { status: 500 });
-  if (body.admited == "rejected") {
-    let application: any = await prisma.application.findFirst({
-      where: {
-        id: body.appId,
-      },
-      select: {
-        JobSeeker: {
-          select: {
-            email: true,
+
+  try {
+    if (body.admited == "rejected") {
+      let application: any = await prisma.application.findFirst({
+        where: {
+          id: body.appId,
+        },
+        select: {
+          JobSeeker: {
+            select: {
+              email: true,
+            },
           },
         },
-      },
-    });
-    const updatedApp = await prisma?.application.update({
-      where: {
-        id: body.appId,
-      },
-      data: {
-        admited: body.admited,
-      },
-    });
-    rejectionEmail(
-      session?.user.email,
-      application?.JobSeeker?.email!,
-      body.note
-    );
-    return NextResponse.json(updatedApp, { status: 202 });
-  }
-  try {
+      });
+      const updatedApp = await prisma?.application.update({
+        where: {
+          id: body.appId,
+        },
+        data: {
+          admited: body.admited,
+        },
+      });
+      rejectionEmail(
+        session?.user.email,
+        application?.JobSeeker?.email!,
+        body.note
+      );
+      if (updatedApp) return NextResponse.json(updatedApp, { status: 202 });
+    }
+
+    //if it is not reject
     const updatedApp = await prisma?.application.update({
       where: {
         id: body.appId,

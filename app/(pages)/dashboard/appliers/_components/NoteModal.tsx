@@ -16,8 +16,6 @@ import axios from "axios";
 import { Loader, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import toast from "react-hot-toast";
-
 const NoteModal = ({ data }: any) => {
   const [note, setNote] = useState();
   const [loading, setLoading] = useState(false);
@@ -34,7 +32,6 @@ const NoteModal = ({ data }: any) => {
         }
       );
       setLoading(false);
-      toast.error("rejected");
       router.refresh();
     } catch (error) {
       console.log(error);

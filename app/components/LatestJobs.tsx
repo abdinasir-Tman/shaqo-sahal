@@ -13,6 +13,20 @@ import Link from "next/link";
 export const LatestJobs = async () => {
   let data: any;
   try {
+    // decline jobs expired
+    await prisma.jobListing.updateMany({
+      where: {
+        deadline: {
+          lte: new Date(),
+        },
+        status: {
+          not: "declined",
+        },
+      },
+      data: {
+        status: "declined",
+      },
+    });
     data = await prisma?.jobListing.findMany({
       include: {
         Employer: {

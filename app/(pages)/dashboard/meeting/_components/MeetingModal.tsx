@@ -110,7 +110,7 @@ const MeetingModal = ({ meeting, id, isExpired }: Data) => {
   return (
     <div>
       <Dialog>
-        <DialogTrigger>
+        <DialogTrigger className="flex justify-center items-center">
           {meeting ? (
             <button disabled={isExpired} className="w-full cursor-pointer">
               edit
@@ -121,7 +121,9 @@ const MeetingModal = ({ meeting, id, isExpired }: Data) => {
         </DialogTrigger>
         <DialogContent className="md:h-full w-full overflow-auto">
           <DialogHeader>
-            <DialogTitle>Meeting</DialogTitle>
+            <DialogTitle className="flex items-center justify-center">
+              Meeting
+            </DialogTitle>
             <DialogDescription>
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>

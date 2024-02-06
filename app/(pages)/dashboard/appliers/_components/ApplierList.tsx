@@ -20,7 +20,7 @@ export const ApplierList = ({ data }: any) => {
         return (
           <div
             key={applier.id}
-            className={`flex flex-wrap items-center justify-start gap-4 p-4 rounded-lg  bg-white shadow-md
+            className={`flex flex-wrap items-center justify-start gap-4 p-4 rounded-lg  bg-gray-900 shadow-md
             `}
           >
             <span>{i + 1}</span>
@@ -66,6 +66,7 @@ export const ApplierList = ({ data }: any) => {
                 Resume
               </a>
             </EmbedPDF>
+
             {/* @ts-ignore  */}
             <MeetingModal
               id={applier.id}
@@ -73,6 +74,7 @@ export const ApplierList = ({ data }: any) => {
             >
               Meeting
             </MeetingModal>
+
             <div className="ml-auto">
               <Popup data={applier} />
             </div>
