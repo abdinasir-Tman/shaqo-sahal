@@ -6,12 +6,12 @@ import { NextRequest, NextResponse } from "next/server";
 export const POST = async (req: NextRequest) => {
   const body: any = await req.json();
 
-  const { user }: any = await getToken();
+  const session: any = await getToken();
 
-  if (!user) return NextResponse.json("not authenticated", { status: 500 });
+  if (!session) return NextResponse.json("not authenticated", { status: 500 });
   const usr = await prisma.jobSeeker.findFirst({
     where: {
-      email: user?.email,
+      email: session.user?.email,
     },
   });
   try {
@@ -43,8 +43,22 @@ export const POST = async (req: NextRequest) => {
           Employer: true,
         },
       });
-
-      await sendApplicationEmail(job?.Employer?.email!, user?.email);
+      const jobSeeker = await prisma?.jobSeeker.findFirst({
+        where: {
+          email: session.user?.email,
+        },
+      });
+      const app = {
+        jobSeeker: jobSeeker?.name,
+        jobTitle: job?.title,
+        companyName: job?.Employer?.companyName,
+        address: job?.Employer?.address,
+      };
+      await sendApplicationEmail(
+        job?.Employer?.email!,
+        session?.user?.email,
+        app
+      );
     }
     return NextResponse.json(newApplication, { status: 201 });
   } catch (error) {

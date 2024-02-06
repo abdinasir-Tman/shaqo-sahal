@@ -44,48 +44,48 @@ export const POST = async (req: NextRequest, { searchParams }: any) => {
         body.note
       );
       if (updatedApp) return NextResponse.json(updatedApp, { status: 202 });
-    }
-
-    //if it is not reject
-    const updatedApp = await prisma?.application.update({
-      where: {
-        id: body.appId,
-      },
-      data: {
-        admited: body.admited,
-      },
-    });
-    let application: any = await prisma.application.findFirst({
-      where: {
-        id: body.appId,
-      },
-      select: {
-        JobSeeker: {
-          select: {
-            email: true,
-            name: true,
-          },
+    } else {
+      //if it is not reject
+      const updatedApp = await prisma?.application.update({
+        where: {
+          id: body.appId,
         },
-        JobListing: {
-          select: {
-            title: true,
-            Employer: {
-              select: {
-                companyName: true,
+        data: {
+          admited: body.admited,
+        },
+      });
+      let application: any = await prisma.application.findFirst({
+        where: {
+          id: body.appId,
+        },
+        select: {
+          JobSeeker: {
+            select: {
+              email: true,
+              name: true,
+            },
+          },
+          JobListing: {
+            select: {
+              title: true,
+              Employer: {
+                select: {
+                  companyName: true,
+                },
               },
             },
           },
         },
-      },
-    });
+      });
 
-    const note: NoteJobApproved = {
-      companyName: application?.JobListing?.Employer?.companyName,
-      jobSeeker: application?.JobSeeker?.name,
-      jobTitle: application?.JobListing?.title,
-    };
-    approvedEmail(session?.user.email, application?.JobSeeker?.email!, note);
-    if (updatedApp) return NextResponse.json(updatedApp, { status: 202 });
+      const note: NoteJobApproved = {
+        companyName: application?.JobListing?.Employer?.companyName,
+        jobSeeker: application?.JobSeeker?.name,
+        jobTitle: application?.JobListing?.title,
+      };
+      approvedEmail(session?.user.email, application?.JobSeeker?.email!, note);
+      if (updatedApp) return NextResponse.json(updatedApp, { status: 202 });
+    }
   } catch (error) {
     console.log(error);
     return NextResponse.json(error, { status: 501 });

@@ -19,8 +19,10 @@ import { useState } from "react";
 const NoteModal = ({ data }: any) => {
   const [note, setNote] = useState();
   const [loading, setLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const admitFunction = async (appId: string, status: string) => {
+    setIsOpen(false);
     try {
       setLoading(true);
       const getData = await axios.post(
@@ -32,13 +34,14 @@ const NoteModal = ({ data }: any) => {
         }
       );
       setLoading(false);
+
       router.refresh();
     } catch (error) {
       console.log(error);
     }
   };
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger className="flex items-center justify-center">
         {loading ? <Loader className="animate-spin w-13 h-13" /> : "Reject"}
       </DialogTrigger>
@@ -47,7 +50,8 @@ const NoteModal = ({ data }: any) => {
           <DialogTitle>Tell the Reason</DialogTitle>
           <DialogDescription>
             <form
-              onSubmit={() => {
+              onSubmit={(e) => {
+                e.preventDefault();
                 admitFunction(data.id, "rejected");
               }}
             >
@@ -58,13 +62,10 @@ const NoteModal = ({ data }: any) => {
                   setNote(e.target.value);
                 }}
               />
-              <DialogFooter is="submit">
-                <DialogClose>
-                  <Button type="submit" className="mt-3">
-                    Reject
-                  </Button>
-                </DialogClose>
-              </DialogFooter>
+
+              <Button type="submit" className="mt-3">
+                Reject
+              </Button>
             </form>
           </DialogDescription>
         </DialogHeader>

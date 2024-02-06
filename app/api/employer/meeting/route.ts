@@ -24,7 +24,12 @@ export const POST = async (req: NextRequest) => {
           applications: { some: { id: newMeeting.applicationId! } },
         },
         include: {
-          applications: true,
+          applications: {
+            include: {
+              JobSeeker: true,
+            },
+          },
+          Employer: true,
         },
       });
 
@@ -44,12 +49,17 @@ export const POST = async (req: NextRequest) => {
           status: "interview",
         },
       });
+
       const meeting = {
         type: newMeeting.type,
         date: new Date(newMeeting.Date).toDateString(),
         time: newMeeting.time,
         timeDuration: newMeeting.timeDuration,
         note: newMeeting.note,
+        jobSeeker: app?.applications[0].JobSeeker.name,
+        address: app?.Employer.address,
+        companyName: app?.Employer.companyName,
+        jobTitle: app?.title,
       };
       const meetings = await prisma.meeting.findFirst({
         where: {

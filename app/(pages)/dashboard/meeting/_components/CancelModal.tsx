@@ -10,49 +10,59 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { API } from "@/lib/config";
 import axios from "axios";
-import { Videotape } from "lucide-react";
+import { Loader, Videotape } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
 const CancelModal = ({ data }: any) => {
   const [note, setNote] = useState();
+  const [isOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const CancelFunction = async (meetingId: string) => {
+    setIsOpen(false);
     try {
-      const getData = await axios.put(
-        `${API}/api/employer/meeting/${meetingId}`,
-        {
-          note,
-        }
-      );
-      toast.dismiss("canceled the meeting");
+      setLoading(true);
+      await axios.put(`${API}/api/employer/meeting/${meetingId}`, {
+        note,
+      });
+      toast.error("canceled the meeting");
+      setLoading(false);
       router.refresh();
     } catch (error) {
       console.log(error);
     }
   };
   return (
-    <Dialog>
-      <DialogTrigger>Cancel</DialogTrigger>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogTrigger>
+        {loading ? <Loader className="animate-spin w-13 h-13" /> : "Cancel"}
+      </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Tell the Reason</DialogTitle>
           <DialogDescription>
-            <Textarea
-              className="w-full"
-              onChange={(e: any) => {
-                setNote(e.target.value);
-              }}
-            />
-            <Button
-              className="mt-3 flex justify-center items-center gap-x-3"
-              onClick={() => {
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
                 CancelFunction(data.id);
               }}
             >
-              Cancel <Videotape />
-            </Button>
+              <Textarea
+                className="w-full"
+                required
+                onChange={(e: any) => {
+                  setNote(e.target.value);
+                }}
+              />
+              <Button
+                type="submit"
+                className="mt-3 flex justify-center items-center gap-x-3"
+              >
+                Cancel <Videotape />
+              </Button>
+            </form>
           </DialogDescription>
         </DialogHeader>
       </DialogContent>

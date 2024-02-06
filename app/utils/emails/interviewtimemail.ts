@@ -25,20 +25,27 @@ const sendInterviewEmail = async (from: string, to: string, meeting: any) => {
     <title>Shaqo sahal</title>
   
   </head>
-  <body>
-    <h1 style="text-align: center; font-family: 'Lucida Sans'; padding: 10px">
-      Interview Scheduled
-    </h1>
-    
-    <div>Date : ${meeting.date}</div>
-    <div>Time : ${meeting.time}</div> 
-    <div>Time Duration : ${meeting.timeDuration} m</div> 
-    <div>via : ${meeting.type}</div> 
-    <div style="padding-top-20px;"> ${meeting.note}</div> 
-
-    <h3>don't be late man!</h3>
-    
+  <body style="font-family: Arial, sans-serif; margin: 20px; padding: 0; background-color: #f4f4f4; color: #333;">
+    <div style="background-color: #fff; border: 1px solid #dedede; border-radius: 5px; padding: 20px; margin: 10px auto; max-width: 800px;">
+        <h2 style="color: #007bff;">Meeting Appointment </h2>
+        <p>Dear ${meeting.jobSeeker},</p>
+        <p>Thank you for your interest in joining our team. We are pleased to invite you for a meeting to discuss your application further.</p>
+        <div><strong>Job Position:</strong> ${meeting.jobTitle}</div>
+        <div style="margin: 20px 0; padding: 20px; background-color: #e9ecef; border-radius: 5px;">
+            <p><strong>Date:</strong> ${meeting.date}</p>
+            <p><strong>Time:</strong> ${meeting.time}</p>
+            <p><strong>Duration:</strong> ${meeting.timeDuration} m</p>
+            <p><strong>Via:</strong> ${meeting.type} </p>
+            <p><strong>Description:</strong> ${meeting.note}</p>
+        </div>
+        
+       
+        <div style="margin-top: 20px; text-align: center; font-size: 0.9em; color: #aaa;">
+          ${meeting.companyName} | ${meeting.address}
+        </div>
+    </div>
 </body>
+ 
 </html>`;
   try {
     const mailOptions = {

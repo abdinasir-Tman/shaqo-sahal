@@ -4,7 +4,7 @@ import {
   Briefcase,
   HeartHandshake,
   LucideIcon,
-  SquareUser,
+  Settings,
   Videotape,
 } from "lucide-react";
 import Image from "next/image";
@@ -26,9 +26,9 @@ const sideRoutes = [
   },
   {
     id: 3,
-    path: "/profile",
-    label: "Profile",
-    icon: SquareUser,
+    path: "/setting",
+    label: "Setting",
+    icon: Settings,
   },
   {
     id: 4,

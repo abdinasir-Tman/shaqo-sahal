@@ -134,13 +134,6 @@ export const PATCH = async (
       },
     });
     if (updateMeeting) {
-      const meeting = {
-        type: updateMeeting.type,
-        date: new Date(updateMeeting.Date).toDateString(),
-        time: updateMeeting.time,
-        timeDuration: updateMeeting.timeDuration,
-        note: updateMeeting.note,
-      };
       const meetings = await prisma.meeting.findFirst({
         where: {
           id: updateMeeting.id,
@@ -151,13 +144,17 @@ export const PATCH = async (
               JobSeeker: {
                 select: {
                   email: true,
+                  name: true,
                 },
               },
               JobListing: {
                 select: {
+                  title: true,
                   Employer: {
                     select: {
                       email: true,
+                      address: true,
+                      companyName: true,
                     },
                   },
                 },
@@ -166,7 +163,17 @@ export const PATCH = async (
           },
         },
       });
-
+      const meeting = {
+        type: updateMeeting.type,
+        date: new Date(updateMeeting.Date).toDateString(),
+        time: updateMeeting.time,
+        timeDuration: updateMeeting.timeDuration,
+        note: updateMeeting.note,
+        jobSeeker: meetings?.Application?.JobSeeker?.name,
+        address: meetings?.Application?.JobListing?.Employer?.address,
+        companyName: meetings?.Application?.JobListing?.Employer?.companyName,
+        jobTitle: meetings?.Application?.JobListing?.title,
+      };
       sendInterviewEmail(
         meetings?.Application?.JobListing?.Employer?.email!,
         meetings?.Application?.JobSeeker?.email!,
