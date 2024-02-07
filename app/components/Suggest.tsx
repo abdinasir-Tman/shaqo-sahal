@@ -134,7 +134,7 @@ const Suggest = () => {
         {/* job seeker  */}
         <div className="relative z-30 p-10 bg-main-100 dark:bg-main-900 rounded-lg flex justify-between w-full">
           <div className="flex z-20 flex-col space-y-3">
-            <h1 className="text-2xl font-bold">For Candidates</h1>
+            <h1 className="text-2xl font-bold">For Job Seeker</h1>
             <h2 className="text-lg w-[20rem]">
               Build your professional profile,
               <br /> find new job opportunities.
