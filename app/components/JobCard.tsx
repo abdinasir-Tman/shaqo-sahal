@@ -42,7 +42,7 @@ const JobCard = ({
         isOwner(id, Employer.email);
       }}
       className={`p-4 rounded-md cursor-pointer shadow 
-        dark:shadow-white
+        dark:shadow-gray-700
       `}
     >
       <div className="flex items-center justify-between">
