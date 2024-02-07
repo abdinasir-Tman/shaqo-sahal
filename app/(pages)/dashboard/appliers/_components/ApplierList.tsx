@@ -20,7 +20,7 @@ export const ApplierList = ({ data }: any) => {
         return (
           <div
             key={applier.id}
-            className={`flex flex-wrap items-center justify-start gap-4 p-4 rounded-lg  bg-gray-900 shadow-md
+            className={`flex flex-wrap items-center justify-start gap-4 p-4 rounded-lg  dark:bg-gray-900 shadow-md
             `}
           >
             <span>{i + 1}</span>
