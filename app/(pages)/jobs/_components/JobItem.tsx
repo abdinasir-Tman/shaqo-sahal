@@ -10,6 +10,7 @@ import { formatDistance } from "date-fns";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
+import { API } from "@/lib/config";
 
 interface JobItems {
   Employer: any;
@@ -39,7 +40,7 @@ const JobItem = ({
     if (session?.user.email === email) {
       toast.error("sorry not allowed the owner");
     } else {
-      router.push("/jobSeeker/applicant/" + id);
+      router.push(API + "/jobSeeker/applicant/" + id);
     }
   };
   return (
