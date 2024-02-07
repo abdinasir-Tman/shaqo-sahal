@@ -56,7 +56,7 @@ const Nav = () => {
             }}
             className="bg-main-900 dark:bg-main-100 hover:bg-main-950 dark:hover:bg-main-50 transition-all duration-300"
           >
-            Register
+            Complete your profile
           </Button>
         )}
         {session ? (

@@ -29,8 +29,9 @@ export const CategoryProvider = ({ children }: any) => {
 
   const getCategory = async (id: string) => {
     const { data } = await axios.get(`${API}/api/jobSeeker/jobRoles`);
-
-    data.map((role: any) => {
+    console.log("roles ", data);
+    data?.map((role: any) => {
+      console.log("role info ", role);
       if (role.id === id) {
         setRoleCategories(role.roleCategory);
       }
