@@ -84,28 +84,7 @@ const Filters = () => {
         </RadioGroup>
       </div>
       {/* salary type  */}
-      <div className="flex mt-2 items-start flex-col  gap-3 overflow-y-auto">
-        <h1 className="font-mono italic text-3xl font-bold leading-[3rem]">
-          Salary Type
-        </h1>
-        <RadioGroup
-          onValueChange={(e) => {}}
-          className="flex flex-col items-start gap-2 text-lg font-serif"
-        >
-          <li className="flex gap-x-2 items-center ">
-            <RadioGroupItem value="hour" /> <label htmlFor="">Hour</label>
-          </li>
-          <li className="flex gap-x-2 justify-between items-center">
-            <RadioGroupItem value="week" /> <label htmlFor="">Week</label>
-          </li>
-          <li className="flex gap-x-2 justify-between items-center">
-            <RadioGroupItem value="month" /> <label htmlFor="">Month</label>
-          </li>
-          <li className="flex gap-x-2 justify-between items-center">
-            <RadioGroupItem value="year" /> <label htmlFor="">Year</label>
-          </li>
-        </RadioGroup>
-      </div>
+      <div className="flex mt-2 items-start flex-col  gap-3 overflow-y-auto h-20"></div>
     </div>
   );
 };
