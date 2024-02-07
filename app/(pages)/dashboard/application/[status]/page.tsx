@@ -45,7 +45,6 @@ const Application = async ({ params }: { params: { status: string } }) => {
         },
       });
     }
-    console.log(data);
   } catch (error) {
     console.log(error);
   }

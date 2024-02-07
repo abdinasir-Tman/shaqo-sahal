@@ -24,6 +24,7 @@ const MeetingList = () => {
         <Loader2 className="animate-spin md:h-24 md:w-24  mx-2" />
       </div>
     );
+  console.log(data);
   if (data?.length <= 0) return <EmptyDataComponent />;
   return (
     <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-2">

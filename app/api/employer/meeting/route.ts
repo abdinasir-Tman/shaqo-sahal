@@ -115,20 +115,23 @@ export const GET = async (req: NextRequest) => {
         status: "expired",
       },
     });
+
     const meetings = await prisma.meeting.findMany({
-      orderBy: {
-        created: "desc",
+      where: {
+        Application: {
+          JobListing: {
+            Employer: {
+              email: session.user.email,
+            },
+          },
+        },
       },
       include: {
         Application: {
           include: {
             JobListing: {
               include: {
-                Employer: {
-                  where: {
-                    email: session.user?.email,
-                  },
-                },
+                Employer: true,
               },
             },
             JobSeeker: true,
@@ -136,7 +139,7 @@ export const GET = async (req: NextRequest) => {
         },
       },
     });
-
+    console.log(meetings);
     return NextResponse.json(meetings, { status: 200 });
   } catch (error) {
     console.log("error at get the meetings", error);
