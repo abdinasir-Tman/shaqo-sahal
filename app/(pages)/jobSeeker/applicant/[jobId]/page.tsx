@@ -19,7 +19,7 @@ const Applicants = async ({ params }: { params: { jobId: string } }) => {
       },
     });
   } catch (error) {
-    notFound();
+    console.log(error);
   }
   return (
     <div className="p-10 rounded-md shadow-md dark:bg-gray-800 w-full relative">
