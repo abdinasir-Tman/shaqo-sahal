@@ -5,7 +5,7 @@ import React from "react";
 const ApplicationFilter = () => {
   const router = useRouter();
   return (
-    <div className="flex justify-between items-center w-full md:p-8 md:w-56 space-x-4">
+    <div className="flex justify-between items-center w-full md:p-8 md:w-56 space-x-4 my-2">
       <span className="flex space-x-2">
         <input
           defaultChecked={true}

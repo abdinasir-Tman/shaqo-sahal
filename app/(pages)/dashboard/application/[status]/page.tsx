@@ -6,46 +6,50 @@ import { FaDatabase } from "react-icons/fa";
 import EmptyDataComponent from "@/app/components/EmptyComponent";
 
 const Application = async ({ params }: { params: { status: string } }) => {
-  let data;
+  let data: any;
   const session: any = await getToken();
   try {
     if (params.status == "all") {
-      data = await prisma?.jobListing.findMany({
-        orderBy: {
-          created: "desc",
+      data = await prisma.employer.findUnique({
+        where: {
+          email: session.user.email,
         },
         include: {
-          Employer: {
-            where: {
-              email: session.user?.email,
+          jobListings: {
+            orderBy: {
+              created: "desc",
+            },
+            include: {
+              applications: true,
             },
           },
-          applications: true,
         },
       });
     } else {
-      data = await prisma?.jobListing.findMany({
-        orderBy: {
-          created: "desc",
-        },
+      data = await prisma.employer.findUnique({
         where: {
-          status: params.status,
+          email: session?.user?.email,
         },
-
         include: {
-          Employer: {
+          jobListings: {
+            orderBy: {
+              created: "desc",
+            },
             where: {
-              email: session.user?.email,
+              status: params.status,
+            },
+            include: {
+              applications: true,
             },
           },
-          applications: true,
         },
       });
     }
+    console.log(data);
   } catch (error) {
     console.log(error);
   }
-  if (data!?.length == 0)
+  if (data?.jobListings?.length <= 0)
     return (
       <div className="flex items-center justify-center w-full">
         <EmptyDataComponent />
@@ -53,7 +57,7 @@ const Application = async ({ params }: { params: { status: string } }) => {
     );
   return (
     <div>
-      <ApplicationItems data={data} />
+      <ApplicationItems data={data?.jobListings} />
     </div>
   );
 };

@@ -24,12 +24,10 @@ const AppPage = async () => {
         },
       },
     });
-
-    console.log(data);
   } catch (error) {
     console.log(error);
   }
-  if (data?.length == 0) return EmptyDataComponent();
+  if (data?.jobListings?.length == 0) return EmptyDataComponent();
   return (
     <div className="grid md:grid-cols-2  gap-3">
       {data?.jobListings?.map((app: any) => (
@@ -45,7 +43,6 @@ const AppPage = async () => {
               : "border-b-red-800"
           )}
         >
-          {" "}
           <div className="flex justify-between items-center">
             <h1 className="text-gray-500 text-sm">{app?.status}</h1>
             <h1 className="text-gray-500 text-sm">
