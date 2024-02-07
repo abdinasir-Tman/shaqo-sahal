@@ -4,15 +4,31 @@ import { getToken } from "@/app/utils/token";
 import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
-export const PUT = async (
+export const POST = async (
   req: NextRequest,
   { params }: { params: { id: string } }
 ) => {
   const session: any = await getToken();
+  console.log(req.headers.get("content-length"));
+  const { note, status } = await req.json();
+  console.log(note, status);
+  if (status) {
+    try {
+      const updateMeeting = await prisma.meeting.update({
+        where: {
+          id: params.id,
+        },
+        data: {
+          status: "completed",
+        },
+      });
 
-  try {
-    const body = await req.json();
-    if (body) {
+      return NextResponse.json(updateMeeting, { status: 200 });
+    } catch (error) {
+      console.log("error at compelete meeting", error);
+    }
+  } else {
+    try {
       const updatedMeeting = await prisma.meeting.update({
         where: {
           id: params.id,
@@ -48,69 +64,19 @@ export const PUT = async (
         rejectionEmail(
           session?.user?.email,
           meeting?.Application?.JobListing?.Employer?.email!,
-          body.note
+          note
         );
       } else {
         rejectionEmail(
           session?.user?.email,
           meeting?.Application?.JobSeeker?.email!,
-          body.note
+          note
         );
       }
       return NextResponse.json(updatedMeeting, { status: 200 });
-    } else {
-      const updateMeeting = await prisma.meeting.update({
-        where: {
-          id: params.id,
-        },
-        data: {
-          status: "completed",
-        },
-      });
-      // if (updateMeeting) {
-      //   const meeting = {
-      //     type: updateMeeting.type,
-      //     date: new Date(updateMeeting.Date).toDateString(),
-      //     time: updateMeeting.time,
-      //     timeDuration: updateMeeting.timeDuration,
-      //     note: updateMeeting.note,
-      //   };
-      //   const meetings = await prisma.meeting.findFirst({
-      //     where: {
-      //       id: updateMeeting.id,
-      //     },
-      //     select: {
-      //       Application: {
-      //         select: {
-      //           JobSeeker: {
-      //             select: {
-      //               email: true,
-      //             },
-      //           },
-      //           JobListing: {
-      //             select: {
-      //               Employer: {
-      //                 select: {
-      //                   email: true,
-      //                 },
-      //               },
-      //             },
-      //           },
-      //         },
-      //       },
-      //     },
-      //   });
-
-      //   sendInterviewEmail(
-      //     meetings?.Application?.JobListing?.Employer?.email!,
-      //     meetings?.Application?.JobSeeker?.email!,
-      //     meeting
-      //   );
-      // }
-      return NextResponse.json(updateMeeting, { status: 200 });
+    } catch (error) {
+      console.log("error at update job", error);
     }
-  } catch (error) {
-    console.log("error at update job", error);
   }
 };
 export const PATCH = async (

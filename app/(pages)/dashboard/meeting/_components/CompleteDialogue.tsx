@@ -10,7 +10,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
+
 import { API } from "@/lib/config";
 import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
@@ -23,7 +23,9 @@ export const CompleteDialogueBox = ({ id }: { id: string }) => {
   const handleComplete = async () => {
     setLoading(true);
     try {
-      await axios.put(`${API}/api/employer/meeting/${id}`);
+      await axios.post(`${API}/api/employer/meeting/${id}`, {
+        note: "completed",
+      });
       queryClient.invalidateQueries({ queryKey: ["meeting"] });
       toast.success("Completed successfully");
       setLoading(false);
