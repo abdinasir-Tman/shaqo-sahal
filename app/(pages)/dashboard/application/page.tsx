@@ -12,7 +12,7 @@ const AppPage = async () => {
   let data: any;
   const session: any = await getToken();
   try {
-    data = await prisma.employer.findMany({
+    data = await prisma.employer.findUnique({
       where: {
         email: session.user.email,
       },
@@ -24,29 +24,15 @@ const AppPage = async () => {
         },
       },
     });
-    const job = await prisma?.jobListing.findFirst({
-      orderBy: {
-        created: "desc",
-      },
 
-      include: {
-        Employer: {
-          where: {
-            email: session.user?.email,
-          },
-        },
-        applications: true,
-      },
-    });
     console.log(data);
-    console.log(job);
   } catch (error) {
     console.log(error);
   }
   if (data?.length == 0) return EmptyDataComponent();
   return (
     <div className="grid md:grid-cols-2  gap-3">
-      {data[0]?.jobListings?.map((app: any) => (
+      {data?.jobListings?.map((app: any) => (
         <Link
           key={app.id}
           href={"/dashboard/appliers?id=" + app.id}
