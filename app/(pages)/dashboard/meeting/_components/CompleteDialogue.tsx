@@ -24,7 +24,7 @@ export const CompleteDialogueBox = ({ id }: { id: string }) => {
     setLoading(true);
     try {
       await axios.post(`${API}/api/employer/meeting/${id}`, {
-        note: "completed",
+        status: "completed",
       });
       queryClient.invalidateQueries({ queryKey: ["meeting"] });
       toast.success("Completed successfully");
