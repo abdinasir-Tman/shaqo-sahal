@@ -17,7 +17,7 @@ const Hero = () => {
       {/* left side  */}
       <div className="space-y-2 w-full">
         <h1 className="md:text-6xl text-2xl leading-10 md:leading-[5rem] font-sans font-bold md:text-left text-center">
-          Got Talent ? <br /> Meet Opportunity
+          Got Skill ? <br /> Meet Opportunity
         </h1>
         <h1 className="text-xs md:text-2xl md:text-left text-center">
           Company reviews. Salaries. Interviews. Jobs.
