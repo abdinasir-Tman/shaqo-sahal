@@ -1,3 +1,4 @@
+import EmptyDataComponent from "@/app/components/EmptyComponent";
 import { getToken } from "@/app/utils/token";
 import { cn } from "@/lib/utils";
 import prisma from "@/prisma/client";
@@ -8,10 +9,22 @@ import { FaLock } from "react-icons/fa";
 import { RiPassPendingFill } from "react-icons/ri";
 
 const AppPage = async () => {
-  let data;
+  let data: any;
   const session: any = await getToken();
   try {
-    data = await prisma?.jobListing.findMany({
+    data = await prisma.employer.findMany({
+      where: {
+        email: session.user.email,
+      },
+      include: {
+        jobListings: {
+          include: {
+            applications: true,
+          },
+        },
+      },
+    });
+    const job = await prisma?.jobListing.findFirst({
       orderBy: {
         created: "desc",
       },
@@ -25,13 +38,15 @@ const AppPage = async () => {
         applications: true,
       },
     });
+    console.log(data);
+    console.log(job);
   } catch (error) {
     console.log(error);
   }
-
+  if (data?.length == 0) return EmptyDataComponent();
   return (
     <div className="grid md:grid-cols-2  gap-3">
-      {data?.map((app: any) => (
+      {data[0]?.jobListings?.map((app: any) => (
         <Link
           key={app.id}
           href={"/dashboard/appliers?id=" + app.id}

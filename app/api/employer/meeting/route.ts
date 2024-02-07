@@ -126,7 +126,7 @@ export const GET = async (req: NextRequest) => {
               include: {
                 Employer: {
                   where: {
-                    email: session.user.email,
+                    email: session.user?.email,
                   },
                 },
               },
