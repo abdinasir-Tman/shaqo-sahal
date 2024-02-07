@@ -1,5 +1,10 @@
+"use client";
 import React from "react";
 import { getDaysLeft } from "../utils/daysLeft";
+import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { API } from "@/lib/config";
 interface JobCard {
   title: string;
   Employer: any;
@@ -9,8 +14,10 @@ interface JobCard {
   salary: number;
   jobCategory: string;
   deadline: any;
+  id: string;
 }
 const JobCard = ({
+  id,
   title,
   Employer,
   workType,
@@ -20,9 +27,21 @@ const JobCard = ({
   salaryType,
   deadline,
 }: JobCard) => {
+  const { data: session }: any = useSession();
+  const router = useRouter();
+  const isOwner = (id: string, email: string) => {
+    if (session?.user.email === email) {
+      toast.error("sorry not allowed the owner");
+    } else {
+      router.push(API + "/jobSeeker/applicant/" + id);
+    }
+  };
   return (
     <div
-      className={`p-4 rounded-lg shadow 
+      onClick={() => {
+        isOwner(id, Employer.email);
+      }}
+      className={`p-4 rounded-md cursor-pointer shadow 
         dark:shadow-white
       `}
     >
