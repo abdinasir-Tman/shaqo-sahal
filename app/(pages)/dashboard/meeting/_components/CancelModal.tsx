@@ -24,7 +24,7 @@ const CancelModal = ({ data }: any) => {
     setIsOpen(false);
     try {
       setLoading(true);
-      await axios.put(`${API}/api/employer/meeting/${meetingId}`, {
+      await axios.post(`${API}/api/employer/meeting/${meetingId}`, {
         note,
       });
       toast.error("canceled the meeting");

@@ -9,7 +9,7 @@ export const POST = async (
   { params }: { params: { id: string } }
 ) => {
   const session: any = await getToken();
-  console.log(req.headers.get("content-length"));
+
   const { note, status } = await req.json();
   console.log(note, status);
   if (status) {
@@ -60,7 +60,7 @@ export const POST = async (
           },
         },
       });
-      if (session.user.type == "jobSeeker") {
+      if (session?.user?.type == "jobSeeker") {
         rejectionEmail(
           session?.user?.email,
           meeting?.Application?.JobListing?.Employer?.email!,
