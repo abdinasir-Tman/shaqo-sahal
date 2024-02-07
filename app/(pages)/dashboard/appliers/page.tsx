@@ -7,7 +7,7 @@ const Appliers = async ({ searchParams }: any) => {
   try {
     data = await prisma?.jobListing.findFirst({
       where: {
-        id: searchParams.id,
+        id: searchParams?.id,
       },
       include: {
         applications: {

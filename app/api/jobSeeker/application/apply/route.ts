@@ -83,7 +83,7 @@ export const POST = async (req: NextRequest, { searchParams }: any) => {
         jobSeeker: application?.JobSeeker?.name,
         jobTitle: application?.JobListing?.title,
       };
-      approvedEmail(session?.user.email, application?.JobSeeker?.email!, note);
+      approvedEmail(session?.user?.email, application?.JobSeeker?.email!, note);
       if (updatedApp) return NextResponse.json(updatedApp, { status: 202 });
     }
   } catch (error) {

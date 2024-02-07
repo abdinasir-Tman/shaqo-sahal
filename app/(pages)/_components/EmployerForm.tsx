@@ -23,9 +23,11 @@ import toast from "react-hot-toast";
 import { Employer } from "@prisma/client";
 import { API } from "@/lib/config";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const EmployerForm = ({ Employer }: { Employer: Employer }) => {
   const { data: session }: any = useSession();
+  const router = useRouter();
   const [file, setFile] = useState<{ url: string; public_id: string }>();
 
   const form = useForm<z.infer<typeof validateEmployer>>({
@@ -50,6 +52,7 @@ const EmployerForm = ({ Employer }: { Employer: Employer }) => {
       }
 
       form.reset();
+      router.push("/");
     } catch (error) {
       console.log(error);
       toast.error("unknown error");

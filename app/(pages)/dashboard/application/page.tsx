@@ -12,9 +12,9 @@ const AppPage = async () => {
   let data: any;
   const session: any = await getToken();
   try {
-    data = await prisma.employer.findUnique({
+    data = await prisma?.employer.findUnique({
       where: {
-        email: session.user.email,
+        email: session?.user?.email,
       },
       include: {
         jobListings: {
