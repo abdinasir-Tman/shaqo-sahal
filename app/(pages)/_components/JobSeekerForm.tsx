@@ -108,7 +108,7 @@ const JobSeekerForm = ({ jobSeeker }: { jobSeeker: JobSeeker }) => {
                     <SelectValue placeholder="Job Categories" />
                   </SelectTrigger>
                   <SelectContent>
-                    {roleCategories.map((item: any) => (
+                    {roleCategories?.map((item: any) => (
                       <FormField
                         key={item.id}
                         control={form.control}
@@ -123,16 +123,29 @@ const JobSeekerForm = ({ jobSeeker }: { jobSeeker: JobSeeker }) => {
                                 <Checkbox
                                   checked={field.value?.includes(item.name)}
                                   onCheckedChange={(checked) => {
-                                    return checked
-                                      ? field.onChange([
-                                          ...field.value,
-                                          item.name,
-                                        ])
-                                      : field.onChange(
-                                          field.value?.filter(
-                                            (value: any) => value !== item.name
-                                          )
-                                        );
+                                    if (checked) {
+                                      const newValue = Array.isArray(
+                                        field.value
+                                      )
+                                        ? [...field.value, item.name]
+                                        : [item.name];
+                                    } else {
+                                      const newValue = field.value?.filter(
+                                        (value) => value !== item.name
+                                      );
+
+                                      field.onChange(newValue);
+                                    }
+                                    // return checked
+                                    //   ? field.onChange([
+                                    //       ...field.value,
+                                    //       item.name,
+                                    //     ])
+                                    //   : field.onChange(
+                                    //       field.value?.filter(
+                                    //         (value: any) => value !== item.name
+                                    //       )
+                                    //     );
                                   }}
                                 />
                               </FormControl>

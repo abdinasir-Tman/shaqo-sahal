@@ -54,7 +54,7 @@ const JobRolesItems = ({ control }: CategoryIdSelect) => {
               <SelectValue placeholder="Choose category" />
             </SelectTrigger>
             <SelectContent>
-              {jobRoles.map((jobRole) => (
+              {jobRoles?.map((jobRole) => (
                 <SelectItem key={jobRole.id} value={jobRole.id}>
                   {jobRole.name}
                 </SelectItem>

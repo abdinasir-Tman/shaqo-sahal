@@ -29,18 +29,10 @@ const JobCard = ({
 }: JobCard) => {
   const { data: session }: any = useSession();
   const router = useRouter();
-  const isOwner = (id: string, email: string) => {
-    if (session?.user.email === email) {
-      toast.error("sorry not allowed the owner");
-    } else {
-      router.push(API + "/jobSeeker/applicant/" + id);
-    }
-  };
+
   return (
     <div
-      onClick={() => {
-        isOwner(id, Employer.email);
-      }}
+      onClick={() => router.push(API + "/jobSeeker/applicant/" + id)}
       className={`p-4 rounded-md cursor-pointer shadow 
         dark:shadow-gray-700
       `}
