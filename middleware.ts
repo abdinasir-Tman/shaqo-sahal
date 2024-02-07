@@ -16,16 +16,21 @@ export default withAuth(
     const userRole: any = (req?.nextauth?.token?.user as User).type;
     const user: any = req?.nextauth?.token?.user;
     const url = req.nextUrl.pathname;
-    console.log(url);
+
+    if (
+      (url?.includes("/register") && user.type !== "init") ||
+      url?.includes("/signin")
+    ) {
+      console.log("wuu yimid");
+
+      return NextResponse.redirect(new URL("/", req.url));
+    }
     if (url?.includes("/dashboard") && userRole !== "employer") {
       return NextResponse.redirect(new URL("/", req.url));
     } else if (url?.includes("/profile") && userRole !== "jobSeeker") {
       return NextResponse.redirect(new URL("/", req.url));
-    } else if (url?.includes("/signin")) {
-      console.log("wuu yimid");
-      return;
-      // return NextResponse.redirect(new URL("/", req.url));
     }
+
     return NextResponse.next();
   },
   {

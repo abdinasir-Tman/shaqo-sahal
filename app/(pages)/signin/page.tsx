@@ -7,8 +7,8 @@ import { API } from "@/lib/config";
 import { redirect } from "next/navigation";
 
 const Signin = () => {
-  const { data: session }: any = useSession();
-  if (session) return redirect("/");
+  // const { data: session }: any = useSession();
+  // if (session) return redirect("/");
   return (
     <div className="bg-main-50 dark:bg-main-950  w-full h-screen flex justify-center items-center">
       <Button
