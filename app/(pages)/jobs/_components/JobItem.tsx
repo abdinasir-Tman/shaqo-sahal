@@ -37,8 +37,7 @@ const JobItem = ({
   const { data: session }: any = useSession();
   const isOwner = (id: string, email: string) => {
     if (session?.user.email === email) {
-      // toast.error("sorry not allowed the owner");
-      router.push("/jobSeeker/applicant/" + id);
+      toast.error("sorry not allowed the owner");
     } else {
       router.push("/jobSeeker/applicant/" + id);
     }
