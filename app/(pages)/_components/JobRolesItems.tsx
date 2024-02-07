@@ -22,6 +22,7 @@ const JobRolesItems = ({ control }: CategoryIdSelect) => {
   const { reset, resetField } = useFormContext();
   const [jobRoles, setJobRoles] = useState<JobRoles[]>([]);
   const { getCategory } = useCategory();
+
   useEffect(() => {
     const fetchJobRoles = async () => {
       try {
