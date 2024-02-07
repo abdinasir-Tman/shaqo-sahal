@@ -18,7 +18,7 @@ export default withAuth(
     const url = req.nextUrl.pathname;
 
     if (
-      (url?.includes("/register") && user.type !== "dashboard") ||
+      (url?.includes("/register") && user.type !== "init") ||
       url?.includes("/signin")
     ) {
       console.log("wuu yimid");
