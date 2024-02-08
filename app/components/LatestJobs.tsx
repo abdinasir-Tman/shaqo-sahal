@@ -82,10 +82,7 @@ export const LatestJobs = async () => {
         >
           <CarouselContent>
             {data.map((job: any, index: number) => (
-              <CarouselItem
-                key={index}
-                className="md:basis-1/2 lg:basis-1/3 pl-1"
-              >
+              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
                 <div className="p-1">
                   <JobCard key={job.id} {...job} />
                 </div>

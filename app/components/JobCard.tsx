@@ -33,9 +33,9 @@ const JobCard = ({
   const router = useRouter();
 
   return (
-    <Link
-      // onClick={() => router.push(API + "/jobSeeker/applicant/" + id)}
-      href={`${API}/jobSeeker/applicant/${id}`}
+    <div
+      onClick={() => router.push(API + "/jobSeeker/applicant/" + id)}
+      // href={`${API}/jobSeeker/applicant/${id}`}
       className={`p-4 rounded-md cursor-pointer shadow 
         dark:shadow-gray-700
       `}
@@ -66,7 +66,7 @@ const JobCard = ({
           {getDaysLeft(deadline)} days left to apply
         </p>
       </div>
-    </Link>
+    </div>
   );
 };
 

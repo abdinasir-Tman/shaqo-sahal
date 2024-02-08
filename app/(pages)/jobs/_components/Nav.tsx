@@ -14,7 +14,7 @@ const Nav = () => {
   const router = useRouter();
 
   return (
-    <div className="z-50 w-full max-w-6xl mx-auto flex justify-between items-center  p-3 shadow-lg ">
+    <div className="z-50 w-full max-w-7xl mx-auto flex justify-between items-center  p-3 shadow-lg ">
       {/* logo  */}
       <div>
         <Link href="/">

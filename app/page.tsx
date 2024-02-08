@@ -9,13 +9,16 @@ import { LatestJobs } from "./components/LatestJobs";
 import HowItworks from "./components/HowItworks";
 export default function Home() {
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="">
       <div className="fixed bg-white dark:bg-gray-950  dark:shadow-gray-900 z-50 top-0 inset-x-0 ">
         <Nav />
       </div>
       <Hero />
-      <Suggest />
-      <LatestJobs />
+      <main className="max-w-7xl mx-auto">
+        <Suggest />
+        <LatestJobs />
+      </main>
+
       <HowItworks />
     </div>
   );
