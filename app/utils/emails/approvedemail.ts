@@ -46,6 +46,7 @@ const approvedEmail = async (from: string, to: string, note: any) => {
     };
 
     await transporter.sendMail(mailOptions);
+    console.log("emait has sent successfully");
   } catch (error) {
     console.log("error at email send ", error);
   }
