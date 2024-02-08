@@ -3,6 +3,7 @@ import Image from "next/image";
 import React from "react";
 import ApplicantModal from "./_components/Modal";
 import { getDaysLeft } from "@/app/utils/daysLeft";
+import prisma from "@/prisma/client";
 
 const Applicants = async ({ params }: { params: { jobId: string } }) => {
   let data: any;
@@ -39,7 +40,7 @@ const Applicants = async ({ params }: { params: { jobId: string } }) => {
           <h1 className="text-3xl font-serif font-thin">{data?.title}</h1>
         </div>
         <span className="absolute right-2">
-          {/* {formatDistance(new Date(data?.created!), new Date())} */}
+          {formatDistance(new Date(data?.created!), new Date())}
         </span>
       </div>
       {/* content  */}
