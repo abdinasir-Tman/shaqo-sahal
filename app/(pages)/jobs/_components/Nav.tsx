@@ -28,36 +28,40 @@ const Nav = () => {
         </Link>
         <ModeToggle />
 
-        {session?.user?.type === "employer" ? (
-          <Button
-            size={"sm"}
-            onClick={() => {
-              router.push("/dashboard");
-            }}
-            className="bg-main-900 dark:bg-main-100 hover:bg-main-950 dark:hover:bg-main-50 transition-all duration-300"
-          >
-            Dashboard
-          </Button>
-        ) : session?.user?.type === "jobSeeker" ? (
-          <Button
-            size={"sm"}
-            onClick={() => {
-              router.push("/profile");
-            }}
-            className="bg-main-900 dark:bg-main-100 hover:bg-main-950 dark:hover:bg-main-50 transition-all duration-300"
-          >
-            Profile
-          </Button>
+        {session ? (
+          session?.user?.type === "employer" ? (
+            <Button
+              size={"sm"}
+              onClick={() => {
+                router.push("/dashboard");
+              }}
+              className="bg-main-900 dark:bg-main-100 hover:bg-main-950 dark:hover:bg-main-50 transition-all duration-300"
+            >
+              Dashboard
+            </Button>
+          ) : session?.user?.type === "jobSeeker" ? (
+            <Button
+              size={"sm"}
+              onClick={() => {
+                router.push("/profile");
+              }}
+              className="bg-main-900 dark:bg-main-100 hover:bg-main-950 dark:hover:bg-main-50 transition-all duration-300"
+            >
+              Profile
+            </Button>
+          ) : (
+            <Button
+              size={"sm"}
+              onClick={() => {
+                router.push("/register");
+              }}
+              className="bg-main-900 dark:bg-main-100 hover:bg-main-950 dark:hover:bg-main-50 transition-all duration-300"
+            >
+              Complete your profile
+            </Button>
+          )
         ) : (
-          <Button
-            size={"sm"}
-            onClick={() => {
-              router.push("/register");
-            }}
-            className="bg-main-900 dark:bg-main-100 hover:bg-main-950 dark:hover:bg-main-50 transition-all duration-300"
-          >
-            Complete your profile
-          </Button>
+          <p></p>
         )}
         {session ? (
           <Button
