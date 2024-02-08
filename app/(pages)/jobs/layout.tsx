@@ -4,8 +4,8 @@ import Nav from "./_components/Nav";
 import { MdFilterAlt } from "react-icons/md";
 export default function Home({ children }: { children: React.ReactNode }) {
   return (
-    <div className="max-w-[1024px] w-full h-screen">
-      <div className="fixed  z-50 top-0 inset-x-0 ">
+    <div className="w-full max-w-[1024px] mx-auto  h-screen">
+      <div className="fixed bg-white dark:bg-black  dark:shadow-gray-900 z-50 top-0 inset-x-0 ">
         <Nav />
       </div>
 
