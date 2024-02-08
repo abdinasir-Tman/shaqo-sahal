@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { API } from "@/lib/config";
+import Link from "next/link";
 interface JobCard {
   title: string;
   Employer: any;
@@ -28,11 +29,13 @@ const JobCard = ({
   deadline,
 }: JobCard) => {
   const { data: session }: any = useSession();
+
   const router = useRouter();
 
   return (
-    <div
-      onClick={() => router.push(API + "/jobSeeker/applicant/" + id)}
+    <Link
+      // onClick={() => router.push(API + "/jobSeeker/applicant/" + id)}
+      href={`${API}/jobSeeker/applicant/${id}`}
       className={`p-4 rounded-md cursor-pointer shadow 
         dark:shadow-gray-700
       `}
@@ -63,7 +66,7 @@ const JobCard = ({
           {getDaysLeft(deadline)} days left to apply
         </p>
       </div>
-    </div>
+    </Link>
   );
 };
 

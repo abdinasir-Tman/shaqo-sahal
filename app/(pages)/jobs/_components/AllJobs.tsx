@@ -79,7 +79,7 @@ const AllJobs = () => {
         {isLoading ? (
           <JobSkeleton />
         ) : (
-          data.map((job: any) => <JobItem key={job.id} {...job} />)
+          data?.map((job: any) => <JobItem key={job.id} {...job} />)
         )}
       </div>
     </div>

@@ -48,6 +48,7 @@ const JobSeekerForm = ({ jobSeeker }: { jobSeeker: JobSeeker }) => {
   });
 
   async function onSubmit(values: z.infer<typeof jobSeekerValidator>) {
+    console.log("submkited");
     try {
       const formData: any = values;
       if (jobSeeker) {
@@ -129,6 +130,7 @@ const JobSeekerForm = ({ jobSeeker }: { jobSeeker: JobSeeker }) => {
                                       )
                                         ? [...field.value, item.name]
                                         : [item.name];
+                                      field.onChange(newValue);
                                     } else {
                                       const newValue = field.value?.filter(
                                         (value) => value !== item.name

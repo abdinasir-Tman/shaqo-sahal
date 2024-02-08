@@ -1,13 +1,11 @@
 import { formatDistance } from "date-fns";
 import Image from "next/image";
-import { notFound } from "next/navigation";
 import React from "react";
-
 import ApplicantModal from "./_components/Modal";
 import { getDaysLeft } from "@/app/utils/daysLeft";
 
 const Applicants = async ({ params }: { params: { jobId: string } }) => {
-  let data;
+  let data: any;
   try {
     data = await prisma?.jobListing.findFirst({
       include: {
@@ -15,12 +13,13 @@ const Applicants = async ({ params }: { params: { jobId: string } }) => {
         applications: true,
       },
       where: {
-        id: params.jobId,
+        id: params?.jobId,
       },
     });
   } catch (error) {
     console.log(error);
   }
+
   return (
     <div className="p-10 rounded-md shadow-md dark:bg-gray-800 w-full relative">
       {/* title  */}
@@ -40,8 +39,7 @@ const Applicants = async ({ params }: { params: { jobId: string } }) => {
           <h1 className="text-3xl font-serif font-thin">{data?.title}</h1>
         </div>
         <span className="absolute right-2">
-          {" "}
-          {formatDistance(new Date(data?.created!), new Date())}
+          {/* {formatDistance(new Date(data?.created!), new Date())} */}
         </span>
       </div>
       {/* content  */}
