@@ -2,9 +2,9 @@ import receivedjobemail from "@/app/utils/emails/receivedjobemail";
 import { getToken } from "@/app/utils/token";
 import prisma from "@/prisma/client";
 
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async () => {
+export const GET = async (req: NextRequest) => {
   try {
     await prisma.jobListing.updateMany({
       where: {
