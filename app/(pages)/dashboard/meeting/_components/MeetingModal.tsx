@@ -60,6 +60,7 @@ import Time from "./Time";
 
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 interface Data {
   meeting: Meeting;
   id: string;
@@ -73,6 +74,7 @@ const meetType = [
 const MeetingModal = ({ meeting, id, isExpired }: Data) => {
   const queryClient = useQueryClient();
   const router = useRouter();
+  const [isModal, setIsModal] = useState(false);
   const form = useForm<z.infer<typeof meetingValidator>>({
     resolver: zodResolver(meetingValidator),
     defaultValues: {
@@ -94,11 +96,12 @@ const MeetingModal = ({ meeting, id, isExpired }: Data) => {
           formData
         );
         toast.success("success Updated");
-        router.push("/dashboard/meeting");
+        setIsModal(false);
       } else {
         formData.appId = id;
         await axios.post(`${API}/api/employer/meeting`, formData);
         toast.success("success Registered");
+        setIsModal(false);
         router.push("/dashboard/meeting");
       }
       queryClient.invalidateQueries({ queryKey: ["meeting"] });
@@ -109,7 +112,7 @@ const MeetingModal = ({ meeting, id, isExpired }: Data) => {
   }
   return (
     <div>
-      <Dialog>
+      <Dialog open={isModal} onOpenChange={setIsModal}>
         <DialogTrigger className="flex justify-center items-center">
           {meeting ? (
             <button disabled={isExpired} className="w-full cursor-pointer">

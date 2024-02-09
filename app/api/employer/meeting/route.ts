@@ -117,6 +117,9 @@ export const GET = async (req: NextRequest) => {
     });
 
     const meetings = await prisma.meeting.findMany({
+      orderBy: {
+        created: "desc",
+      },
       where: {
         Application: {
           JobListing: {

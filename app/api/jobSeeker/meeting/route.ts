@@ -18,9 +18,18 @@ export const GET = async (req: NextRequest) => {
         status: "expired",
       },
     });
-    const meetings: any = await prisma.meeting.findMany({
+    const meetings = await prisma.meeting.findMany({
       orderBy: {
         created: "desc",
+      },
+      where: {
+        Application: {
+          JobListing: {
+            Employer: {
+              email: session?.user?.email,
+            },
+          },
+        },
       },
       include: {
         Application: {
@@ -30,11 +39,7 @@ export const GET = async (req: NextRequest) => {
                 Employer: true,
               },
             },
-            JobSeeker: {
-              where: {
-                email: session.user?.email,
-              },
-            },
+            JobSeeker: true,
           },
         },
       },
