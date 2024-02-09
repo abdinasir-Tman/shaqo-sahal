@@ -1,4 +1,4 @@
-import prisma from "@/prisma/client";
+"use client";
 import React from "react";
 import JobCard from "./JobCard";
 import { Card, CardContent } from "@/components/ui/card";
@@ -10,43 +10,19 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Link from "next/link";
-export const LatestJobs = async () => {
-  let data: any;
-  try {
-    // decline jobs expired
-    await prisma.jobListing.updateMany({
-      where: {
-        deadline: {
-          lte: new Date(),
-        },
-        status: {
-          not: "declined",
-        },
-      },
-      data: {
-        status: "declined",
-      },
-    });
-    data = await prisma?.jobListing.findMany({
-      include: {
-        Employer: {
-          select: {
-            companyName: true,
-          },
-        },
-      },
-      where: {
-        status: {
-          not: "declined",
-        },
-      },
-      orderBy: {
-        created: "desc",
-      },
-    });
-  } catch (error) {
-    console.log(error);
-  }
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { API } from "@/lib/config";
+import Loading from "../(pages)/jobSeeker/loading";
+export const LatestJobs = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["job"],
+    queryFn: () =>
+      axios.get(`${API}/api/employer/job/all`).then((res) => res.data),
+    // staleTime: 60 * 1000,
+    // retry: 3,
+  });
+  if (isLoading) return <Loading />;
   return (
     <div className="px-10 py-16">
       <h1 className="md:text-3xl font-medium text-gray-800 font-sans dark:text-gray-100">
