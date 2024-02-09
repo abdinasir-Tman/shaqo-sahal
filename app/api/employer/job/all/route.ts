@@ -4,7 +4,7 @@ import prisma from "@/prisma/client";
 
 import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async (req: NextRequest) => {
+export async function GET(req: NextRequest) {
   try {
     await prisma.jobListing.updateMany({
       where: {
@@ -37,8 +37,11 @@ export const GET = async (req: NextRequest) => {
       },
     });
 
+    console.log("latrest jobs", latestJobs);
+
     return NextResponse.json(latestJobs, { status: 200 });
   } catch (error) {
     console.log("error at get latestjobs", error);
+    return NextResponse.json("Error at all jobs", { status: 400 });
   }
-};
+}

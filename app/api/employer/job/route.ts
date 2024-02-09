@@ -55,7 +55,7 @@ export const POST = async (req: NextRequest) => {
     return NextResponse.json("unkown error", { status: 500 });
   }
 };
-export const GET = async () => {
+export const GET = async (req: NextRequest) => {
   const session: any = await getToken();
 
   if (!session.user)
