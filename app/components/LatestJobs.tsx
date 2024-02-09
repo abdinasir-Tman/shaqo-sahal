@@ -16,13 +16,15 @@ import { API } from "@/lib/config";
 import Loading from "../(pages)/jobSeeker/loading";
 export const LatestJobs = () => {
   const { data, isLoading } = useQuery({
-    queryKey: ["job"],
+    queryKey: ["latestJobs"],
     queryFn: () =>
       axios.get(`${API}/api/employer/job/all`).then((res) => res.data),
     // staleTime: 60 * 1000,
     retry: 3,
   });
+
   if (isLoading) return <Loading />;
+
   return (
     <div className="px-10 py-16">
       <h1 className="md:text-3xl font-medium text-gray-800 font-sans dark:text-gray-100">

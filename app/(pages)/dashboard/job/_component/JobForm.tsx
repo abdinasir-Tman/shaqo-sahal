@@ -40,6 +40,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
 import { API } from "@/lib/config";
+import { useQueryClient } from "@tanstack/react-query";
 const salaryType = [
   {
     id: "year",
@@ -90,8 +91,10 @@ const workTypes = [
     label: "Temporary",
   },
 ] as const;
+
 const JobForm = ({ joblist }: { joblist: JobListing }) => {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const form = useForm<z.infer<typeof jobListValidator>>({
     resolver: zodResolver(jobListValidator),
@@ -109,6 +112,7 @@ const JobForm = ({ joblist }: { joblist: JobListing }) => {
   });
   //set date
   const setDate = (date: any) => form.setValue("deadline", date);
+
   async function onSubmit(values: z.infer<typeof jobListValidator>) {
     try {
       const formData: any = values;
@@ -118,9 +122,10 @@ const JobForm = ({ joblist }: { joblist: JobListing }) => {
         toast.success("success Updated");
       } else {
         await axios.post(`${API}/api/employer/job`, formData);
+
         toast.success("success Registered");
       }
-
+      queryClient.invalidateQueries({ queryKey: ["latestJobs"] });
       form.reset();
 
       router.push("./");
