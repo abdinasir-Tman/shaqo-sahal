@@ -7,6 +7,9 @@ import Hero from "./components/Hero";
 import Suggest from "./components/Suggest";
 import { LatestJobs } from "./components/LatestJobs";
 import HowItworks from "./components/HowItworks";
+
+export const dynamic = "auto";
+
 export default function Home() {
   return (
     <div className="">
