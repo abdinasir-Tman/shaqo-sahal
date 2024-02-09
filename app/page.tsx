@@ -8,7 +8,7 @@ import Suggest from "./components/Suggest";
 import { LatestJobs } from "./components/LatestJobs";
 import HowItworks from "./components/HowItworks";
 
-export const dynamic = "auto";
+export const dynamic = "force-dynamic";
 
 export default function Home() {
   return (
