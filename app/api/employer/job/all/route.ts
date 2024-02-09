@@ -39,6 +39,6 @@ export const GET = async () => {
 
     return NextResponse.json(latestJobs, { status: 200 });
   } catch (error) {
-    console.log("error at get job", error);
+    console.log("error at get latestjobs", error);
   }
 };

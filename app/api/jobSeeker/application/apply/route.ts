@@ -38,7 +38,7 @@ export const POST = async (req: NextRequest, { searchParams }: any) => {
           admited: body.admited,
         },
       });
-      rejectionEmail(
+      await rejectionEmail(
         session?.user.email,
         application?.JobSeeker?.email!,
         body.note
@@ -83,7 +83,11 @@ export const POST = async (req: NextRequest, { searchParams }: any) => {
         jobSeeker: application?.JobSeeker?.name,
         jobTitle: application?.JobListing?.title,
       };
-      approvedEmail(session?.user?.email, application?.JobSeeker?.email!, note);
+      await approvedEmail(
+        session?.user?.email,
+        application?.JobSeeker?.email!,
+        note
+      );
       if (updatedApp) return NextResponse.json(updatedApp, { status: 202 });
     }
   } catch (error) {

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import JobCard from "./JobCard";
-import { Card, CardContent } from "@/components/ui/card";
+
 import {
   Carousel,
   CarouselContent,
@@ -20,7 +20,7 @@ export const LatestJobs = () => {
     queryFn: () =>
       axios.get(`${API}/api/employer/job/all`).then((res) => res.data),
     // staleTime: 60 * 1000,
-    // retry: 3,
+    retry: 3,
   });
   if (isLoading) return <Loading />;
   return (
