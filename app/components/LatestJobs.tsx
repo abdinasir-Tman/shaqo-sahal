@@ -19,7 +19,7 @@ export const LatestJobs = () => {
     queryKey: ["latestJobs"],
     queryFn: () =>
       axios.get(`${API}/api/employer/job/all`).then((res) => res.data),
-    staleTime: 0,
+    staleTime: 1000,
     retry: 3,
   });
 
