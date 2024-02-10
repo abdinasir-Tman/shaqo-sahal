@@ -24,10 +24,8 @@ export const GET = async (req: NextRequest) => {
       },
       where: {
         Application: {
-          JobListing: {
-            Employer: {
-              email: session?.user?.email,
-            },
+          JobSeeker: {
+            email: session?.user?.email,
           },
         },
       },

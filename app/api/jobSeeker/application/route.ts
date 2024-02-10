@@ -56,6 +56,7 @@ export const POST = async (req: NextRequest) => {
         address: job?.Employer?.address,
         email: session?.user?.email,
         coverLetter: body.coverLetter,
+        jobId: body.jobId,
       };
       await sendApplicationEmail(
         job?.Employer?.email!,
