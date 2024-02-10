@@ -101,7 +101,7 @@ export const GET = async (req: NextRequest, { params }: any) => {
         });
       }
     } else {
-      if (session.user?.type == "jobSeeker") {
+      if (session?.user?.type == "jobSeeker") {
         const usr = await prisma.jobSeeker.findFirst({
           where: {
             email: session.user?.email,
