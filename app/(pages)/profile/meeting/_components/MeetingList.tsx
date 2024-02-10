@@ -10,7 +10,7 @@ import { HiOutlineCalendar } from "react-icons/hi";
 
 const MeetingList = () => {
   const { data, isLoading } = useQuery({
-    queryKey: ["meeting"],
+    queryKey: ["profileMeeting"],
     queryFn: () =>
       axios.get(`${API}/api/jobSeeker/meeting`).then((res) => res.data),
     // staleTime: 60 * 1000,
