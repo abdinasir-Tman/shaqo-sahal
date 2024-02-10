@@ -37,8 +37,6 @@ export async function GET(req: NextRequest) {
       },
     });
 
-    console.log("latrest jobs", latestJobs);
-
     return NextResponse.json(latestJobs, { status: 200 });
   } catch (error) {
     console.log("error at get latestjobs", error);
