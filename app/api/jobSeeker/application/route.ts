@@ -1,4 +1,5 @@
 import sendApplicationEmail from "@/app/utils/emails/applicationemail";
+import sendAppliedJobemail from "@/app/utils/emails/appliedJobemail";
 import { getToken } from "@/app/utils/token";
 import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
@@ -53,10 +54,17 @@ export const POST = async (req: NextRequest) => {
         jobTitle: job?.title,
         companyName: job?.Employer?.companyName,
         address: job?.Employer?.address,
+        email: session?.user?.email,
+        coverLetter: body.coverLetter,
       };
       await sendApplicationEmail(
         job?.Employer?.email!,
         session?.user?.email,
+        app
+      );
+      await sendAppliedJobemail(
+        session?.user?.email,
+        job?.Employer?.email!,
         app
       );
     }

@@ -61,16 +61,18 @@ export const POST = async (
         },
       });
       if (session?.user?.type == "jobSeeker") {
-        rejectionEmail(
+        await rejectionEmail(
           session?.user?.email,
           meeting?.Application?.JobListing?.Employer?.email!,
-          note
+          note,
+          "Meeting Canceled"
         );
       } else {
-        rejectionEmail(
+        await rejectionEmail(
           session?.user?.email,
           meeting?.Application?.JobSeeker?.email!,
-          note
+          note,
+          "Meeting Canceled"
         );
       }
       return NextResponse.json(updatedMeeting, { status: 200 });
@@ -140,7 +142,7 @@ export const PATCH = async (
         companyName: meetings?.Application?.JobListing?.Employer?.companyName,
         jobTitle: meetings?.Application?.JobListing?.title,
       };
-      sendInterviewEmail(
+      await sendInterviewEmail(
         meetings?.Application?.JobListing?.Employer?.email!,
         meetings?.Application?.JobSeeker?.email!,
         meeting

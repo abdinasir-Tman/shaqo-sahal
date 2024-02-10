@@ -41,7 +41,8 @@ export const POST = async (req: NextRequest, { searchParams }: any) => {
       await rejectionEmail(
         session?.user.email,
         application?.JobSeeker?.email!,
-        body.note
+        body.note,
+        "Job Rejection"
       );
       if (updatedApp) return NextResponse.json(updatedApp, { status: 202 });
     } else {

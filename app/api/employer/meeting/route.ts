@@ -87,7 +87,7 @@ export const POST = async (req: NextRequest) => {
         },
       });
 
-      sendInterviewEmail(
+      await sendInterviewEmail(
         meetings?.Application?.JobListing?.Employer?.email!,
         meetings?.Application?.JobSeeker?.email!,
         meeting

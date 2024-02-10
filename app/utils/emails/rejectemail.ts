@@ -9,7 +9,12 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const rejectionEmail = async (from: string, to: string, note: string) => {
+const rejectionEmail = async (
+  from: string,
+  to: string,
+  note: string,
+  sub: string
+) => {
   let html: any = `<!DOCTYPE html>
 <html>
   <head> <title>Apply job</title>
@@ -37,7 +42,7 @@ const rejectionEmail = async (from: string, to: string, note: string) => {
     const mailOptions = {
       from,
       to,
-      subject: "Job Rejection",
+      subject: sub,
       html: html,
     };
 

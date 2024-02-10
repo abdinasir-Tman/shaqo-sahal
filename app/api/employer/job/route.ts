@@ -47,7 +47,7 @@ export const POST = async (req: NextRequest) => {
         location: jobList.location,
         jobId: jobList.id,
       };
-      receivedjobemail("abdinasirmursal2@gmail.com", jobSeeker?.email, note);
+      receivedjobemail(employer.email, jobSeeker?.email, note);
     });
     return NextResponse.json(jobList, { status: 201 });
   } catch (error) {
