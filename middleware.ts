@@ -13,7 +13,7 @@ export const config = {
 
 export default withAuth(
   async function middleware(req) {
-    const userRole: any = (req?.nextauth?.token?.user as User).type;
+    const userRole: any = (req?.nextauth?.token?.user as User)?.type;
     const user: any = req?.nextauth?.token?.user;
     const url = req.nextUrl.pathname;
 
