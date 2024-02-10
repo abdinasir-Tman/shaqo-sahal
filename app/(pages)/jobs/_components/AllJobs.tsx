@@ -29,7 +29,7 @@ const AllJobs = () => {
           setIsLoading(false);
           setData(res.data);
         }),
-    staleTime: 50 * 1000,
+    staleTime: 0,
     retry: 3,
   });
   const DataSearch = async () => {

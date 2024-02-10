@@ -126,6 +126,7 @@ const JobForm = ({ joblist }: { joblist: JobListing }) => {
         toast.success("success Registered");
       }
       queryClient.invalidateQueries({ queryKey: ["latestJobs"] });
+      queryClient.invalidateQueries({ queryKey: ["job"] });
       form.reset();
 
       router.push("./");
@@ -362,7 +363,7 @@ const JobForm = ({ joblist }: { joblist: JobListing }) => {
                             onSelect={setDate}
                             // disabled={(date: any) =>
                             //   date > new Date(new Date().getFullYear() + 1) ||
-                            //   date < new Date("2000-01-01")
+                            //   date < new Date(new Date())
                             // }
                             // initialFocus
                           />
