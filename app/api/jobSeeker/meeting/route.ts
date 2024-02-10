@@ -5,7 +5,6 @@ import { NextRequest, NextResponse } from "next/server";
 export const GET = async (req: NextRequest) => {
   const session: any = await getToken();
   if (!session) return NextResponse.json("please login first", { status: 501 });
-  console.log(session.user);
   try {
     //expire meetings that not have
     await prisma.meeting.updateMany({
@@ -25,8 +24,10 @@ export const GET = async (req: NextRequest) => {
       },
       where: {
         Application: {
-          JobSeeker: {
-            email: session?.user.email,
+          JobListing: {
+            Employer: {
+              email: session?.user?.email,
+            },
           },
         },
       },
@@ -43,6 +44,7 @@ export const GET = async (req: NextRequest) => {
         },
       },
     });
+
     return NextResponse.json(meetings, { status: 200 });
   } catch (error) {
     console.log("error at get the meetings", error);
