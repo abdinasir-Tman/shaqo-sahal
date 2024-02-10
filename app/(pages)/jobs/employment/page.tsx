@@ -42,6 +42,9 @@ const TimePage = async ({ searchParams }: any) => {
           contains: searchParams.employment,
           mode: "insensitive",
         },
+        status: {
+          not: "declined",
+        },
       },
     });
   } else {
@@ -71,6 +74,9 @@ const TimePage = async ({ searchParams }: any) => {
         workType: {
           contains: searchParams.employment,
           mode: "insensitive",
+        },
+        status: {
+          not: "declined",
         },
       },
     });
