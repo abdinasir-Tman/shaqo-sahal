@@ -16,7 +16,7 @@ const MeetingList = () => {
     // staleTime: 60 * 1000,
     // retry: 3,
   });
-  console.log(data);
+
   if (isLoading)
     return (
       <div className="h-screen w-full flex justify-center items-center">
