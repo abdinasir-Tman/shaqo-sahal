@@ -16,7 +16,7 @@ const Suggest = () => {
       router.push("/singin");
     }
   };
-  if (session?.user.type == "jobSeeker") {
+  if (session?.user?.type == "jobSeeker") {
     return (
       <section className="flex flex-col md:flex-row justify-between md:space-x-4 md:space-y-0 space-y-3 items-center px-10 py-16">
         <div className="relative z-30 p-10 bg-main-100 dark:bg-main-900 rounded-lg flex justify-between w-full">
@@ -58,7 +58,7 @@ const Suggest = () => {
         </div>
       </section>
     );
-  } else if (session?.user.type == "employer") {
+  } else if (session?.user?.type == "employer") {
     return (
       <section className="flex flex-col md:flex-row justify-between md:space-x-4 md:space-y-0 space-y-3 items-center px-10 py-16">
         <div className="relative z-30 p-10 bg-main-100 dark:bg-main-900 rounded-lg flex justify-between items-center w-full">
