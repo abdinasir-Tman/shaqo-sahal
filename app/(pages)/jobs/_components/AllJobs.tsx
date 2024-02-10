@@ -10,6 +10,7 @@ import { HiOutlineSearch } from "react-icons/hi";
 import { useSearchParams } from "next/navigation";
 import MobileFilter from "./MobileFilter";
 import EmptyDataComponent from "@/app/components/EmptyComponent";
+import { Loader2 } from "lucide-react";
 
 const AllJobs = () => {
   const [search, setSearch] = useState();
@@ -44,6 +45,12 @@ const AllJobs = () => {
       console.log("error");
     }
   };
+  if (isLoading)
+    return (
+      <div className="h-screen w-full flex justify-center items-center">
+        <Loader2 className="animate-spin md:h-24 md:w-24  mx-2" />
+      </div>
+    );
   if (data.length <= 0) return <EmptyDataComponent />;
   return (
     <div className="flex items-center flex-col">

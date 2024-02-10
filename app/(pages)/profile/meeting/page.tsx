@@ -13,8 +13,9 @@ const MeetingPage = () => {
     queryKey: ["profileMeetings"],
     queryFn: () =>
       axios.get(`${API}/api/jobSeeker/meeting`).then((res) => res.data),
-    // staleTime: 60 * 1000,
-    // retry: 3,
+    staleTime: 0,
+    gcTime: 0,
+    retry: 3,
   });
 
   if (isLoading)
