@@ -34,9 +34,11 @@ import {
 import { API } from "@/lib/config";
 import JobRolesItems from "./JobRolesItems";
 import { JobSeeker } from "@prisma/client";
+import { useRouter } from "next/navigation";
 
 const JobSeekerForm = ({ jobSeeker }: { jobSeeker: JobSeeker }) => {
   const { roleCategories } = useCategory();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof jobSeekerValidator>>({
     resolver: zodResolver(jobSeekerValidator),
@@ -58,6 +60,7 @@ const JobSeekerForm = ({ jobSeeker }: { jobSeeker: JobSeeker }) => {
       }
 
       form.reset();
+      router.push("/");
       toast.success("success Registered");
     } catch (error: any) {
       toast.error(error.response.data);
