@@ -16,17 +16,18 @@ const AppPage = async () => {
       orderBy: {
         created: "desc",
       },
+      where: {
+        JobSeeker: {
+          email: session?.user?.email,
+        },
+      },
       include: {
         JobListing: {
           include: {
             Employer: true,
           },
         },
-        JobSeeker: {
-          where: {
-            email: session.user?.email,
-          },
-        },
+        JobSeeker: true,
       },
     });
   } catch (error) {
