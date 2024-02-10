@@ -21,6 +21,7 @@ const TimePage = async ({ searchParams }: any) => {
         email: session.user?.email,
       },
     });
+    data = [];
     data = await prisma?.jobListing.findMany({
       select: {
         title: true,
@@ -48,9 +49,13 @@ const TimePage = async ({ searchParams }: any) => {
         deadline: {
           lte: date,
         },
+        status: {
+          not: "declined",
+        },
       },
     });
   } else {
+    data = [];
     data = await prisma?.jobListing.findMany({
       select: {
         title: true,
@@ -76,6 +81,9 @@ const TimePage = async ({ searchParams }: any) => {
       where: {
         deadline: {
           lte: date,
+        },
+        status: {
+          not: "declined",
         },
       },
     });
