@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { HiOutlineSearch } from "react-icons/hi";
 import { useSearchParams } from "next/navigation";
 import MobileFilter from "./MobileFilter";
+import EmptyDataComponent from "@/app/components/EmptyComponent";
 
 const AllJobs = () => {
   const [search, setSearch] = useState();
@@ -43,7 +44,7 @@ const AllJobs = () => {
       console.log("error");
     }
   };
-
+  if (data.length <= 0) return <EmptyDataComponent />;
   return (
     <div className="flex items-center flex-col">
       {/* search bar  */}
