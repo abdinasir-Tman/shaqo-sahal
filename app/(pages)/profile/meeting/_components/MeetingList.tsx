@@ -16,7 +16,7 @@ const MeetingList = () => {
     // staleTime: 60 * 1000,
     // retry: 3,
   });
-
+  console.log(data);
   if (isLoading)
     return (
       <div className="h-screen w-full flex justify-center items-center">
@@ -26,7 +26,7 @@ const MeetingList = () => {
   if (data?.length <= 0) return <EmptyDataComponent />;
   return (
     <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-2">
-      {data.map((meeting: any) => (
+      {data?.map((meeting: any) => (
         <div
           key={meeting.id}
           className="px-5 py-5 rounded-md space-y-3 dark:bg-gray-800 bg-gray-100"
