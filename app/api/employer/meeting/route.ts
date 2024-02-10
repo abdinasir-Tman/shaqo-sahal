@@ -3,6 +3,8 @@ import { getToken } from "@/app/utils/token";
 import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export const POST = async (req: NextRequest) => {
   const body = await req.json();
 
@@ -99,6 +101,7 @@ export const POST = async (req: NextRequest) => {
     return NextResponse.json("unkown error", { status: 500 });
   }
 };
+
 export const GET = async (req: NextRequest) => {
   const session: any = await getToken();
   if (!session) return NextResponse.json("please login first", { status: 501 });

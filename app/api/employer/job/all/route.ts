@@ -1,5 +1,3 @@
-import receivedjobemail from "@/app/utils/emails/receivedjobemail";
-import { getToken } from "@/app/utils/token";
 import prisma from "@/prisma/client";
 
 import { NextRequest, NextResponse } from "next/server";
