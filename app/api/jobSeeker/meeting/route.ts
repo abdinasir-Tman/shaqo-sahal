@@ -42,7 +42,7 @@ export const GET = async (req: NextRequest) => {
         },
       },
     });
-    console.log(meetings);
+
     return NextResponse.json(meetings, { status: 200 });
   } catch (error) {
     console.log("error at get the meetings", error);
