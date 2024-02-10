@@ -27,7 +27,7 @@ const MeetingPage = () => {
   return (
     <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-2">
       {data?.map((meeting: any) => (
-        <ProfileMeeting meeting={meeting} />
+        <ProfileMeeting key={meeting.id} meeting={meeting} />
       ))}
     </div>
   );
