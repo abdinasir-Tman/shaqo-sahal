@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import z from "zod";
 import { useCategory } from "@/hooks/CategoryContext";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -37,8 +37,12 @@ import { JobSeeker } from "@prisma/client";
 import { useRouter } from "next/navigation";
 
 const JobSeekerForm = ({ jobSeeker }: { jobSeeker: JobSeeker }) => {
-  const { roleCategories, isLoading } = useCategory();
+  const { roleCategories, isLoading, getCategory } = useCategory();
   const router = useRouter();
+
+  useEffect(() => {
+    getCategory(jobSeeker?.role);
+  }, []);
 
   const form = useForm<z.infer<typeof jobSeekerValidator>>({
     resolver: zodResolver(jobSeekerValidator),
@@ -112,8 +116,10 @@ const JobSeekerForm = ({ jobSeeker }: { jobSeeker: JobSeeker }) => {
                     <SelectValue placeholder="Job Categories" />
                   </SelectTrigger>
                   <SelectContent>
-                    {isLoading ? (
-                      <div className="w-full h-4 animate-pulse bg-gradient-to-b from-slate-300 to-slate-400"></div>
+                    {roleCategories?.length <= 0 ? (
+                      <h1 className="pl-2">please choose role</h1>
+                    ) : isLoading ? (
+                      <div className="w-full h-4 animate-pulse bg-gradient-to-b dark:from-gray-800 dark:to-gray-900 from-gray-100 to-gray-200 "></div>
                     ) : (
                       roleCategories?.map((item: any) => (
                         <FormField
