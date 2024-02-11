@@ -21,7 +21,7 @@ interface CategoryIdSelect {
 const JobRolesItems = ({ control }: CategoryIdSelect) => {
   const { reset, resetField } = useFormContext();
   const [jobRoles, setJobRoles] = useState<JobRoles[]>([]);
-  const { getCategory } = useCategory();
+  const { getCategory, isLoading } = useCategory();
 
   useEffect(() => {
     const fetchJobRoles = async () => {
@@ -54,11 +54,15 @@ const JobRolesItems = ({ control }: CategoryIdSelect) => {
               <SelectValue placeholder="Choose category" />
             </SelectTrigger>
             <SelectContent>
-              {jobRoles?.map((jobRole) => (
-                <SelectItem key={jobRole.id} value={jobRole.id}>
-                  {jobRole.name}
-                </SelectItem>
-              ))}
+              {isLoading ? (
+                <div className="w-full h-4 animate-pulse bg-gradient-to-b from-slate-300 to-slate-400"></div>
+              ) : (
+                jobRoles?.map((jobRole: any) => (
+                  <SelectItem key={jobRole.id} value={jobRole.id}>
+                    {jobRole.name}
+                  </SelectItem>
+                ))
+              )}
             </SelectContent>
           </Select>
         </FormItem>

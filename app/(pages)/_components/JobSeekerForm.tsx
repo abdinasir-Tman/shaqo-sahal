@@ -37,7 +37,7 @@ import { JobSeeker } from "@prisma/client";
 import { useRouter } from "next/navigation";
 
 const JobSeekerForm = ({ jobSeeker }: { jobSeeker: JobSeeker }) => {
-  const { roleCategories } = useCategory();
+  const { roleCategories, isLoading } = useCategory();
   const router = useRouter();
 
   const form = useForm<z.infer<typeof jobSeekerValidator>>({
@@ -112,56 +112,60 @@ const JobSeekerForm = ({ jobSeeker }: { jobSeeker: JobSeeker }) => {
                     <SelectValue placeholder="Job Categories" />
                   </SelectTrigger>
                   <SelectContent>
-                    {roleCategories?.map((item: any) => (
-                      <FormField
-                        key={item.id}
-                        control={form.control}
-                        name="jobCategory"
-                        render={({ field }) => {
-                          return (
-                            <FormItem
-                              key={item.id}
-                              className="flex flex-row items-start space-x-3 space-y-0"
-                            >
-                              <FormControl>
-                                <Checkbox
-                                  checked={field.value?.includes(item.name)}
-                                  onCheckedChange={(checked) => {
-                                    if (checked) {
-                                      const newValue = Array.isArray(
-                                        field.value
-                                      )
-                                        ? [...field.value, item.name]
-                                        : [item.name];
-                                      field.onChange(newValue);
-                                    } else {
-                                      const newValue = field.value?.filter(
-                                        (value) => value !== item.name
-                                      );
+                    {isLoading ? (
+                      <div className="w-10 h-4 animate-pulse bg-gradient-to-b from-slate-300 to-slate-400"></div>
+                    ) : (
+                      roleCategories?.map((item: any) => (
+                        <FormField
+                          key={item.id}
+                          control={form.control}
+                          name="jobCategory"
+                          render={({ field }) => {
+                            return (
+                              <FormItem
+                                key={item.id}
+                                className="flex flex-row items-start space-x-3 space-y-0"
+                              >
+                                <FormControl>
+                                  <Checkbox
+                                    checked={field.value?.includes(item.name)}
+                                    onCheckedChange={(checked) => {
+                                      if (checked) {
+                                        const newValue = Array.isArray(
+                                          field.value
+                                        )
+                                          ? [...field.value, item.name]
+                                          : [item.name];
+                                        field.onChange(newValue);
+                                      } else {
+                                        const newValue = field.value?.filter(
+                                          (value) => value !== item.name
+                                        );
 
-                                      field.onChange(newValue);
-                                    }
-                                    // return checked
-                                    //   ? field.onChange([
-                                    //       ...field.value,
-                                    //       item.name,
-                                    //     ])
-                                    //   : field.onChange(
-                                    //       field.value?.filter(
-                                    //         (value: any) => value !== item.name
-                                    //       )
-                                    //     );
-                                  }}
-                                />
-                              </FormControl>
-                              <FormLabel className="text-sm font-normal">
-                                {item.name}
-                              </FormLabel>
-                            </FormItem>
-                          );
-                        }}
-                      />
-                    ))}
+                                        field.onChange(newValue);
+                                      }
+                                      // return checked
+                                      //   ? field.onChange([
+                                      //       ...field.value,
+                                      //       item.name,
+                                      //     ])
+                                      //   : field.onChange(
+                                      //       field.value?.filter(
+                                      //         (value: any) => value !== item.name
+                                      //       )
+                                      //     );
+                                    }}
+                                  />
+                                </FormControl>
+                                <FormLabel className="text-sm font-normal">
+                                  {item.name}
+                                </FormLabel>
+                              </FormItem>
+                            );
+                          }}
+                        />
+                      ))
+                    )}
                   </SelectContent>
                 </Select>
               </div>
