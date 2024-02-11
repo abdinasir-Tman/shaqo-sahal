@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { API } from "@/lib/config";
+import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { Loader, Videotape } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -20,6 +21,7 @@ const CancelModal = ({ data }: any) => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const queryClient = useQueryClient();
   const CancelFunction = async (meetingId: string) => {
     setIsOpen(false);
     try {
@@ -28,6 +30,7 @@ const CancelModal = ({ data }: any) => {
         note,
       });
       toast.error("canceled the meeting");
+      queryClient.invalidateQueries({ queryKey: ["profileMeetings"] });
       setLoading(false);
       router.refresh();
     } catch (error) {
