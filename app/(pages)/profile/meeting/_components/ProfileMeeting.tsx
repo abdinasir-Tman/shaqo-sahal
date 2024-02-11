@@ -3,6 +3,8 @@ import { Clock10, Video } from "lucide-react";
 import { HiOutlineCalendar } from "react-icons/hi";
 
 const ProfileMeeting = ({ meeting }: any) => {
+  const isExpired =
+    meeting.status === "expired" || meeting.status === "canceled";
   return (
     <div
       key={meeting.id}
@@ -37,9 +39,12 @@ const ProfileMeeting = ({ meeting }: any) => {
         <h1 className="flex justify-center items-center gap-x-2">
           <Clock10 className="h-5" /> {meeting?.timeDuration} m
         </h1>
-        <h2 className="flex justify-center items-center">
+        <button
+          className={`${isExpired ? "opacity-50 pointer-events-none" : ""}`}
+          disabled={isExpired}
+        >
           <CancelModal data={meeting} />
-        </h2>
+        </button>
       </div>
     </div>
   );
