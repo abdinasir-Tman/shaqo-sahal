@@ -51,7 +51,7 @@ const JobRolesItems = ({ control }: CategoryIdSelect) => {
             }}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Choose category" />
+              <SelectValue placeholder="Choose role" />
             </SelectTrigger>
             <SelectContent>
               {/* {isLoading ? (
