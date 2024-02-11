@@ -61,9 +61,9 @@ const sendAppliedJobemail = async (from: string, to: string, app: any) => {
         </div>
         <div class="content">
             <p>Dear ${app.companyName},</p>
-            <p>We are pleased to inform you that a new application has been submitted for the ${
+            <p>We are pleased to inform you that a new application has been submitted for the <strong>${
               app.jobTitle
-            } position you posted. Here are the details of the job seeker:</p>
+            }</strong> position you posted. Here are the details of the job seeker:</p>
             <ul>
                 <li><strong>Applicant Name: </strong> ${app.jobSeeker}</li>
                 <li><strong>Email Address: </strong> ${app.email}</li>
