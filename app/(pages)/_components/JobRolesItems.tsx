@@ -54,15 +54,14 @@ const JobRolesItems = ({ control }: CategoryIdSelect) => {
               <SelectValue placeholder="Choose category" />
             </SelectTrigger>
             <SelectContent>
-              {isLoading ? (
+              {/* {isLoading ? (
                 <div className="w-full h-4 animate-pulse bg-gradient-to-b from-slate-300 to-slate-400"></div>
-              ) : (
-                jobRoles?.map((jobRole: any) => (
-                  <SelectItem key={jobRole.id} value={jobRole.id}>
-                    {jobRole.name}
-                  </SelectItem>
-                ))
-              )}
+              ) : */}
+              {jobRoles?.map((jobRole: any) => (
+                <SelectItem key={jobRole.id} value={jobRole.id}>
+                  {jobRole.name}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </FormItem>

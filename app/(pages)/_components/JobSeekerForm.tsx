@@ -113,7 +113,7 @@ const JobSeekerForm = ({ jobSeeker }: { jobSeeker: JobSeeker }) => {
                   </SelectTrigger>
                   <SelectContent>
                     {isLoading ? (
-                      <div className="w-10 h-4 animate-pulse bg-gradient-to-b from-slate-300 to-slate-400"></div>
+                      <div className="w-full h-4 animate-pulse bg-gradient-to-b from-slate-300 to-slate-400"></div>
                     ) : (
                       roleCategories?.map((item: any) => (
                         <FormField
