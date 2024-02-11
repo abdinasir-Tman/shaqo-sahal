@@ -361,11 +361,14 @@ const JobForm = ({ joblist }: { joblist: JobListing }) => {
                             mode="single"
                             selected={form.watch("deadline")}
                             onSelect={setDate}
-                            // disabled={(date: any) =>
-                            //   date > new Date(new Date().getFullYear() + 1) ||
-                            //   date < new Date(new Date())
-                            // }
-                            // initialFocus
+                            disabled={(date) => {
+                              const nextMonthDate = new Date();
+                              nextMonthDate.setMonth(
+                                nextMonthDate.getMonth() + 2
+                              );
+                              return date > nextMonthDate || date < new Date();
+                            }}
+                            initialFocus
                           />
                         </div>
                       </PopoverContent>
