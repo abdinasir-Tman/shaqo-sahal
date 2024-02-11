@@ -117,7 +117,9 @@ const JobSeekerForm = ({ jobSeeker }: { jobSeeker: JobSeeker }) => {
                   </SelectTrigger>
                   <SelectContent>
                     {roleCategories?.length <= 0 ? (
-                      <h1 className="pl-2">please choose role</h1>
+                      <button disabled className="pl-2">
+                        Please choose role
+                      </button>
                     ) : isLoading ? (
                       <div className="w-full h-4 animate-pulse bg-gradient-to-b dark:from-gray-800 dark:to-gray-900 from-gray-100 to-gray-200 "></div>
                     ) : (
