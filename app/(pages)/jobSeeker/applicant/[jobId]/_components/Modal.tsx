@@ -53,7 +53,7 @@ const ApplicantModal = ({
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        className="absolute md:right-56  right-5 md:left-56 left-5 md:bottom-56  bottom-5 md:top-20 top-15 overflow-y-auto"
+        className="absolute md:right-56  right-5 md:left-56 left-5 md:bottom-56  bottom-2 md:top-20 top-15 overflow-y-auto"
         contentLabel="Example Modal"
       >
         <ApplicationForm jobId={jobId} />
